@@ -1,11 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AlertTriangle,
   Database,
   Leaf,
   Loader2,
+  Moon,
   RefreshCw,
   Sprout,
+  Sun,
 } from "lucide-react";
 import { PRODUCE } from "./data/produce";
 import { ProduceCard } from "./components/ProduceCard";
@@ -13,7 +15,11 @@ import {
   FilterBar,
   type CategoryFilter,
   type SeasonFilter,
+  type SortKey,
 } from "./components/FilterBar";
+import { Pagination, paginate, type PageSize } from "./components/Pagination";
+import { DetailView } from "./components/DetailView";
+import { SkeletonGrid } from "./components/SkeletonCard";
 import type { ProduceItem, Source } from "./types";
 import {
   clearCache,
@@ -22,12 +28,63 @@ import {
   saveToCache,
 } from "./services/wikidata";
 
+function readInitialState() {
+  const p =
+    typeof window === "undefined"
+      ? new URLSearchParams()
+      : new URLSearchParams(window.location.search);
+  const sizeRaw = p.get("size");
+  let pageSize: PageSize = 50;
+  if (sizeRaw === "all") pageSize = "all";
+  else {
+    const n = Number(sizeRaw);
+    if (n === 25 || n === 50 || n === 100 || n === 200) pageSize = n;
+  }
+  const sortRaw = p.get("sort");
+  const sort: SortKey =
+    sortRaw === "name-desc" || sortRaw === "category" || sortRaw === "random"
+      ? sortRaw
+      : "name-asc";
+  return {
+    query: p.get("q") ?? "",
+    category: (p.get("cat") as CategoryFilter) ?? "all",
+    season: (p.get("season") as SeasonFilter) ?? "all",
+    color: p.get("color"),
+    source: (p.get("src") as Source) ?? "curated",
+    pageSize,
+    page: Math.max(0, (Number(p.get("page")) || 1) - 1),
+    requireImage: p.get("photo") === "1",
+    selectedId: p.get("item"),
+    sort,
+  };
+}
+
 export default function App() {
-  const [query, setQuery] = useState("");
-  const [category, setCategory] = useState<CategoryFilter>("all");
-  const [season, setSeason] = useState<SeasonFilter>("all");
-  const [color, setColor] = useState<string | null>(null);
-  const [source, setSource] = useState<Source>("curated");
+  const initial = readInitialState();
+  const [query, setQuery] = useState(initial.query);
+  const [category, setCategory] = useState<CategoryFilter>(initial.category);
+  const [season, setSeason] = useState<SeasonFilter>(initial.season);
+  const [color, setColor] = useState<string | null>(initial.color);
+  const [source, setSource] = useState<Source>(initial.source);
+  const [pageSize, setPageSize] = useState<PageSize>(initial.pageSize);
+  const [page, setPage] = useState(initial.page);
+  const [selectedId, setSelectedId] = useState<string | null>(initial.selectedId);
+  const [requireImage, setRequireImage] = useState(initial.requireImage);
+  const [sort, setSort] = useState<SortKey>(initial.sort);
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof document === "undefined") return "light";
+    return document.documentElement.classList.contains("dark") ? "dark" : "light";
+  });
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    try {
+      localStorage.setItem("produce-app:theme", theme);
+    } catch {
+      /* localStorage unavailable */
+    }
+  }, [theme]);
 
   const [wikidataItems, setWikidataItems] = useState<ProduceItem[] | null>(null);
   const [loading, setLoading] = useState(false);
@@ -93,12 +150,83 @@ export default function App() {
     if (!hasColorVariety && color !== null) setColor(null);
   }, [hasColorVariety, color]);
 
+  const isFirstFilterChange = useRef(true);
+  useEffect(() => {
+    if (isFirstFilterChange.current) {
+      isFirstFilterChange.current = false;
+      return;
+    }
+    setPage(0);
+  }, [query, category, season, color, source, pageSize, requireImage, sort]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "/") return;
+      const target = e.target as HTMLElement | null;
+      const tag = target?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || target?.isContentEditable) return;
+      e.preventDefault();
+      searchInputRef.current?.focus();
+      searchInputRef.current?.select();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const cacheWarmedRef = useRef(false);
+  useEffect(() => {
+    if (source !== "curated") return;
+    if (cacheWarmedRef.current) return;
+    if (loadFromCache()) return;
+    const timeout = window.setTimeout(() => {
+      cacheWarmedRef.current = true;
+      const ctrl = new AbortController();
+      fetchAllProduce(ctrl.signal)
+        .then((items) => saveToCache(items))
+        .catch(() => {
+          /* silent — we'll retry on user toggle */
+        });
+    }, 5000);
+    return () => window.clearTimeout(timeout);
+  }, [source]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    if (query) params.set("q", query);
+    if (category !== "all") params.set("cat", category);
+    if (season !== "all") params.set("season", season);
+    if (color) params.set("color", color);
+    if (source !== "curated") params.set("src", source);
+    if (pageSize !== 50) params.set("size", String(pageSize));
+    if (page !== 0) params.set("page", String(page + 1));
+    if (requireImage) params.set("photo", "1");
+    if (selectedId) params.set("item", selectedId);
+    if (sort !== "name-asc") params.set("sort", sort);
+    const search = params.toString();
+    const newUrl = search
+      ? `${window.location.pathname}?${search}`
+      : window.location.pathname;
+    window.history.replaceState({}, "", newUrl);
+  }, [
+    query,
+    category,
+    season,
+    color,
+    source,
+    pageSize,
+    page,
+    requireImage,
+    selectedId,
+    sort,
+  ]);
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return dataset.filter((p) => {
       if (category !== "all" && p.category !== category) return false;
       if (season !== "all" && p.seasons && !p.seasons.includes(season)) return false;
       if (color && p.color && p.color !== color) return false;
+      if (requireImage && !p.imageUrl) return false;
       if (q) {
         const hay = [p.name, p.color, p.origin, p.description, p.funFact]
           .filter(Boolean)
@@ -108,7 +236,46 @@ export default function App() {
       }
       return true;
     });
-  }, [dataset, query, category, season, color]);
+  }, [dataset, query, category, season, color, requireImage]);
+
+  const sorted = useMemo(() => {
+    const arr = [...filtered];
+    switch (sort) {
+      case "name-asc":
+        arr.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "name-desc":
+        arr.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case "category":
+        arr.sort(
+          (a, b) =>
+            a.category.localeCompare(b.category) ||
+            a.name.localeCompare(b.name)
+        );
+        break;
+      case "random":
+        for (let i = arr.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        break;
+    }
+    return arr;
+  }, [filtered, sort]);
+
+  const pageItems = useMemo(
+    () => paginate(sorted, page, pageSize),
+    [sorted, page, pageSize]
+  );
+
+  const itemsById = useMemo(() => {
+    const map = new Map<string, ProduceItem>();
+    for (const p of dataset) map.set(p.id, p);
+    return map;
+  }, [dataset]);
+
+  const selectedItem = selectedId ? itemsById.get(selectedId) ?? null : null;
 
   const refresh = () => {
     clearCache();
@@ -120,7 +287,15 @@ export default function App() {
     setCategory("all");
     setSeason("all");
     setColor(null);
+    setRequireImage(false);
   };
+
+  const hasActiveFilters =
+    !!query ||
+    category !== "all" ||
+    season !== "all" ||
+    color !== null ||
+    requireImage;
 
   const showLoading = source === "wikidata" && loading && !wikidataItems;
   const showError = source === "wikidata" && error && !wikidataItems;
@@ -136,14 +311,17 @@ export default function App() {
                 The Produce Gallery
               </span>
             </div>
-            <SourceToggle source={source} onChange={setSource} />
+            <div className="flex items-center gap-2">
+              <ThemeToggle theme={theme} onChange={setTheme} />
+              <SourceToggle source={source} onChange={setSource} />
+            </div>
           </div>
 
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl">
               A small library
               <br />
-              of <em className="italic text-[#3f6b3a]">growing things</em>.
+              of <em className="italic text-[#3f6b3a] dark:text-[#9bd991]">growing things</em>.
             </h1>
             <p className="max-w-md text-sm leading-relaxed text-ink/70">
               A catalogue of fruits, vegetables, herbs, and spices — their colors,
@@ -154,21 +332,24 @@ export default function App() {
         </header>
 
         {showLoading && (
-          <div className="mb-8 flex items-center gap-3 rounded-3xl bg-white/60 p-5 ring-1 ring-black/5 backdrop-blur-sm">
-            <Loader2 className="h-5 w-5 animate-spin text-ink/60" />
-            <div className="flex flex-col">
-              <span className="text-sm font-medium text-ink">
-                Asking Wikidata for every fruit, vegetable, herb, and spice...
-              </span>
-              <span className="text-xs text-ink/50">
-                This usually takes 5-15 seconds. Results cache locally for a week.
-              </span>
+          <>
+            <div className="mb-8 flex items-center gap-3 rounded-3xl bg-surface/60 p-5 ring-1 ring-ink/5 backdrop-blur-sm">
+              <Loader2 className="h-5 w-5 animate-spin text-ink/60" />
+              <div className="flex flex-col">
+                <span className="text-sm font-medium text-ink">
+                  Asking Wikidata for fruits, vegetables, herbs, spices, nuts, mushrooms, legumes, and grains...
+                </span>
+                <span className="text-xs text-ink/50">
+                  This usually takes 5-15 seconds. Results cache locally for a week.
+                </span>
+              </div>
             </div>
-          </div>
+            <SkeletonGrid count={8} />
+          </>
         )}
 
         {showError && (
-          <div className="mb-8 flex flex-col gap-3 rounded-3xl bg-white/60 p-5 ring-1 ring-black/5 backdrop-blur-sm sm:flex-row sm:items-center">
+          <div className="mb-8 flex flex-col gap-3 rounded-3xl bg-surface/60 p-5 ring-1 ring-ink/5 backdrop-blur-sm sm:flex-row sm:items-center">
             <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600" />
             <div className="flex-1">
               <p className="text-sm font-medium text-ink">
@@ -187,7 +368,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setSource("curated")}
-                className="rounded-full bg-white px-3.5 py-1.5 text-xs font-medium text-ink/70 ring-1 ring-black/5 transition hover:bg-ink/5"
+                className="rounded-full bg-surface px-3.5 py-1.5 text-xs font-medium text-ink/70 ring-1 ring-ink/5 transition hover:bg-ink/5"
               >
                 Use curated
               </button>
@@ -199,6 +380,7 @@ export default function App() {
           <>
             <div className="mb-8">
               <FilterBar
+                ref={searchInputRef}
                 query={query}
                 onQueryChange={setQuery}
                 category={category}
@@ -212,18 +394,50 @@ export default function App() {
                 totalCount={dataset.length}
                 showSeasons={hasSeasons}
                 showColors={hasColorVariety}
+                showPhotoFilter={source === "wikidata"}
+                requireImage={requireImage}
+                onRequireImageChange={setRequireImage}
+                sort={sort}
+                onSortChange={setSort}
+                onResetAll={resetFilters}
+                hasActiveFilters={hasActiveFilters}
               />
             </div>
 
             {filtered.length > 0 ? (
-              <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {filtered.map((item) => (
-                  <ProduceCard key={item.id} item={item} />
-                ))}
-              </section>
+              <>
+                <div className="mb-6">
+                  <Pagination
+                    page={page}
+                    pageSize={pageSize}
+                    totalCount={filtered.length}
+                    onPageChange={setPage}
+                    onPageSizeChange={setPageSize}
+                  />
+                </div>
+                <section className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {pageItems.map((item) => (
+                    <ProduceCard
+                      key={item.id}
+                      item={item}
+                      onClick={(it) => setSelectedId(it.id)}
+                      query={query}
+                    />
+                  ))}
+                </section>
+                <div className="mt-8">
+                  <Pagination
+                    page={page}
+                    pageSize={pageSize}
+                    totalCount={filtered.length}
+                    onPageChange={setPage}
+                    onPageSizeChange={setPageSize}
+                  />
+                </div>
+              </>
             ) : (
-              <div className="flex flex-col items-center justify-center gap-3 rounded-3xl bg-white/60 px-6 py-20 text-center ring-1 ring-black/5 backdrop-blur-sm">
-                <span className="text-4xl">{"\u{1F33F}"}</span>
+              <div className="flex flex-col items-center justify-center gap-3 rounded-3xl bg-surface/60 px-6 py-20 text-center ring-1 ring-ink/5 backdrop-blur-sm">
+                <EmptyIllustration />
                 <h2 className="font-display text-2xl text-ink">Nothing in season</h2>
                 <p className="max-w-sm text-sm text-ink/60">
                   No produce matches these filters. Try clearing a few — the harvest
@@ -244,7 +458,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={refresh}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-xs font-medium text-ink/60 ring-1 ring-black/5 transition hover:bg-ink/5 hover:text-ink"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-surface px-3.5 py-1.5 text-xs font-medium text-ink/60 ring-1 ring-ink/5 transition hover:bg-ink/5 hover:text-ink"
                 >
                   <RefreshCw className="h-3.5 w-3.5" /> Refresh from Wikidata
                 </button>
@@ -252,6 +466,13 @@ export default function App() {
             )}
           </>
         )}
+
+        <DetailView
+          item={selectedItem}
+          onClose={() => setSelectedId(null)}
+          onSelectId={(id) => setSelectedId(id)}
+          itemsById={itemsById}
+        />
 
         <footer className="mt-16 flex flex-col items-center gap-1 text-center text-xs text-ink/40">
           <span>
@@ -271,9 +492,33 @@ interface SourceToggleProps {
   onChange: (s: Source) => void;
 }
 
+interface ThemeToggleProps {
+  theme: "light" | "dark";
+  onChange: (t: "light" | "dark") => void;
+}
+
+function ThemeToggle({ theme, onChange }: ThemeToggleProps) {
+  const next = theme === "dark" ? "light" : "dark";
+  return (
+    <button
+      type="button"
+      onClick={() => onChange(next)}
+      aria-label={`Switch to ${next} mode`}
+      title={`Switch to ${next} mode`}
+      className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-surface text-ink/70 shadow-soft ring-1 ring-ink/5 transition hover:bg-ink/5 hover:text-ink"
+    >
+      {theme === "dark" ? (
+        <Sun className="h-3.5 w-3.5" />
+      ) : (
+        <Moon className="h-3.5 w-3.5" />
+      )}
+    </button>
+  );
+}
+
 function SourceToggle({ source, onChange }: SourceToggleProps) {
   return (
-    <div className="inline-flex rounded-full bg-white p-1 shadow-soft ring-1 ring-black/5">
+    <div className="inline-flex rounded-full bg-surface p-1 shadow-soft ring-1 ring-ink/5">
       <button
         type="button"
         onClick={() => onChange("curated")}
@@ -301,5 +546,53 @@ function SourceToggle({ source, onChange }: SourceToggleProps) {
         Wikidata
       </button>
     </div>
+  );
+}
+
+function EmptyIllustration() {
+  return (
+    <svg
+      width="84"
+      height="84"
+      viewBox="0 0 84 84"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className="opacity-80"
+    >
+      <ellipse cx="42" cy="70" rx="28" ry="4" fill="#3F6B3A" fillOpacity="0.12" />
+      <path
+        d="M42 66V40"
+        stroke="#3F6B3A"
+        strokeOpacity="0.5"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M42 50C42 50 28 46 24 32C24 32 38 32 42 44"
+        stroke="#3F6B3A"
+        strokeOpacity="0.7"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M42 50C42 50 56 46 60 32C60 32 46 32 42 44"
+        stroke="#3F6B3A"
+        strokeOpacity="0.7"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M42 40C42 40 36 34 38 24C38 24 46 28 46 38"
+        stroke="#3F6B3A"
+        strokeOpacity="0.85"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="42" cy="22" r="3" fill="#3F6B3A" fillOpacity="0.6" />
+    </svg>
   );
 }
