@@ -11,6 +11,10 @@ dist-ssr
 # TypeScript incremental build info
 *.tsbuildinfo
 
+# Compiled vite.config (we keep the .ts source; the .js / .d.ts are generated)
+vite.config.js
+vite.config.d.ts
+
 # Editor
 .vscode/*
 !.vscode/extensions.json
