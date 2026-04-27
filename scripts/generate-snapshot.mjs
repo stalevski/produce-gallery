@@ -114,7 +114,7 @@ async function queryCategory(category) {
     headers: {
       Accept: "application/sparql-results+json",
       "User-Agent":
-        "produce-app-snapshot-generator/1.0 (https://github.com/stalevski/produce-app)",
+        "produce-gallery-snapshot-generator/1.0 (https://github.com/stalevski/produce-gallery)",
     },
   });
   if (!res.ok) {

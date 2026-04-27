@@ -5,8 +5,8 @@ Thanks for taking an interest. This is a small personal project, but contributio
 ## Quick start
 
 ```bash
-git clone https://github.com/stalevski/produce-app.git
-cd produce-app
+git clone https://github.com/stalevski/produce-gallery.git
+cd produce-gallery
 npm install
 npm run dev
 ```
@@ -34,7 +34,7 @@ A few rules:
 
 The SPARQL query lives in `src/services/wikidata.ts`. The current query uses a hybrid `wdt:P279+` and `wdt:P31/wdt:P279*` traversal, with `wdt:P1672` (this-taxon-is-source-of) for image and Wikipedia article inheritance. If you find ingredients that *should* appear but don't, the most likely cause is the same kind of ontology mismatch that originally hid rosemary. Reproduce in the [Wikidata Query Service](https://query.wikidata.org/) before changing the query in code.
 
-If you change the query shape in a way that affects results, bump the cache key in the same file (`CACHE_KEY = "produce-app:wikidata:vN"`) so users get fresh data on next load.
+If you change the query shape in a way that affects results, bump the cache key in the same file (`CACHE_KEY = "produce-gallery:wikidata:vN"`) so users get fresh data on next load.
 
 ### Filing issues
 

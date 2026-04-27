@@ -156,7 +156,7 @@ export async function fetchAllProduce(signal?: AbortSignal): Promise<ProduceItem
   return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
 }
 
-const CACHE_KEY = "produce-app:wikidata:v3";
+const CACHE_KEY = "produce-gallery:wikidata:v3";
 const CACHE_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 
 export function loadFromCache(): ProduceItem[] | null {

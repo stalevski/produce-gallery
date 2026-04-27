@@ -2,7 +2,7 @@
 
 A gallery of fruits, vegetables, herbs, and spices — their colors, seasons, and the quiet stories behind them. Browse a hand-curated set, a frozen snapshot of Wikidata, or stream the full catalogue live.
 
-**Live demo:** [stalevski.github.io/produce-app](https://stalevski.github.io/produce-app/)
+**Live demo:** [stalevski.github.io/produce-gallery](https://stalevski.github.io/produce-gallery/)
 
 Built with **Vite + React + TypeScript + Tailwind CSS**.
 
@@ -126,7 +126,7 @@ Categories use these QIDs:
 | grain      | Q12806    | cereal grain |
 
 Results are deduplicated by Wikidata ID, sorted alphabetically, and cached in
-`localStorage` under `produce-app:wikidata:v3` for 7 days. The cache is also
+`localStorage` under `produce-gallery:wikidata:v3` for 7 days. The cache is also
 warmed in the background 5 seconds after page load, so the first toggle to
 Wikidata mode is instant.
 

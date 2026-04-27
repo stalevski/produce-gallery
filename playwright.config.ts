@@ -1,10 +1,10 @@
 import { defineConfig, devices } from "@playwright/test";
 
-// Vite's production build uses base "/produce-app/" so vite preview serves
-// the app at http://localhost:4173/produce-app/, not the bare root.
+// Vite's production build uses base "/produce-gallery/" so vite preview serves
+// the app at http://localhost:4173/produce-gallery/, not the bare root.
 // Using `localhost` (not 127.0.0.1) so IPv6-bound `vite preview` is reachable.
 const PORT = 4173;
-const BASE_URL = `http://localhost:${PORT}/produce-app/`;
+const BASE_URL = `http://localhost:${PORT}/produce-gallery/`;
 
 export default defineConfig({
   testDir: "./e2e",
