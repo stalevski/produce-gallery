@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   AlertTriangle,
+  Archive,
   Database,
   Leaf,
   Loader2,
@@ -50,7 +51,10 @@ function readInitialState() {
     category: (p.get("cat") as CategoryFilter) ?? "all",
     season: (p.get("season") as SeasonFilter) ?? "all",
     color: p.get("color"),
-    source: (p.get("src") as Source) ?? "curated",
+    source: ((): Source => {
+      const v = p.get("src");
+      return v === "snapshot" || v === "wikidata" ? v : "curated";
+    })(),
     pageSize,
     page: Math.max(0, (Number(p.get("page")) || 1) - 1),
     requireImage: p.get("photo") === "1",
@@ -90,6 +94,10 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const [snapshotItems, setSnapshotItems] = useState<ProduceItem[] | null>(null);
+  const [loadingSnapshot, setLoadingSnapshot] = useState(false);
+  const [snapshotError, setSnapshotError] = useState<string | null>(null);
+
   useEffect(() => {
     if (source !== "wikidata") return;
     if (wikidataItems) return;
@@ -119,10 +127,41 @@ export default function App() {
     return () => ctrl.abort();
   }, [source, wikidataItems]);
 
+  // Lazy-load the bundled Wikidata snapshot the first time the user picks Snapshot
+  // mode. Vite splits the JSON into its own chunk so the initial bundle stays small.
+  useEffect(() => {
+    if (source !== "snapshot") return;
+    if (snapshotItems) return;
+
+    let cancelled = false;
+    setLoadingSnapshot(true);
+    setSnapshotError(null);
+    import("./data/wikidata-snapshot.json")
+      .then((mod) => {
+        if (cancelled) return;
+        const data = mod.default as { items: ProduceItem[] };
+        setSnapshotItems(data.items);
+      })
+      .catch((err: unknown) => {
+        if (cancelled) return;
+        const message =
+          err instanceof Error ? err.message : "Failed to load snapshot";
+        setSnapshotError(message);
+      })
+      .finally(() => {
+        if (!cancelled) setLoadingSnapshot(false);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [source, snapshotItems]);
+
   const dataset = useMemo<ProduceItem[]>(() => {
     if (source === "wikidata" && wikidataItems) return wikidataItems;
+    if (source === "snapshot" && snapshotItems) return snapshotItems;
     return PRODUCE;
-  }, [source, wikidataItems]);
+  }, [source, wikidataItems, snapshotItems]);
 
   const colors = useMemo(() => {
     const set = new Set<string>();
@@ -297,8 +336,13 @@ export default function App() {
     color !== null ||
     requireImage;
 
-  const showLoading = source === "wikidata" && loading && !wikidataItems;
-  const showError = source === "wikidata" && error && !wikidataItems;
+  const showLoading =
+    (source === "wikidata" && loading && !wikidataItems) ||
+    (source === "snapshot" && loadingSnapshot && !snapshotItems);
+  const showError =
+    (source === "wikidata" && error && !wikidataItems) ||
+    (source === "snapshot" && snapshotError && !snapshotItems);
+  const errorMessage = source === "snapshot" ? snapshotError : error;
 
   return (
     <div className="min-h-full">
@@ -325,8 +369,8 @@ export default function App() {
             </h1>
             <p className="max-w-md text-sm leading-relaxed text-ink/70">
               A catalogue of fruits, vegetables, herbs, and spices — their colors,
-              seasons, and the quiet stories behind them. Curated by hand, or
-              streamed live from Wikidata.
+              seasons, and the quiet stories behind them. Curated by hand,
+              from a frozen Wikidata snapshot, or streamed live.
             </p>
           </div>
         </header>
@@ -337,10 +381,14 @@ export default function App() {
               <Loader2 className="h-5 w-5 animate-spin text-ink/60" />
               <div className="flex flex-col">
                 <span className="text-sm font-medium text-ink">
-                  Asking Wikidata for fruits, vegetables, herbs, spices, nuts, mushrooms, legumes, and grains...
+                  {source === "snapshot"
+                    ? "Loading the bundled Wikidata snapshot..."
+                    : "Asking Wikidata for fruits, vegetables, herbs, spices, nuts, mushrooms, legumes, and grains..."}
                 </span>
                 <span className="text-xs text-ink/50">
-                  This usually takes 5-15 seconds. Results cache locally for a week.
+                  {source === "snapshot"
+                    ? "A small JSON chunk; usually a fraction of a second."
+                    : "This usually takes 5-15 seconds. Results cache locally for a week."}
                 </span>
               </div>
             </div>
@@ -353,18 +401,31 @@ export default function App() {
             <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600" />
             <div className="flex-1">
               <p className="text-sm font-medium text-ink">
-                Wikidata didn't answer this time.
+                {source === "snapshot"
+                  ? "Couldn't load the snapshot bundle."
+                  : "Wikidata didn't answer this time."}
               </p>
-              <p className="text-xs text-ink/60">{error}</p>
+              <p className="text-xs text-ink/60">{errorMessage}</p>
             </div>
             <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={refresh}
-                className="inline-flex items-center gap-1.5 rounded-full bg-ink px-3.5 py-1.5 text-xs font-medium text-cream transition hover:opacity-90"
-              >
-                <RefreshCw className="h-3.5 w-3.5" /> Retry
-              </button>
+              {source === "wikidata" && (
+                <>
+                  <button
+                    type="button"
+                    onClick={refresh}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-ink px-3.5 py-1.5 text-xs font-medium text-cream transition hover:opacity-90"
+                  >
+                    <RefreshCw className="h-3.5 w-3.5" /> Retry
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSource("snapshot")}
+                    className="rounded-full bg-surface px-3.5 py-1.5 text-xs font-medium text-ink/70 ring-1 ring-ink/5 transition hover:bg-ink/5"
+                  >
+                    Use snapshot
+                  </button>
+                </>
+              )}
               <button
                 type="button"
                 onClick={() => setSource("curated")}
@@ -394,7 +455,7 @@ export default function App() {
                 totalCount={dataset.length}
                 showSeasons={hasSeasons}
                 showColors={hasColorVariety}
-                showPhotoFilter={source === "wikidata"}
+                showPhotoFilter={source !== "curated"}
                 requireImage={requireImage}
                 onRequireImageChange={setRequireImage}
                 sort={sort}
@@ -477,8 +538,10 @@ export default function App() {
         <footer className="mt-16 flex flex-col items-center gap-1 text-center text-xs text-ink/40">
           <span>
             {source === "wikidata"
-              ? "Streamed from Wikidata. Cached locally."
-              : "Grown locally. Rendered on demand."}
+              ? "Streamed live from Wikidata. Cached locally."
+              : source === "snapshot"
+                ? "Bundled Wikidata snapshot. Frozen at build time."
+                : "Grown locally. Rendered on demand."}
           </span>
           <span>{new Date().getFullYear()} - The Produce Gallery</span>
         </footer>
@@ -517,33 +580,37 @@ function ThemeToggle({ theme, onChange }: ThemeToggleProps) {
 }
 
 function SourceToggle({ source, onChange }: SourceToggleProps) {
+  const tabClass = (active: boolean) =>
+    "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition " +
+    (active ? "bg-ink text-cream" : "text-ink/60 hover:text-ink");
   return (
     <div className="inline-flex rounded-full bg-surface p-1 shadow-soft ring-1 ring-ink/5">
       <button
         type="button"
         onClick={() => onChange("curated")}
-        className={
-          "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition " +
-          (source === "curated"
-            ? "bg-ink text-cream"
-            : "text-ink/60 hover:text-ink")
-        }
+        className={tabClass(source === "curated")}
+        title="Hand-curated dataset (105 items)"
       >
         <Sprout className="h-3.5 w-3.5" />
         Curated
       </button>
       <button
         type="button"
+        onClick={() => onChange("snapshot")}
+        className={tabClass(source === "snapshot")}
+        title="Frozen Wikidata snapshot bundled with the app"
+      >
+        <Archive className="h-3.5 w-3.5" />
+        Snapshot
+      </button>
+      <button
+        type="button"
         onClick={() => onChange("wikidata")}
-        className={
-          "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition " +
-          (source === "wikidata"
-            ? "bg-ink text-cream"
-            : "text-ink/60 hover:text-ink")
-        }
+        className={tabClass(source === "wikidata")}
+        title="Live SPARQL query against the Wikidata endpoint"
       >
         <Database className="h-3.5 w-3.5" />
-        Wikidata
+        Live
       </button>
     </div>
   );

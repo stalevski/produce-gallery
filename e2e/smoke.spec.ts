@@ -65,3 +65,21 @@ test("search filters the visible cards", async ({ page }) => {
     page.getByRole("button", { name: "View details for Kale" }),
   ).toHaveCount(0);
 });
+
+test("snapshot tier loads the bundled Wikidata dataset", async ({ page }) => {
+  await page.goto("./");
+
+  // Click the Snapshot tier of the source toggle
+  await page.getByRole("button", { name: "Snapshot" }).click();
+
+  // The snapshot chunk loads asynchronously, but cards should appear within
+  // a few seconds. Increase timeout slightly because the JSON chunk is ~440 KB.
+  await expect(
+    page.getByRole("button", { name: /^View details for / }).first(),
+  ).toBeVisible({ timeout: 10_000 });
+
+  // The snapshot has 1500+ items vs. the 105-item curated set, so the
+  // FilterBar's "{resultCount} of {totalCount}" line should now end in
+  // a four-digit total. This also confirms the dataset actually swapped.
+  await expect(page.getByText(/^\d+\s+of\s+\d{4,}$/)).toBeVisible();
+});

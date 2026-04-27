@@ -10,7 +10,9 @@ export type Category =
 
 export type Season = "spring" | "summer" | "autumn" | "winter";
 
-export type Source = "curated" | "wikidata";
+// "snapshot" loads a frozen Wikidata dump bundled with the app (instant, offline-safe).
+// "wikidata" queries the live SPARQL endpoint (fresh, network-dependent).
+export type Source = "curated" | "snapshot" | "wikidata";
 
 export interface ImageAttribution {
   author?: string;
