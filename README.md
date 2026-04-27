@@ -7,17 +7,25 @@ Built with **Vite + React + TypeScript + Tailwind CSS**.
 ## Features
 
 - Two data sources, switchable in the header:
-  - **Curated** — 16 hand-curated items with emoji art, origins, fun facts, and seasons
-  - **Wikidata** — hundreds of items pulled live from the public Wikidata SPARQL endpoint, with images and descriptions
+  - **Curated** — 35 hand-curated items across 8 categories with emoji art, origins, fun facts, seasons, botanical names, plant families, and food pairings
+  - **Wikidata** — hundreds of items pulled live from the public Wikidata SPARQL endpoint, with photos sourced from Wikimedia Commons
+- 8 categories: **fruit**, **vegetable**, **herb**, **spice**, **nut**, **mushroom**, **legume**, **grain**
+- **Click any card** for a detail modal with botanical name, family, full description, food pairings, and a live-fetched **Wikipedia lead paragraph**
+- **Pagination with size selector** (25 / 50 / 100 / 200 / All) and first/prev/next/last navigation
 - 7-day localStorage cache for Wikidata results, with a Refresh button to invalidate
-- Search across name, color, origin, description, and trivia
-- Filter by **category** (fruit / vegetable / herb / spice)
-- Filter by **season** (curated items have season metadata)
-- Filter by **color** with color-coded chips
+- **Background cache-warming**: 5s after page load, the Wikidata fetch runs invisibly so the first toggle is instant
+- Search across name, color, origin, description, and trivia, with **live match highlighting** in card titles and descriptions
+- Filter by **category**, **season**, **color**, and (in Wikidata mode) **has photo**
+- **Sort** alphabetical (A→Z, Z→A), by category, or random
+- **URL-encoded state**: every filter, page, sort, source, and selected item is in the URL — links are shareable, browser refresh preserves view
+- **Keyboard shortcuts**: `/` focuses search, `Esc` closes the detail modal
+- **Reset all** chip appears when any filter is active
+- **Skeleton loading cards** during the Wikidata fetch
 - Loading + error states with retry / fallback to curated
 - Per-card image fallback to category emoji
-- Wikipedia link on each Wikidata-sourced item
-- Responsive: 1 -> 2 -> 3 -> 4 columns from mobile to desktop
+- Wikipedia link on each Wikidata-sourced item, plus the "this taxon is source of" bridge so common ingredients (rosemary, cinnamon, ginger) get their photos from the parent species
+- Adaptive UI: filters that don't apply to the current dataset auto-hide (e.g., season/color in Wikidata mode where data is sparse)
+- Responsive: 1 → 2 → 3 → 4 columns from mobile to desktop
 
 ## Getting started
 
@@ -39,46 +47,115 @@ npm run preview
 
 ```
 src/
-  App.tsx                   # Page composition, source toggle, fetch lifecycle
-  main.tsx                  # React root
-  index.css                 # Tailwind entry + base styles
-  types.ts                  # ProduceItem / Category / Source types
-  data/produce.ts           # Hand-curated dataset (16 items)
-  services/wikidata.ts      # SPARQL queries + localStorage cache
+  App.tsx                       # Page composition, source toggle, fetch lifecycle, URL state
+  main.tsx                      # React root
+  index.css                     # Tailwind entry + base styles
+  types.ts                      # ProduceItem / Category / Source / ImageAttribution types
+  data/produce.ts               # Hand-curated dataset (35 items, 8 categories)
+  services/
+    wikidata.ts                 # SPARQL queries + 7-day localStorage cache
+    wikipedia.ts                # Lead-paragraph fetcher for the detail view
   components/
-    ProduceCard.tsx         # Individual produce card
-    FilterBar.tsx           # Search + category/season/color filters
+    ProduceCard.tsx             # Card (clickable, with search highlight + photo fallback)
+    DetailView.tsx              # Modal with botanical name, pairings, Wikipedia summary
+    FilterBar.tsx               # Search + category/season/color/photo/sort + reset chip
+    Pagination.tsx              # Size selector (25/50/100/200/All) + page navigation
+    SkeletonCard.tsx            # Pulsing placeholders during Wikidata load
+    HighlightedText.tsx         # Highlights search-query matches inside text
 ```
 
 ## How the Wikidata source works
 
-`src/services/wikidata.ts` runs four SPARQL queries (one per category) against
-`https://query.wikidata.org/sparql`:
+`src/services/wikidata.ts` runs eight SPARQL queries (one per category) against
+`https://query.wikidata.org/sparql`. To capture both classification styles in
+Wikidata's ontology — and to inherit images / Wikipedia articles from a source
+taxon when the food entity itself lacks them — the query uses a hybrid path:
 
 ```sparql
-SELECT DISTINCT ?item ?itemLabel ?itemDescription ?image ?article WHERE {
-  ?item wdt:P279* wd:Q3314483 .          # subclasses of "edible fruit"
-  ?article schema:about ?item ;
-           schema:isPartOf <https://en.wikipedia.org/> .
-  OPTIONAL { ?item wdt:P18 ?image }
+SELECT DISTINCT ?item ?itemLabel ?itemDescription
+       (SAMPLE(?fImage) AS ?image)
+       (SAMPLE(?fArticle) AS ?article)
+WHERE {
+  { ?item wdt:P279+ wd:${qid} . }                     # subclass-of+
+  UNION
+  { ?item wdt:P31/wdt:P279* wd:${qid} . }             # instance-of (any subclass)
+
+  OPTIONAL { ?item wdt:P18 ?dImg }
+  OPTIONAL {
+    ?taxon wdt:P1672 ?item .                          # "this taxon is source of"
+    ?taxon wdt:P18 ?tImg .
+  }
+  BIND(COALESCE(?dImg, ?tImg) AS ?fImage)
+
+  OPTIONAL {
+    ?dArt schema:about ?item ;
+          schema:isPartOf <https://en.wikipedia.org/> .
+  }
+  OPTIONAL {
+    ?taxon2 wdt:P1672 ?item .
+    ?tArt schema:about ?taxon2 ;
+          schema:isPartOf <https://en.wikipedia.org/> .
+  }
+  BIND(COALESCE(?dArt, ?tArt) AS ?fArticle)
+
+  FILTER(BOUND(?fImage) || BOUND(?fArticle))
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
 }
+GROUP BY ?item ?itemLabel ?itemDescription
 LIMIT 800
 ```
 
-The Wikipedia-article filter limits results to notable items. Categories use these QIDs:
+Categories use these QIDs:
 
-| Category   | QID       |
-| ---------- | --------- |
-| fruit      | Q3314483  |
-| vegetable  | Q11004    |
-| spice      | Q42527    |
-| herb       | Q207123   |
+| Category   | QID       | Notes |
+| ---------- | --------- | ----- |
+| fruit      | Q3314483  | edible fruit |
+| vegetable  | Q11004    | vegetable |
+| spice      | Q42527    | spice |
+| herb       | Q207123   | herb |
+| nut        | Q11009    | nut |
+| mushroom   | Q654236   | edible mushroom |
+| legume     | Q11575    | legume |
+| grain      | Q12806    | cereal grain |
 
 Results are deduplicated by Wikidata ID, sorted alphabetically, and cached in
-`localStorage` under `produce-app:wikidata:v1` for 7 days.
+`localStorage` under `produce-app:wikidata:v3` for 7 days. The cache is also
+warmed in the background 5 seconds after page load, so the first toggle to
+Wikidata mode is instant.
+
+## URL state
+
+The current view is fully encoded in the URL search params. Open one of these
+in a fresh tab:
+
+| Example URL | What it does |
+| ----------- | ------------ |
+| `/?q=basil` | Search for "basil" |
+| `/?cat=spice&sort=random` | Spices in random order |
+| `/?src=wikidata&photo=1` | Wikidata mode, only items with photos |
+| `/?cat=herb&item=rosemary` | Herbs filter, with the rosemary detail modal open |
 
 ## Adding more curated produce
 
-Append a new entry to `src/data/produce.ts` matching the `ProduceItem` shape. The
-filter chips for **color** are derived automatically from the dataset.
+Append a new entry to `src/data/produce.ts` matching the `ProduceItem` shape:
+
+```ts
+{
+  id: "fennel",
+  name: "Fennel",
+  emoji: "\u{1F33F}",
+  category: "vegetable",
+  color: "Green",
+  colorHex: "#9FBE6F",
+  seasons: ["autumn", "winter"],
+  origin: "Mediterranean",
+  description: "...",
+  funFact: "...",
+  botanicalName: "Foeniculum vulgare",
+  family: "Apiaceae",
+  pairings: ["orange", "olive oil", "fish"],
+}
+```
+
+The filter chips for **color** are derived automatically from the dataset, and
+the new item will appear in the appropriate category.
