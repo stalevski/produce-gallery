@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Sparkles, ExternalLink } from "lucide-react";
 import type { Category, ProduceItem } from "../types";
+import { HighlightedText } from "./HighlightedText";
 
 interface ProduceCardProps {
   item: ProduceItem;
+  onClick?: (item: ProduceItem) => void;
+  query?: string;
 }
 
 const SEASON_LABEL: Record<string, string> = {
@@ -18,6 +21,10 @@ const CATEGORY_EMOJI: Record<Category, string> = {
   vegetable: "\u{1F96C}",
   herb: "\u{1F33F}",
   spice: "\u{1F336}",
+  nut: "\u{1F95C}",
+  mushroom: "\u{1F344}",
+  legume: "\u{1FAD8}",
+  grain: "\u{1F33E}",
 };
 
 const CATEGORY_DEFAULT_HEX: Record<Category, string> = {
@@ -25,16 +32,40 @@ const CATEGORY_DEFAULT_HEX: Record<Category, string> = {
   vegetable: "#4F7F3F",
   herb: "#6B8E23",
   spice: "#B7410E",
+  nut: "#8B5A2B",
+  mushroom: "#A89171",
+  legume: "#7C8E47",
+  grain: "#D4A95A",
 };
 
-export function ProduceCard({ item }: ProduceCardProps) {
+export function ProduceCard({ item, onClick, query }: ProduceCardProps) {
   const [imgFailed, setImgFailed] = useState(false);
   const accentHex = item.colorHex ?? CATEGORY_DEFAULT_HEX[item.category];
   const showImage = !!item.imageUrl && !imgFailed;
   const fallbackEmoji = item.emoji ?? CATEGORY_EMOJI[item.category];
+  const clickable = !!onClick;
+
+  const handleClick = () => onClick?.(item);
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!onClick) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onClick(item);
+    }
+  };
 
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-3xl bg-white/70 backdrop-blur-sm shadow-soft ring-1 ring-black/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(20,30,20,0.10)]">
+    <article
+      onClick={clickable ? handleClick : undefined}
+      onKeyDown={clickable ? handleKeyDown : undefined}
+      role={clickable ? "button" : undefined}
+      tabIndex={clickable ? 0 : undefined}
+      aria-label={clickable ? `View details for ${item.name}` : undefined}
+      className={
+        "group relative flex flex-col overflow-hidden rounded-3xl bg-surface/70 backdrop-blur-sm shadow-soft ring-1 ring-ink/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(20,30,20,0.10)] focus:outline-none focus-visible:ring-2 focus-visible:ring-ink/40 " +
+        (clickable ? "cursor-pointer" : "")
+      }
+    >
       <div
         className="relative flex h-44 items-center justify-center overflow-hidden"
         style={{
@@ -59,7 +90,7 @@ export function ProduceCard({ item }: ProduceCardProps) {
             {fallbackEmoji}
           </span>
         )}
-        <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/85 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider text-ink/70 ring-1 ring-black/5">
+        <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-surface/85 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider text-ink/70 ring-1 ring-ink/5">
           <span
             className="h-1.5 w-1.5 rounded-full"
             style={{ backgroundColor: accentHex }}
@@ -67,7 +98,7 @@ export function ProduceCard({ item }: ProduceCardProps) {
           {item.category}
         </span>
         {item.source === "wikidata" && (
-          <span className="absolute right-4 top-4 rounded-full bg-white/85 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-ink/60 ring-1 ring-black/5">
+          <span className="absolute right-4 top-4 rounded-full bg-surface/85 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-ink/60 ring-1 ring-ink/5">
             Wikidata
           </span>
         )}
@@ -76,7 +107,7 @@ export function ProduceCard({ item }: ProduceCardProps) {
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex items-baseline justify-between gap-3">
           <h3 className="font-display text-2xl font-semibold leading-tight text-ink">
-            {item.name}
+            <HighlightedText text={item.name} query={query} />
           </h3>
           {item.color && (
             <span className="text-xs uppercase tracking-wider text-ink/50">
@@ -87,7 +118,7 @@ export function ProduceCard({ item }: ProduceCardProps) {
 
         {item.description && (
           <p className="text-sm leading-relaxed text-ink/70 line-clamp-4">
-            {item.description}
+            <HighlightedText text={item.description} query={query} />
           </p>
         )}
 
@@ -119,6 +150,7 @@ export function ProduceCard({ item }: ProduceCardProps) {
             href={item.url}
             target="_blank"
             rel="noreferrer noopener"
+            onClick={(e) => e.stopPropagation()}
             className="mt-auto inline-flex items-center gap-1 self-start text-xs font-medium text-ink/50 transition hover:text-ink"
           >
             Wikipedia <ExternalLink className="h-3 w-3" />
