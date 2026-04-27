@@ -135,7 +135,9 @@ async function queryCategory(category: Category, signal?: AbortSignal): Promise<
 }
 
 export async function fetchAllProduce(signal?: AbortSignal): Promise<ProduceItem[]> {
-  const cats: Category[] = ["fruit", "vegetable", "herb", "spice"];
+  // Derive the category list from CATEGORY_QIDS so adding a new category in
+  // one place automatically extends the live fetch alongside the snapshot.
+  const cats = Object.keys(CATEGORY_QIDS) as Category[];
   const settled = await Promise.allSettled(cats.map((c) => queryCategory(c, signal)));
 
   const successes = settled
@@ -156,7 +158,7 @@ export async function fetchAllProduce(signal?: AbortSignal): Promise<ProduceItem
   return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
 }
 
-const CACHE_KEY = "produce-gallery:wikidata:v3";
+const CACHE_KEY = "produce-gallery:wikidata:v4";
 const CACHE_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 
 export function loadFromCache(): ProduceItem[] | null {

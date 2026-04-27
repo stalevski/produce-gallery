@@ -126,7 +126,7 @@ Categories use these QIDs:
 | grain      | Q12806    | cereal grain |
 
 Results are deduplicated by Wikidata ID, sorted alphabetically, and cached in
-`localStorage` under `produce-gallery:wikidata:v3` for 7 days. The cache is also
+`localStorage` under `produce-gallery:wikidata:v4` for 7 days. The cache is also
 warmed in the background 5 seconds after page load, so the first toggle to
 Wikidata mode is instant.
 
