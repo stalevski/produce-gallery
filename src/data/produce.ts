@@ -13,6 +13,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "Botanically a berry, the tomato anchors cuisines from Naples to Oaxaca with its bright acidity and umami depth.",
     funFact: "The U.S. Supreme Court ruled the tomato a vegetable in 1893 — for tariff purposes only.",
+    botanicalName: "Solanum lycopersicum",
+    family: "Solanaceae",
+    pairings: ["basil", "garlic", "mozzarella"],
   },
   {
     id: "apple",
@@ -26,6 +29,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "A pome fruit with thousands of cultivars, balancing sweetness, acidity, and a satisfying crunch.",
     funFact: "There are more than 7,500 cultivated apple varieties worldwide.",
+    botanicalName: "Malus domestica",
+    family: "Rosaceae",
+    pairings: ["cinnamon", "cheddar", "walnut"],
   },
   {
     id: "carrot",
@@ -39,6 +45,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "A taproot rich in beta-carotene, sweet when roasted and crisp when raw.",
     funFact: "Carrots were originally purple — orange varieties were popularized in 17th-century Holland.",
+    botanicalName: "Daucus carota",
+    family: "Apiaceae",
+    pairings: ["thyme", "ginger", "parsley"],
   },
   {
     id: "kale",
@@ -52,6 +61,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "A hardy leafy green from the brassica family, prized for its mineral-rich, slightly bitter bite.",
     funFact: "Kale gets sweeter after a frost — cold turns its starches into sugars.",
+    botanicalName: "Brassica oleracea var. sabellica",
+    family: "Brassicaceae",
+    pairings: ["garlic", "lemon", "parmesan"],
   },
   {
     id: "strawberry",
@@ -65,6 +77,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "An accessory fruit whose seeds dot the outside; perfumed, sweet-tart, and deeply nostalgic.",
     funFact: "An average strawberry has about 200 seeds on its surface.",
+    botanicalName: "Fragaria × ananassa",
+    family: "Rosaceae",
+    pairings: ["basil", "cream", "balsamic"],
   },
   {
     id: "lemon",
@@ -78,6 +93,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "A citrus hybrid whose acidity brightens nearly every cuisine — from gremolata to preserved lemons.",
     funFact: "The lemon is a cross between a bitter orange and a citron.",
+    botanicalName: "Citrus limon",
+    family: "Rutaceae",
+    pairings: ["thyme", "garlic", "olive oil"],
   },
   {
     id: "avocado",
@@ -91,6 +109,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "A buttery single-seeded berry, beloved for its richness and silky texture.",
     funFact: "The Aztec word for avocado, ahuacatl, also meant 'testicle' — a nod to its shape.",
+    botanicalName: "Persea americana",
+    family: "Lauraceae",
+    pairings: ["lime", "cilantro", "tomato"],
   },
   {
     id: "blueberry",
@@ -104,6 +125,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "A small, antioxidant-dense berry with a delicate sweet-tart balance and indigo hue.",
     funFact: "Their blue color comes from anthocyanins — the same pigment that turns autumn leaves red.",
+    botanicalName: "Vaccinium corymbosum",
+    family: "Ericaceae",
+    pairings: ["lemon", "vanilla", "almond"],
   },
   {
     id: "eggplant",
@@ -117,6 +141,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "A nightshade with a meaty, sponge-like flesh that drinks oil and rewards patient cooks.",
     funFact: "Botanically, eggplants are berries — and early European varieties were small and white, like eggs.",
+    botanicalName: "Solanum melongena",
+    family: "Solanaceae",
+    pairings: ["basil", "garlic", "tomato"],
   },
   {
     id: "pumpkin",
@@ -130,6 +157,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "A winter squash whose sweet flesh stars in soups, pies, and curries from Tokyo to Tuscany.",
     funFact: "The largest pumpkin ever recorded weighed 2,749 lb (1,247 kg).",
+    botanicalName: "Cucurbita pepo",
+    family: "Cucurbitaceae",
+    pairings: ["sage", "cinnamon", "nutmeg"],
   },
   {
     id: "garlic",
@@ -143,6 +173,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "An allium whose pungent cloves mellow into deep, sweet umami when slow-cooked.",
     funFact: "Egyptian pharaohs fed garlic to pyramid builders to boost stamina.",
+    botanicalName: "Allium sativum",
+    family: "Amaryllidaceae",
+    pairings: ["olive oil", "basil", "lemon"],
   },
   {
     id: "basil",
@@ -156,6 +189,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "An aromatic herb central to Italian and Thai cooking, with notes of clove, anise, and mint.",
     funFact: "Basil is a member of the mint family — and there are over 60 varieties.",
+    botanicalName: "Ocimum basilicum",
+    family: "Lamiaceae",
+    pairings: ["tomato", "garlic", "mozzarella"],
   },
   {
     id: "fig",
@@ -169,6 +205,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "An inverted flower whose jammy interior pairs equally well with prosciutto or honey.",
     funFact: "What we eat is technically the inside of an inflorescence — hundreds of tiny flowers.",
+    botanicalName: "Ficus carica",
+    family: "Moraceae",
+    pairings: ["prosciutto", "blue cheese", "balsamic"],
   },
   {
     id: "corn",
@@ -182,6 +221,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "A grain eaten as a vegetable when fresh; sweet, milky, and best minutes from the stalk.",
     funFact: "Every ear of corn has an even number of rows — almost always.",
+    botanicalName: "Zea mays",
+    family: "Poaceae",
+    pairings: ["butter", "lime", "chili"],
   },
   {
     id: "beet",
@@ -195,6 +237,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "An earthy taproot whose sugar content rivals sugarcane — sweet, jewel-toned, and grounding.",
     funFact: "Beet pigment (betanin) is used as a natural red food coloring.",
+    botanicalName: "Beta vulgaris",
+    family: "Amaranthaceae",
+    pairings: ["goat cheese", "walnut", "dill"],
   },
   {
     id: "mango",
@@ -208,6 +253,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "The 'king of fruits' — fragrant, honeyed, and central to cuisines from Mumbai to Manila.",
     funFact: "Mango trees can live and bear fruit for over 300 years.",
+    botanicalName: "Mangifera indica",
+    family: "Anacardiaceae",
+    pairings: ["lime", "chili", "sticky rice"],
   },
   {
     id: "rosemary",
@@ -221,6 +269,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "An evergreen shrub whose pine-scented needles perfume roasts, breads, and slow-braised meats.",
     funFact: "Greek students wore rosemary garlands during exams to sharpen memory — the herb is still associated with remembrance.",
+    botanicalName: "Salvia rosmarinus",
+    family: "Lamiaceae",
+    pairings: ["lamb", "garlic", "lemon"],
   },
   {
     id: "thyme",
@@ -234,6 +285,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "A small-leafed perennial whose warm, earthy oils thrive in long-cooked dishes — soups, stews, and the bouquet garni.",
     funFact: "Ancient Egyptians used thyme in embalming; Romans believed it gave courage to soldiers before battle.",
+    botanicalName: "Thymus vulgaris",
+    family: "Lamiaceae",
+    pairings: ["chicken", "lemon", "butter"],
   },
   {
     id: "sage",
@@ -247,6 +301,9 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "A velvet-leafed herb with peppery, slightly camphorous depth — at home with butter, brown sugar, and pork.",
     funFact: "The genus name Salvia comes from the Latin 'salvere' — to be saved or to heal.",
+    botanicalName: "Salvia officinalis",
+    family: "Lamiaceae",
+    pairings: ["butter", "pumpkin", "pork"],
   },
   {
     id: "oregano",
@@ -260,5 +317,241 @@ export const PRODUCE: ProduceItem[] = [
     description:
       "A pungent, peppery herb whose dried form is bolder than fresh — the soul of pizza, Greek salad, and Mexican chili.",
     funFact: "Its name comes from the Greek 'oros ganos' — joy of the mountain.",
+    botanicalName: "Origanum vulgare",
+    family: "Lamiaceae",
+    pairings: ["tomato", "garlic", "olive oil"],
+  },
+  {
+    id: "banana",
+    name: "Banana",
+    emoji: "\u{1F34C}",
+    category: "fruit",
+    color: "Yellow",
+    colorHex: "#F4C430",
+    seasons: ["spring", "summer", "autumn", "winter"],
+    origin: "Southeast Asia",
+    description:
+      "A tropical berry — yes, berry — whose creamy starch turns honey-sweet as it ripens.",
+    funFact: "Cavendish bananas are clones of a single plant; the entire global trade is genetically identical.",
+    botanicalName: "Musa × paradisiaca",
+    family: "Musaceae",
+    pairings: ["peanut butter", "chocolate", "cinnamon"],
+  },
+  {
+    id: "peach",
+    name: "Peach",
+    emoji: "\u{1F351}",
+    category: "fruit",
+    color: "Orange",
+    colorHex: "#FBA17C",
+    seasons: ["summer"],
+    origin: "Northwest China",
+    description:
+      "A stone fruit whose perfumed flesh and faint almond note are summer made edible.",
+    funFact: "Peaches and almonds are close cousins — both genus Prunus, with nearly identical pits.",
+    botanicalName: "Prunus persica",
+    family: "Rosaceae",
+    pairings: ["cream", "basil", "prosciutto"],
+  },
+  {
+    id: "pear",
+    name: "Pear",
+    emoji: "\u{1F350}",
+    category: "fruit",
+    color: "Yellow",
+    colorHex: "#D6C56C",
+    seasons: ["autumn"],
+    origin: "Western China / Europe",
+    description:
+      "A pome with grainy, melting flesh — equally at home in a tart, on a cheese board, or poached in wine.",
+    funFact: "Pears ripen from the inside out, which is why they're picked unripe and finished off the tree.",
+    botanicalName: "Pyrus communis",
+    family: "Rosaceae",
+    pairings: ["blue cheese", "walnut", "honey"],
+  },
+  {
+    id: "cucumber",
+    name: "Cucumber",
+    emoji: "\u{1F952}",
+    category: "vegetable",
+    color: "Green",
+    colorHex: "#6FA255",
+    seasons: ["summer"],
+    origin: "South Asia",
+    description:
+      "A 96%-water gourd whose cool snap belies a quietly complex, faintly melon-like flavor.",
+    funFact: "Botanically a fruit and a member of the same family as melons and squash.",
+    botanicalName: "Cucumis sativus",
+    family: "Cucurbitaceae",
+    pairings: ["dill", "yogurt", "mint"],
+  },
+  {
+    id: "broccoli",
+    name: "Broccoli",
+    emoji: "\u{1F966}",
+    category: "vegetable",
+    color: "Green",
+    colorHex: "#3E6B36",
+    seasons: ["autumn", "winter"],
+    origin: "Mediterranean",
+    description:
+      "An unopened flower head from the brassica family — verdant, mineral, and cruciferously bitter.",
+    funFact: "Broccoli is a human-engineered cultivar; its wild ancestor looked nothing like it.",
+    botanicalName: "Brassica oleracea var. italica",
+    family: "Brassicaceae",
+    pairings: ["garlic", "lemon", "anchovy"],
+  },
+  {
+    id: "mint",
+    name: "Mint",
+    emoji: "\u{1F33F}",
+    category: "herb",
+    color: "Green",
+    colorHex: "#5FA37A",
+    seasons: ["spring", "summer", "autumn"],
+    origin: "Mediterranean / Central Asia",
+    description:
+      "A vigorously spreading herb whose menthol coolness defines mojitos, raitas, and lamb sauces alike.",
+    funFact: "Mint runners can travel meters underground — plant it in a pot unless you want a meadow.",
+    botanicalName: "Mentha spicata",
+    family: "Lamiaceae",
+    pairings: ["yogurt", "lamb", "watermelon"],
+  },
+  {
+    id: "cilantro",
+    name: "Cilantro",
+    emoji: "\u{1F33F}",
+    category: "herb",
+    color: "Green",
+    colorHex: "#6F9D5A",
+    seasons: ["spring", "autumn"],
+    origin: "Eastern Mediterranean",
+    description:
+      "A bright, citrusy herb beloved in Mexican, Indian, and Southeast Asian kitchens — and reviled by a soapy minority.",
+    funFact: "The 'soap taste' is genetic: a variant of the OR6A2 gene heightens sensitivity to its aldehydes.",
+    botanicalName: "Coriandrum sativum",
+    family: "Apiaceae",
+    pairings: ["lime", "chili", "garlic"],
+  },
+  {
+    id: "cinnamon",
+    name: "Cinnamon",
+    emoji: "\u{1F336}",
+    category: "spice",
+    color: "Brown",
+    colorHex: "#8B4513",
+    origin: "Sri Lanka",
+    description:
+      "The inner bark of a small evergreen tree, dried into curls — sweet, woody, and central to baking and braising worldwide.",
+    funFact: "True Ceylon cinnamon (Cinnamomum verum) is rarer than the cassia most supermarkets sell as 'cinnamon'.",
+    botanicalName: "Cinnamomum verum",
+    family: "Lauraceae",
+    pairings: ["apple", "sugar", "cardamom"],
+  },
+  {
+    id: "ginger",
+    name: "Ginger",
+    emoji: "\u{1FADA}",
+    category: "spice",
+    color: "Beige",
+    colorHex: "#C99E7A",
+    origin: "Maritime Southeast Asia",
+    description:
+      "A fiery, fragrant rhizome that anchors curries, gingerbread, and a thousand cups of tea.",
+    funFact: "Ginger is technically a stem — a rhizome — not a root, despite the supermarket label.",
+    botanicalName: "Zingiber officinale",
+    family: "Zingiberaceae",
+    pairings: ["garlic", "soy", "lime"],
+  },
+  {
+    id: "almond",
+    name: "Almond",
+    emoji: "\u{1F95C}",
+    category: "nut",
+    color: "Beige",
+    colorHex: "#C9A77B",
+    origin: "Iran / Levant",
+    description:
+      "A drupe seed with a sweet, milky flavor — pressed for oil, ground into flour, or eaten whole.",
+    funFact: "Bitter almonds contain amygdalin, which releases cyanide; sweet almonds are the cultivated, safe variety.",
+    botanicalName: "Prunus dulcis",
+    family: "Rosaceae",
+    pairings: ["chocolate", "vanilla", "citrus"],
+  },
+  {
+    id: "walnut",
+    name: "Walnut",
+    emoji: "\u{1F95C}",
+    category: "nut",
+    color: "Brown",
+    colorHex: "#7B5A35",
+    origin: "Persia",
+    description:
+      "A wrinkled, brain-shaped seed with rich, slightly bitter oils — the soul of pesto Genovese's cousin, salsa di noci.",
+    funFact: "Walnut hulls contain juglone, a chemical that prevents nearby plants from growing.",
+    botanicalName: "Juglans regia",
+    family: "Juglandaceae",
+    pairings: ["blue cheese", "beet", "honey"],
+  },
+  {
+    id: "shiitake",
+    name: "Shiitake",
+    emoji: "\u{1F344}",
+    category: "mushroom",
+    color: "Brown",
+    colorHex: "#7A5230",
+    origin: "East Asia",
+    description:
+      "A meaty, umami-dense mushroom traditionally grown on shii oak logs — equally great fresh or dried.",
+    funFact: "Drying intensifies shiitake's flavor and produces vitamin D from sunlight exposure.",
+    botanicalName: "Lentinula edodes",
+    family: "Marasmiaceae",
+    pairings: ["soy", "ginger", "scallion"],
+  },
+  {
+    id: "chickpea",
+    name: "Chickpea",
+    emoji: "\u{1FAD8}",
+    category: "legume",
+    color: "Beige",
+    colorHex: "#D6B780",
+    origin: "Fertile Crescent",
+    description:
+      "A nutty, dense pulse cultivated for ~9,000 years — the basis of hummus, falafel, and chana masala.",
+    funFact: "The cooking water (aquafaba) whips like egg whites and replaces them in vegan meringues.",
+    botanicalName: "Cicer arietinum",
+    family: "Fabaceae",
+    pairings: ["tahini", "lemon", "garlic"],
+  },
+  {
+    id: "lentil",
+    name: "Lentil",
+    emoji: "\u{1FAD8}",
+    category: "legume",
+    color: "Brown",
+    colorHex: "#7A5A3A",
+    origin: "Western Asia",
+    description:
+      "A small lens-shaped pulse that cooks quickly into earthy stews and dals — among the oldest cultivated foods.",
+    funFact: "The word 'lens' comes from Latin lens — for the lentil, which the optical lens is shaped like.",
+    botanicalName: "Lens culinaris",
+    family: "Fabaceae",
+    pairings: ["cumin", "onion", "carrot"],
+  },
+  {
+    id: "oat",
+    name: "Oat",
+    emoji: "\u{1F33E}",
+    category: "grain",
+    color: "Wheat",
+    colorHex: "#D4A95A",
+    seasons: ["summer", "autumn"],
+    origin: "Fertile Crescent",
+    description:
+      "A hardy cereal grain whose creamy soluble fiber makes porridge, oat milk, and excellent biscuits.",
+    funFact: "Oats were considered a weed by Romans — only Northern Europeans bothered to domesticate them.",
+    botanicalName: "Avena sativa",
+    family: "Poaceae",
+    pairings: ["cinnamon", "milk", "honey"],
   },
 ];
