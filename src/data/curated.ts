@@ -1,6 +1,6 @@
 import type { ProduceItem } from "../types";
 
-export const PRODUCE: ProduceItem[] = [
+export const CURATED: ProduceItem[] = [
   {
     id: "tomato",
     name: "Tomato",

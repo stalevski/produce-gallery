@@ -10,7 +10,7 @@ import {
   Sprout,
   Sun,
 } from "lucide-react";
-import { PRODUCE } from "./data/produce";
+import { CURATED } from "./data/curated";
 import { ProduceCard } from "./components/ProduceCard";
 import {
   FilterBar,
@@ -84,7 +84,7 @@ export default function App() {
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
     try {
-      localStorage.setItem("produce-app:theme", theme);
+      localStorage.setItem("produce-gallery:theme", theme);
     } catch {
       /* localStorage unavailable */
     }
@@ -160,7 +160,7 @@ export default function App() {
   const dataset = useMemo<ProduceItem[]>(() => {
     if (source === "wikidata" && wikidataItems) return wikidataItems;
     if (source === "snapshot" && snapshotItems) return snapshotItems;
-    return PRODUCE;
+    return CURATED;
   }, [source, wikidataItems, snapshotItems]);
 
   const colors = useMemo(() => {
