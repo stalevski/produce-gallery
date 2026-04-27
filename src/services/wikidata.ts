@@ -7,6 +7,10 @@ const CATEGORY_QIDS: Record<Category, string> = {
   vegetable: "Q11004",
   spice: "Q42527",
   herb: "Q207123",
+  nut: "Q11009",
+  mushroom: "Q654236",
+  legume: "Q11575",
+  grain: "Q12806",
 };
 
 const CATEGORY_DEFAULT_COLOR: Record<Category, { name: string; hex: string }> = {
@@ -14,6 +18,10 @@ const CATEGORY_DEFAULT_COLOR: Record<Category, { name: string; hex: string }> = 
   vegetable: { name: "Green", hex: "#4F7F3F" },
   herb: { name: "Green", hex: "#6B8E23" },
   spice: { name: "Earth", hex: "#B7410E" },
+  nut: { name: "Brown", hex: "#8B5A2B" },
+  mushroom: { name: "Beige", hex: "#A89171" },
+  legume: { name: "Olive", hex: "#7C8E47" },
+  grain: { name: "Wheat", hex: "#D4A95A" },
 };
 
 const GENERIC_LABELS = new Set([
@@ -27,6 +35,14 @@ const GENERIC_LABELS = new Set([
   "root vegetable",
   "berry",
   "citrus",
+  "nut",
+  "edible nut",
+  "edible mushroom",
+  "mushroom",
+  "legume",
+  "grain",
+  "cereal",
+  "edible seed",
 ]);
 
 interface SparqlBinding {
@@ -140,7 +156,7 @@ export async function fetchAllProduce(signal?: AbortSignal): Promise<ProduceItem
   return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
 }
 
-const CACHE_KEY = "produce-app:wikidata:v2";
+const CACHE_KEY = "produce-app:wikidata:v3";
 const CACHE_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 
 export function loadFromCache(): ProduceItem[] | null {
