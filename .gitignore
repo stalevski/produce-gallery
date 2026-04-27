@@ -7,3 +7,11 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
