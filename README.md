@@ -2,6 +2,8 @@
 
 A gallery of fruits, vegetables, herbs, and spices — their colors, seasons, and the quiet stories behind them. Browse a hand-curated set or stream the full catalogue live from Wikidata.
 
+**Live demo:** [stalevski.github.io/produce-app](https://stalevski.github.io/produce-app/)
+
 Built with **Vite + React + TypeScript + Tailwind CSS**.
 
 ## Features
