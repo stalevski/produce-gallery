@@ -4,6 +4,26 @@
 
 :root {
   color-scheme: light;
+  --c-cream: 251 247 240;
+  --c-ink: 27 31 26;
+  --c-surface: 255 255 255;
+  --c-shadow: 20 30 20;
+  --bg-tint-1: 253 233 201;
+  --bg-tint-1-alpha: 1;
+  --bg-tint-2: 217 234 208;
+  --bg-tint-2-alpha: 1;
+}
+
+:root.dark {
+  color-scheme: dark;
+  --c-cream: 22 19 16;
+  --c-ink: 244 238 224;
+  --c-surface: 42 38 33;
+  --c-shadow: 0 0 0;
+  --bg-tint-1: 90 50 18;
+  --bg-tint-1-alpha: 0.35;
+  --bg-tint-2: 30 60 35;
+  --bg-tint-2-alpha: 0.4;
 }
 
 html,
@@ -16,12 +36,21 @@ body {
   margin: 0;
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
   background:
-    radial-gradient(1200px 600px at 90% -10%, #fde9c9 0%, transparent 60%),
-    radial-gradient(900px 500px at -10% 10%, #d9ead0 0%, transparent 55%),
-    #fbf7f0;
-  color: #1b1f1a;
+    radial-gradient(
+      1200px 600px at 90% -10%,
+      rgb(var(--bg-tint-1) / var(--bg-tint-1-alpha)) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at -10% 10%,
+      rgb(var(--bg-tint-2) / var(--bg-tint-2-alpha)) 0%,
+      transparent 55%
+    ),
+    rgb(var(--c-cream));
+  color: rgb(var(--c-ink));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @layer utilities {

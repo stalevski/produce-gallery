@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
@@ -8,11 +9,12 @@ export default {
         sans: ["'Inter'", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       colors: {
-        cream: "#FBF7F0",
-        ink: "#1B1F1A",
+        cream: "rgb(var(--c-cream) / <alpha-value>)",
+        ink: "rgb(var(--c-ink) / <alpha-value>)",
+        surface: "rgb(var(--c-surface) / <alpha-value>)",
       },
       boxShadow: {
-        soft: "0 1px 2px rgba(20, 30, 20, 0.04), 0 8px 24px rgba(20, 30, 20, 0.06)",
+        soft: "0 1px 2px rgb(var(--c-shadow) / 0.04), 0 8px 24px rgb(var(--c-shadow) / 0.06)",
       },
     },
   },
