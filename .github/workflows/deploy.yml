@@ -13,11 +13,6 @@ permissions:
   pages: write
   id-token: write
 
-# Don't queue overlapping deploys; let the latest push win
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
 jobs:
   build:
     name: Type check & build
@@ -52,6 +47,11 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
+    # Don't queue overlapping deploys; serialize so the latest push wins.
+    # Scoped to the deploy job so PR builds run in parallel.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
