@@ -1,8 +1,10 @@
-import { Search, X } from "lucide-react";
+import { forwardRef } from "react";
+import { ImageIcon, RotateCcw, Search, X } from "lucide-react";
 import type { Category, Season } from "../types";
 
 export type CategoryFilter = "all" | Category;
 export type SeasonFilter = "all" | Season;
+export type SortKey = "name-asc" | "name-desc" | "category" | "random";
 
 interface FilterBarProps {
   query: string;
@@ -18,6 +20,13 @@ interface FilterBarProps {
   totalCount: number;
   showSeasons?: boolean;
   showColors?: boolean;
+  showPhotoFilter?: boolean;
+  requireImage?: boolean;
+  onRequireImageChange?: (v: boolean) => void;
+  sort: SortKey;
+  onSortChange: (s: SortKey) => void;
+  onResetAll?: () => void;
+  hasActiveFilters?: boolean;
 }
 
 const CATEGORIES: { value: CategoryFilter; label: string }[] = [
@@ -26,6 +35,10 @@ const CATEGORIES: { value: CategoryFilter; label: string }[] = [
   { value: "vegetable", label: "Vegetables" },
   { value: "herb", label: "Herbs" },
   { value: "spice", label: "Spices" },
+  { value: "nut", label: "Nuts" },
+  { value: "mushroom", label: "Mushrooms" },
+  { value: "legume", label: "Legumes" },
+  { value: "grain", label: "Grains" },
 ];
 
 const SEASONS: { value: SeasonFilter; label: string }[] = [
@@ -36,31 +49,49 @@ const SEASONS: { value: SeasonFilter; label: string }[] = [
   { value: "winter", label: "Winter" },
 ];
 
-export function FilterBar({
-  query,
-  onQueryChange,
-  category,
-  onCategoryChange,
-  season,
-  onSeasonChange,
-  colors,
-  activeColor,
-  onColorChange,
-  resultCount,
-  totalCount,
-  showSeasons = true,
-  showColors = true,
-}: FilterBarProps) {
+const SORTS: { value: SortKey; label: string }[] = [
+  { value: "name-asc", label: "Name A–Z" },
+  { value: "name-desc", label: "Name Z–A" },
+  { value: "category", label: "By category" },
+  { value: "random", label: "Random" },
+];
+
+export const FilterBar = forwardRef<HTMLInputElement, FilterBarProps>(function FilterBar(
+  {
+    query,
+    onQueryChange,
+    category,
+    onCategoryChange,
+    season,
+    onSeasonChange,
+    colors,
+    activeColor,
+    onColorChange,
+    resultCount,
+    totalCount,
+    showSeasons = true,
+    showColors = true,
+    showPhotoFilter = false,
+    requireImage = false,
+    onRequireImageChange,
+    sort,
+    onSortChange,
+    onResetAll,
+    hasActiveFilters = false,
+  },
+  searchInputRef
+) {
   return (
-    <div className="flex flex-col gap-5 rounded-3xl bg-white/60 p-5 ring-1 ring-black/5 backdrop-blur-sm shadow-soft">
+    <div className="flex flex-col gap-5 rounded-3xl bg-surface/60 p-5 ring-1 ring-ink/5 backdrop-blur-sm shadow-soft">
       <div className="relative">
         <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/40" />
         <input
+          ref={searchInputRef}
           type="text"
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
-          placeholder="Search produce, origin, or description..."
-          className="w-full rounded-2xl border-0 bg-white py-3 pl-11 pr-10 text-sm text-ink placeholder:text-ink/40 ring-1 ring-black/5 outline-none transition focus:ring-2 focus:ring-ink/30"
+          placeholder="Search produce, origin, or description...   (press / to focus)"
+          className="w-full rounded-2xl border-0 bg-surface py-3 pl-11 pr-10 text-sm text-ink placeholder:text-ink/40 ring-1 ring-ink/5 outline-none transition focus:ring-2 focus:ring-ink/30"
         />
         {query && (
           <button
@@ -87,33 +118,68 @@ export function FilterBar({
                   "rounded-full px-3.5 py-1.5 text-sm font-medium transition " +
                   (active
                     ? "bg-ink text-cream shadow-soft"
-                    : "bg-white text-ink/70 ring-1 ring-black/5 hover:bg-ink/5")
+                    : "bg-surface text-ink/70 ring-1 ring-ink/5 hover:bg-ink/5")
                 }
               >
                 {c.label}
               </button>
             );
           })}
+          {showPhotoFilter && onRequireImageChange && (
+            <button
+              type="button"
+              onClick={() => onRequireImageChange(!requireImage)}
+              aria-pressed={requireImage}
+              title={requireImage ? "Show all items" : "Only items with photos"}
+              className={
+                "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition " +
+                (requireImage
+                  ? "bg-ink text-cream shadow-soft"
+                  : "bg-surface text-ink/70 ring-1 ring-ink/5 hover:bg-ink/5")
+              }
+            >
+              <ImageIcon className="h-3.5 w-3.5" />
+              Has photo
+            </button>
+          )}
         </div>
 
-        {showSeasons && (
-          <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
+          {showSeasons && (
+            <div className="flex items-center gap-2">
+              <label className="text-xs uppercase tracking-wider text-ink/50">
+                Season
+              </label>
+              <select
+                value={season}
+                onChange={(e) => onSeasonChange(e.target.value as SeasonFilter)}
+                className="rounded-full bg-surface px-3.5 py-1.5 text-sm font-medium text-ink/80 ring-1 ring-ink/5 outline-none transition focus:ring-2 focus:ring-ink/30"
+              >
+                {SEASONS.map((s) => (
+                  <option key={s.value} value={s.value}>
+                    {s.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          <div className="flex items-center gap-2">
             <label className="text-xs uppercase tracking-wider text-ink/50">
-              Season
+              Sort
             </label>
             <select
-              value={season}
-              onChange={(e) => onSeasonChange(e.target.value as SeasonFilter)}
-              className="rounded-full bg-white px-3.5 py-1.5 text-sm font-medium text-ink/80 ring-1 ring-black/5 outline-none transition focus:ring-2 focus:ring-ink/30"
+              value={sort}
+              onChange={(e) => onSortChange(e.target.value as SortKey)}
+              className="rounded-full bg-surface px-3.5 py-1.5 text-sm font-medium text-ink/80 ring-1 ring-ink/5 outline-none transition focus:ring-2 focus:ring-ink/30"
             >
-              {SEASONS.map((s) => (
+              {SORTS.map((s) => (
                 <option key={s.value} value={s.value}>
                   {s.label}
                 </option>
               ))}
             </select>
           </div>
-        )}
+        </div>
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
@@ -130,7 +196,7 @@ export function FilterBar({
                   "rounded-full px-3 py-1 text-xs font-medium transition " +
                   (activeColor === null
                     ? "bg-ink text-cream"
-                    : "bg-white text-ink/70 ring-1 ring-black/5 hover:bg-ink/5")
+                    : "bg-surface text-ink/70 ring-1 ring-ink/5 hover:bg-ink/5")
                 }
               >
                 Any
@@ -146,7 +212,7 @@ export function FilterBar({
                       "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition " +
                       (active
                         ? "bg-ink text-cream"
-                        : "bg-white text-ink/70 ring-1 ring-black/5 hover:bg-ink/5")
+                        : "bg-surface text-ink/70 ring-1 ring-ink/5 hover:bg-ink/5")
                     }
                   >
                     <span
@@ -160,13 +226,24 @@ export function FilterBar({
             </div>
           </>
         )}
-        <span className="ml-auto text-xs text-ink/50">
-          {resultCount} of {totalCount}
+        <span className="ml-auto flex items-center gap-3 text-xs text-ink/50">
+          <span>
+            {resultCount} of {totalCount}
+          </span>
+          {hasActiveFilters && onResetAll && (
+            <button
+              type="button"
+              onClick={onResetAll}
+              className="inline-flex items-center gap-1 rounded-full bg-surface px-2.5 py-1 text-[11px] font-medium text-ink/70 ring-1 ring-ink/5 transition hover:bg-ink/5 hover:text-ink"
+            >
+              <RotateCcw className="h-3 w-3" /> Reset
+            </button>
+          )}
         </span>
       </div>
     </div>
   );
-}
+});
 
 function colorHex(name: string): string {
   switch (name.toLowerCase()) {
@@ -184,6 +261,16 @@ function colorHex(name: string): string {
       return "#5C2A6A";
     case "white":
       return "#E8E1CD";
+    case "brown":
+      return "#7B5A35";
+    case "beige":
+      return "#C9A77B";
+    case "wheat":
+      return "#D4A95A";
+    case "olive":
+      return "#7C8E47";
+    case "earth":
+      return "#B7410E";
     default:
       return "#999";
   }
