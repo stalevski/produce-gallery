@@ -41,13 +41,45 @@ const CATEGORY_DEFAULT_HEX: Record<Category, string> = {
   seed: "#C8A37B",
 };
 
-export function DetailView({ item, onClose, onSelectId, itemsById }: DetailViewProps) {
+// Duration of the open/close transition. Kept short -- a modal that takes
+// >250ms to dismiss starts feeling laggy, especially because the user has
+// already decided to leave by the time it begins. The matching CSS classes
+// below use Tailwind's duration-200 utility, which is the same value.
+const TRANSITION_MS = 200;
+
+export function DetailView({
+  item: itemProp,
+  onClose,
+  onSelectId,
+  itemsById,
+}: DetailViewProps) {
   const [imgFailed, setImgFailed] = useState(false);
   const [wikiExtract, setWikiExtract] = useState<string | null>(null);
   const [wikiLoading, setWikiLoading] = useState(false);
 
+  // Two-phase visibility so we can animate exit. The parent passes `itemProp`,
+  // which can flip to null at any time; we keep the previous item around as
+  // `displayItem` until the close transition has finished. `show` drives the
+  // opacity/scale transition classes.
+  const [displayItem, setDisplayItem] = useState<ProduceItem | null>(itemProp);
+  const [show, setShow] = useState<boolean>(!!itemProp);
+
   useEffect(() => {
-    if (!item) return;
+    if (itemProp) {
+      // Opening: mount the item immediately, then on the next frame flip
+      // `show` to true so the transition runs from the closed state.
+      setDisplayItem(itemProp);
+      const id = requestAnimationFrame(() => setShow(true));
+      return () => cancelAnimationFrame(id);
+    }
+    // Closing: keep displayItem rendered while we fade out, then unmount.
+    setShow(false);
+    const t = setTimeout(() => setDisplayItem(null), TRANSITION_MS);
+    return () => clearTimeout(t);
+  }, [itemProp]);
+
+  useEffect(() => {
+    if (!displayItem) return;
     setImgFailed(false);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -59,10 +91,10 @@ export function DetailView({ item, onClose, onSelectId, itemsById }: DetailViewP
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
     };
-  }, [item, onClose]);
+  }, [displayItem, onClose]);
 
   useEffect(() => {
-    if (!item) {
+    if (!itemProp) {
       setWikiExtract(null);
       setWikiLoading(false);
       return;
@@ -70,16 +102,20 @@ export function DetailView({ item, onClose, onSelectId, itemsById }: DetailViewP
     setWikiExtract(null);
     setWikiLoading(true);
     const ctrl = new AbortController();
-    fetchWikipediaSummary(item.name, ctrl.signal)
+    fetchWikipediaSummary(itemProp.name, ctrl.signal)
       .then((res) => {
         if (res) setWikiExtract(res.extract);
       })
       .catch(() => {})
       .finally(() => setWikiLoading(false));
     return () => ctrl.abort();
-  }, [item?.id, item?.name]);
+  }, [itemProp?.id, itemProp?.name]);
 
-  if (!item) return null;
+  if (!displayItem) return null;
+
+  // Alias the kept-around copy back to `item` so the rest of the JSX (which
+  // is large) reads naturally without dozens of `displayItem.` references.
+  const item = displayItem;
 
   const accentHex = item.colorHex ?? CATEGORY_DEFAULT_HEX[item.category];
   const showImage = !!item.imageUrl && !imgFailed;
@@ -92,11 +128,23 @@ export function DetailView({ item, onClose, onSelectId, itemsById }: DetailViewP
       aria-modal="true"
       aria-label={`${item.name} details`}
       onClick={onClose}
-      className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/40 p-4 backdrop-blur-sm dark:bg-black/70 sm:p-8"
+      className={
+        "fixed inset-0 z-50 flex items-start justify-center overflow-y-auto p-4 backdrop-blur-sm sm:p-8 " +
+        "transition-opacity duration-200 ease-out " +
+        (show
+          ? "bg-black/40 dark:bg-black/70 opacity-100"
+          : "bg-black/0 dark:bg-black/0 opacity-0 pointer-events-none")
+      }
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-3xl overflow-hidden rounded-3xl bg-surface shadow-2xl ring-1 ring-ink/5"
+        className={
+          "relative w-full max-w-3xl overflow-hidden rounded-3xl bg-surface shadow-2xl ring-1 ring-ink/5 " +
+          "transition duration-200 ease-out " +
+          (show
+            ? "opacity-100 scale-100 translate-y-0"
+            : "opacity-0 scale-[0.97] translate-y-1")
+        }
       >
         <button
           type="button"

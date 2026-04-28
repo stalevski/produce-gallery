@@ -45,5 +45,6 @@ pnpm-debug.log*
 /playwright-report/
 /blob-report/
 /playwright/.cache/
-# Temporary commit-message buffer used by the assistant when calling git commit -F
+# Temporary commit-message buffers used by the assistant when calling git commit -F
 .git-commit-msg.tmp
+.commit-msg-buffer

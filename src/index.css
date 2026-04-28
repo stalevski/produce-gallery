@@ -96,3 +96,18 @@ body::before {
     font-optical-sizing: auto;
   }
 }
+
+/* Honor the OS-level "reduce motion" preference for users who get distracted
+   or disoriented by animation. Flattens transitions/animations to effectively
+   instant (1 frame) without removing them outright -- some libraries depend on
+   transition/animation events firing, so 0ms is not ideal but ~1ms is. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
