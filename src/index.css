@@ -63,33 +63,23 @@ html {
      ~16px wider when the scrollbar disappears. Modern browsers only;
      gracefully ignored elsewhere. */
   scrollbar-gutter: stable;
-  /* Match the body background so extensions like Dark Reader, which inspect
-     html and body independently, see a single consistent base color and
-     don't render a visible seam between the two. */
-  background-color: rgb(var(--c-cream));
-}
 
-body {
-  margin: 0;
-  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* Paint the warm radial gradients directly on the root element with
+     background-attachment: fixed. Three reasons this lives on html instead of
+     a fixed body::before:
+       1. html is the root, so its background covers the *entire* viewport --
+          including the strip reserved by scrollbar-gutter, which body and its
+          descendants do not extend into. Without this the gutter shows a
+          solid colour while the rest of the page shows the gradient,
+          producing a visible vertical seam (especially under extensions like
+          Dark Reader that inspect html and body independently).
+       2. background-attachment: fixed keeps the gradient sized to the viewport
+          regardless of how tall the page content is, so it does not tile down
+          long pages the way a px-sized gradient on body would.
+       3. Single source of truth for the page background, with the cream
+          colour as a fallback if gradients fail to render. */
   background-color: rgb(var(--c-cream));
-  color: rgb(var(--c-ink));
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Render the warm radial gradients on a fixed-position pseudo-element so they
-   cover the viewport regardless of how tall the page content is. Painting them
-   on `body` made the gradients tile down a long page (the snapshot tier shows
-   1500+ items) because the body box grows but the gradients are sized in px. */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
+  background-image:
     radial-gradient(
       1200px 600px at 90% -10%,
       rgb(var(--bg-tint-1) / var(--bg-tint-1-alpha)) 0%,
@@ -100,6 +90,22 @@ body::before {
       rgb(var(--bg-tint-2) / var(--bg-tint-2-alpha)) 0%,
       transparent 55%
     );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  transition: background-color 0.3s ease;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* Transparent so html's painted background -- including the gradient and the
+     scrollbar gutter strip -- shows through uninterrupted. Setting an opaque
+     colour here would produce a seam against html along the gutter edge. */
+  background-color: transparent;
+  color: rgb(var(--c-ink));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: color 0.3s ease;
 }
 
 @layer utilities {
