@@ -60,6 +60,23 @@ body,
 body {
   margin: 0;
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  background-color: rgb(var(--c-cream));
+  color: rgb(var(--c-ink));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Render the warm radial gradients on a fixed-position pseudo-element so they
+   cover the viewport regardless of how tall the page content is. Painting them
+   on `body` made the gradients tile down a long page (the snapshot tier shows
+   1500+ items) because the body box grows but the gradients are sized in px. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
   background:
     radial-gradient(
       1200px 600px at 90% -10%,
@@ -70,12 +87,7 @@ body {
       900px 500px at -10% 10%,
       rgb(var(--bg-tint-2) / var(--bg-tint-2-alpha)) 0%,
       transparent 55%
-    ),
-    rgb(var(--c-cream));
-  color: rgb(var(--c-ink));
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
+    );
 }
 
 @layer utilities {
