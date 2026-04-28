@@ -149,14 +149,27 @@ body {
    Lives on a *wrapper* element rather than the emoji span itself so it can
    compose cleanly with the entrance animation (inner span) and the hover
    transform (also inner span) without three rules fighting over the same
-   `transform` property. */
+   `transform` property.
+
+   Smooth-handoff requirement: the 0%/100% keyframes MUST match the wrapper's
+   natural transform (none = translateY(0) rotate(0)). At the instant the
+   float starts (t = 600ms), the wrapper transitions from "no transform" to
+   the 0% keyframe. If 0% had any non-zero rotate or translate, that would
+   be a visible discrete snap. With 0% at neutral plus ease-in-out timing
+   (zero velocity at boundaries), the float emerges smoothly from rest. */
 @keyframes emojiFloat {
   0%,
   100% {
-    transform: translateY(0) rotate(-1.5deg);
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-3px) rotate(1.5deg);
   }
   50% {
-    transform: translateY(-5px) rotate(1.5deg);
+    transform: translateY(-5px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-3px) rotate(-1.5deg);
   }
 }
 
