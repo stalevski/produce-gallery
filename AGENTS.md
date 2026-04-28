@@ -82,11 +82,19 @@ Touching one of these without touching its consumers is how bugs creep in.
   vs `--c-cream` differ by ~20 RGB units in dark mode. Bumping it to make
   cards "more visible" was tried and reverted. Don't relitigate.
 
-- **The page background lives on `html`**, painted as a fixed-attachment
-  background image (gradients) plus `--c-cream` colour underneath. Do
-  **not** move it back onto `body::before` — that left a visible seam in
-  the scrollbar gutter (very obvious under Dark Reader). See the long
-  comment in `src/index.css`.
+- **The page background is split between `html` and `body::before`**:
+  `html` paints just the cream base colour (covers the scrollbar gutter
+  strip, which body and its descendants do not extend into).
+  `body::before` is a fixed-position pseudo-element that paints the warm
+  radial gradients. The gradient lives on the body side specifically so
+  cards can sample it through their `backdrop-filter` — when the gradient
+  was on `html` only, Chrome's compositor wasn't reaching it through the
+  transparent body and cards lost their visible transparency. See the
+  long comments in `src/index.css`. There is a *known* edge case: under
+  Dark Reader, if the fixed pseudo-element doesn't fully cover the
+  reserved scrollbar-gutter strip, a faint gradient-stops-at-the-gutter
+  line is visible. We accept that cosmetic issue rather than lose card
+  transparency for everyone.
 
 - **`scrollbar-gutter: stable` on `html`** is what prevents the page from
   shifting ~16px sideways when the modal opens (which sets
