@@ -57,52 +57,18 @@ body,
   height: 100%;
 }
 
-html {
-  /* Always reserve scrollbar space so opening the modal (which sets body
-     overflow: hidden to lock background scroll) doesn't reflow the page
-     ~16px wider when the scrollbar disappears. Modern browsers only;
-     gracefully ignored elsewhere. */
-  scrollbar-gutter: stable;
-
-  /* Cream base colour on the root element so the entire viewport
-     (including the scrollbar gutter strip, which is owned by html and not
-     by body) has a consistent background. The warm gradient layer is
-     painted on body::before below, not here -- painting it on html as
-     well caused two compounding issues:
-       - body's area would composite both layers and end up more saturated
-         than the gutter, creating a visible vertical seam.
-       - card backdrop-blur degraded because Chrome's compositor wasn't
-         sampling the html-level gradient through the transparent body. */
-  background-color: rgb(var(--c-cream));
-  transition: background-color 0.3s ease;
-}
-
 body {
   margin: 0;
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
-  /* Transparent so html's cream shows through, and so body::before's
-     gradient is the only saturated layer painted in body's box. */
-  background-color: transparent;
+  background-color: rgb(var(--c-cream));
   color: rgb(var(--c-ink));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* The warm radial gradients live on this fixed-position pseudo-element so
-   they:
-     - cover the viewport regardless of page content height (no tiling on
-       the snapshot tier's long pages),
-     - sit in body's painting layer where card backdrop-filters can sample
-       them and produce visible transparency,
-     - cover the scrollbar gutter strip too: position: fixed; inset: 0
-       sizes the element relative to the initial containing block (the
-       full viewport), which includes the gutter. If a particular browser
-       configuration shrinks the fixed area to exclude the gutter the
-       result is a faint gradient-stops-at-the-gutter line, only visible
-       to users with extensions like Dark Reader that colourise html and
-       body independently -- a smaller cosmetic issue than losing card
-       transparency for everyone. */
+/* Render the warm radial gradients on a fixed-position pseudo-element so
+   they cover the viewport regardless of how tall the page content is. */
 body::before {
   content: "";
   position: fixed;
