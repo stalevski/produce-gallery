@@ -1,17 +1,13 @@
 import type { Category, ProduceItem } from "../types";
+import CATEGORY_QIDS_DATA from "../data/category-qids.json";
 
 const ENDPOINT = "https://query.wikidata.org/sparql";
 
-const CATEGORY_QIDS: Record<Category, string> = {
-  fruit: "Q3314483",
-  vegetable: "Q11004",
-  spice: "Q42527",
-  herb: "Q207123",
-  nut: "Q11009",
-  mushroom: "Q654236",
-  legume: "Q11575",
-  grain: "Q12806",
-};
+// Single source of truth for the QIDs, shared with scripts/generate-snapshot.mjs.
+// Wikidata occasionally renames or merges entities (Q12806 was once "cereal grain"
+// and is now "abacus", which produced a fun bug); keeping the QIDs in one JSON
+// file ensures the live fetch and the snapshot generator can never drift apart.
+const CATEGORY_QIDS = CATEGORY_QIDS_DATA as Record<Category, string>;
 
 const CATEGORY_DEFAULT_COLOR: Record<Category, { name: string; hex: string }> = {
   fruit: { name: "Red", hex: "#D7263D" },
@@ -158,7 +154,7 @@ export async function fetchAllProduce(signal?: AbortSignal): Promise<ProduceItem
   return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
 }
 
-const CACHE_KEY = "produce-gallery:wikidata:v4";
+const CACHE_KEY = "produce-gallery:wikidata:v5";
 const CACHE_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 
 export function loadFromCache(): ProduceItem[] | null {

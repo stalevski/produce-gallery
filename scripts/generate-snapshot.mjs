@@ -9,25 +9,21 @@
 //
 // Or schedule a cron job to keep the bundled snapshot fresh.
 
-import { writeFileSync, mkdirSync } from "node:fs";
+import { writeFileSync, mkdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUT_PATH = join(__dirname, "..", "src", "data", "wikidata-snapshot.json");
+const QIDS_PATH = join(__dirname, "..", "src", "data", "category-qids.json");
 
 const ENDPOINT = "https://query.wikidata.org/sparql";
 
-const CATEGORY_QIDS = {
-  fruit: "Q3314483",
-  vegetable: "Q11004",
-  spice: "Q42527",
-  herb: "Q207123",
-  nut: "Q11009",
-  mushroom: "Q654236",
-  legume: "Q11575",
-  grain: "Q12806",
-};
+// Read the QIDs from the same JSON file the live service imports, so this
+// script and src/services/wikidata.ts can never drift apart. (Reading via
+// fs.readFileSync rather than `import ... with { type: "json" }` so this works
+// on any Node 20+ without enabling the still-experimental import attributes.)
+const CATEGORY_QIDS = JSON.parse(readFileSync(QIDS_PATH, "utf8"));
 
 const CATEGORY_DEFAULT_COLOR = {
   fruit: { name: "Red", hex: "#D7263D" },
@@ -148,16 +144,40 @@ async function queryCategory(category) {
   return items;
 }
 
+// Minimum item count per category. Below this we assume something has gone
+// wrong upstream (e.g. a QID got renamed -- Q12806 used to be "cereal grain"
+// and silently became "abacus", returning only 7 unrelated items). The check
+// is intentionally generous; even nut, our smallest legitimate category, has
+// >20 items.
+const MIN_ITEMS_PER_CATEGORY = 15;
+
 async function main() {
   const categories = Object.keys(CATEGORY_QIDS);
   const all = [];
+  const counts = {};
   for (const c of categories) {
     try {
       const items = await queryCategory(c);
       all.push(...items);
+      counts[c] = items.length;
     } catch (err) {
       console.error(`[snapshot] FAILED ${c}: ${err.message}`);
+      counts[c] = 0;
     }
+  }
+
+  const suspicious = Object.entries(counts).filter(
+    ([, n]) => n < MIN_ITEMS_PER_CATEGORY,
+  );
+  if (suspicious.length > 0) {
+    console.error(
+      `\n[snapshot] ABORT: the following categories returned suspiciously few items.\n` +
+        `Wikidata may have renamed/merged a QID. Check src/data/category-qids.json.`,
+    );
+    for (const [c, n] of suspicious) {
+      console.error(`  ${c}: ${n} items (minimum ${MIN_ITEMS_PER_CATEGORY})`);
+    }
+    process.exit(1);
   }
 
   // Dedupe by id (an item can match multiple category subclass paths).
