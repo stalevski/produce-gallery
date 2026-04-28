@@ -57,6 +57,18 @@ body,
   height: 100%;
 }
 
+html {
+  /* Always reserve scrollbar space so opening the modal (which sets body
+     overflow: hidden to lock background scroll) doesn't reflow the page
+     ~16px wider when the scrollbar disappears. Modern browsers only;
+     gracefully ignored elsewhere. */
+  scrollbar-gutter: stable;
+  /* Match the body background so extensions like Dark Reader, which inspect
+     html and body independently, see a single consistent base color and
+     don't render a visible seam between the two. */
+  background-color: rgb(var(--c-cream));
+}
+
 body {
   margin: 0;
   font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
