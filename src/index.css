@@ -43,17 +43,7 @@
   color-scheme: dark;
   --c-cream: 22 19 16;
   --c-ink: 244 238 224;
-  /* Surface is the card colour. Two competing constraints:
-     - Bright enough to clear the brightest gradient pixel underneath (the
-       amber radial maxes out around R=46 over the dark base, so surface R
-       must be comfortably above that or cards disappear into their backdrop).
-     - Not so warm that the elevated value reads as "brown". Earlier 56 50 44
-       had the right brightness but R was 12 units above B, which at this
-       brightness register as a tan/brown card -- not the intent.
-     54 52 50 keeps R at 54 (still ~8 units above the brightest gradient red)
-     while pulling G and B up so the channel spread is only 4. Reads as a
-     near-neutral warm grey rather than brown. */
-  --c-surface: 54 52 50;
+  --c-surface: 42 38 33;
   --c-shadow: 0 0 0;
   --bg-tint-1: 90 50 18;
   --bg-tint-1-alpha: 0.35;
@@ -123,6 +113,29 @@ body {
     font-family: "Fraunces", ui-serif, Georgia, serif;
     font-optical-sizing: auto;
   }
+}
+
+/* One-shot entrance for the large emoji in the detail view. Slight overshoot
+   on the back-out easing so it pops in with a soft bounce instead of just
+   sliding to its final size. Pairs with a hover transform on the same
+   element so the emoji stays interactive after the entrance settles. */
+@keyframes emojiPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.65) rotate(-12deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.08) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.animate-emoji-pop {
+  animation: emojiPop 600ms cubic-bezier(0.34, 1.2, 0.64, 1) both;
 }
 
 /* Honor the OS-level "reduce motion" preference for users who get distracted

@@ -64,7 +64,7 @@ export function ProduceCard({ item, onClick, query }: ProduceCardProps) {
       tabIndex={clickable ? 0 : undefined}
       aria-label={clickable ? `View details for ${item.name}` : undefined}
       className={
-        "group relative flex flex-col overflow-hidden rounded-3xl bg-surface/70 backdrop-blur-sm shadow-soft ring-1 ring-black/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(20,30,20,0.10)] focus:outline-none focus-visible:ring-2 focus-visible:ring-ink/40 " +
+        "group relative flex flex-col overflow-hidden rounded-3xl bg-surface/70 backdrop-blur-sm shadow-soft ring-1 ring-ink/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(20,30,20,0.10)] focus:outline-none focus-visible:ring-2 focus-visible:ring-ink/40 " +
         (clickable ? "cursor-pointer" : "")
       }
     >
@@ -92,7 +92,7 @@ export function ProduceCard({ item, onClick, query }: ProduceCardProps) {
             {fallbackEmoji}
           </span>
         )}
-        <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-surface/85 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider text-ink/70 ring-1 ring-black/5">
+        <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-surface/85 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider text-ink/70 ring-1 ring-ink/5">
           <span
             className="h-1.5 w-1.5 rounded-full"
             style={{ backgroundColor: accentHex }}
@@ -100,7 +100,7 @@ export function ProduceCard({ item, onClick, query }: ProduceCardProps) {
           {item.category}
         </span>
         {item.source === "wikidata" && (
-          <span className="absolute right-4 top-4 rounded-full bg-surface/85 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-ink/60 ring-1 ring-black/5">
+          <span className="absolute right-4 top-4 rounded-full bg-surface/85 px-2 py-1 text-[10px] font-medium uppercase tracking-wider text-ink/60 ring-1 ring-ink/5">
             Wikidata
           </span>
         )}

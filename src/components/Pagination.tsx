@@ -35,7 +35,7 @@ export function Pagination({
   const canNext = safePage < totalPages - 1;
 
   return (
-    <div className="flex flex-col items-center justify-between gap-4 rounded-3xl bg-surface/60 px-5 py-4 ring-1 ring-black/5 backdrop-blur-sm shadow-soft sm:flex-row">
+    <div className="flex flex-col items-center justify-between gap-4 rounded-3xl bg-surface/60 px-5 py-4 ring-1 ring-ink/5 backdrop-blur-sm shadow-soft sm:flex-row">
       <div className="flex items-center gap-3 text-xs text-ink/60">
         <label className="flex items-center gap-2">
           <span className="uppercase tracking-wider">Show</span>
@@ -46,7 +46,7 @@ export function Pagination({
               onPageSizeChange(v === "all" ? "all" : (Number(v) as PageSize));
               onPageChange(0);
             }}
-            className="rounded-full bg-surface px-3 py-1.5 text-xs font-medium text-ink/80 ring-1 ring-black/5 outline-none transition focus:ring-2 focus:ring-ink/30"
+            className="rounded-full bg-surface px-3 py-1.5 text-xs font-medium text-ink/80 ring-1 ring-ink/5 outline-none transition focus:ring-2 focus:ring-ink/30"
           >
             {PAGE_SIZE_OPTIONS.map((opt) => (
               <option key={String(opt)} value={String(opt)}>
@@ -110,7 +110,7 @@ function PageButton({ onClick, disabled, label, children }: PageButtonProps) {
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-surface text-ink/70 ring-1 ring-black/5 transition hover:bg-ink/5 hover:text-ink disabled:opacity-40 disabled:hover:bg-surface disabled:hover:text-ink/70"
+      className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-surface text-ink/70 ring-1 ring-ink/5 transition hover:bg-ink/5 hover:text-ink disabled:opacity-40 disabled:hover:bg-surface disabled:hover:text-ink/70"
     >
       {children}
     </button>

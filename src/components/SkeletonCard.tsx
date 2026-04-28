@@ -18,7 +18,7 @@ export function SkeletonGrid({ count = 8 }: SkeletonGridProps) {
 
 function SkeletonCard() {
   return (
-    <article className="flex animate-pulse flex-col overflow-hidden rounded-3xl bg-surface/70 ring-1 ring-black/5 shadow-soft">
+    <article className="flex animate-pulse flex-col overflow-hidden rounded-3xl bg-surface/70 ring-1 ring-ink/5 shadow-soft">
       <div className="h-44 bg-ink/[0.05]" />
       <div className="flex flex-1 flex-col gap-3 p-5">
         <div className="flex items-baseline justify-between gap-3">
