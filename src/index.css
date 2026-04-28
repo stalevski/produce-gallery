@@ -43,7 +43,14 @@
   color-scheme: dark;
   --c-cream: 22 19 16;
   --c-ink: 244 238 224;
-  --c-surface: 42 38 33;
+  /* Surface is the card colour. Previous value (42 38 33) was only ~20 RGB
+     units brighter than --c-cream, which sounds like enough elevation -- but
+     the warm radial gradients on the page ramp the background's effective
+     brightness up to nearly the surface value in the regions they cover, so
+     cards visually disappear into their own backdrop wherever the gradients
+     hit. Bumped to 56 50 44 so the card stays clearly elevated even on top
+     of the brightest gradient pixels. */
+  --c-surface: 56 50 44;
   --c-shadow: 0 0 0;
   --bg-tint-1: 90 50 18;
   --bg-tint-1-alpha: 0.35;
