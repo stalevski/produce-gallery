@@ -171,13 +171,19 @@ export function DetailView({
               className="h-full w-full object-cover"
             />
           ) : (
-            // key={item.id} so navigating to a related item re-triggers the
-            // entrance animation instead of silently swapping characters.
-            <span
-              key={item.id}
-              className="animate-emoji-pop text-[8rem] leading-none drop-shadow-sm transition-transform duration-300 ease-out group-hover:scale-[1.08] group-hover:-rotate-[4deg]"
-            >
-              {item.emoji ?? "\u{1F33F}"}
+            // Three composed motions on the emoji, separated by element so
+            // they don't fight over `transform`:
+            //   - outer span: continuous gentle float + tilt (idle)
+            //   - inner span: one-shot entrance pop, plus hover scale/tilt
+            // key={item.id} on the inner span so navigating to a related
+            // item via the in-modal links re-fires the entrance.
+            <span className="inline-block animate-emoji-float">
+              <span
+                key={item.id}
+                className="block animate-emoji-pop text-[8rem] leading-none drop-shadow-sm transition-transform duration-300 ease-out group-hover:scale-[1.08] group-hover:-rotate-[4deg]"
+              >
+                {item.emoji ?? "\u{1F33F}"}
+              </span>
             </span>
           )}
           {item.imageAttribution && showImage && (

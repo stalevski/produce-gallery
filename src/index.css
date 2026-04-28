@@ -135,7 +135,33 @@ body {
 }
 
 .animate-emoji-pop {
-  animation: emojiPop 600ms cubic-bezier(0.34, 1.2, 0.64, 1) both;
+  /* fill-mode: backwards so the 0% state is shown immediately on mount
+     (no flash of the natural full-size emoji before the animation starts)
+     but the final state is *not* held -- otherwise the animation would
+     keep ownership of `transform` and the hover transition wouldn't be
+     able to override it. */
+  animation: emojiPop 600ms cubic-bezier(0.34, 1.2, 0.64, 1) backwards;
+}
+
+/* Idle float for the detail-view emoji. Slow organic bob + tiny tilt, like
+   a fruit on a vine in a soft breeze. Starts after the pop entrance has
+   finished (delay matches the 600ms pop duration), then loops infinitely.
+   Lives on a *wrapper* element rather than the emoji span itself so it can
+   compose cleanly with the entrance animation (inner span) and the hover
+   transform (also inner span) without three rules fighting over the same
+   `transform` property. */
+@keyframes emojiFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1.5deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(1.5deg);
+  }
+}
+
+.animate-emoji-float {
+  animation: emojiFloat 3.5s ease-in-out 0.6s infinite;
 }
 
 /* Honor the OS-level "reduce motion" preference for users who get distracted
