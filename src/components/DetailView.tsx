@@ -139,7 +139,7 @@ export function DetailView({
       <div
         onClick={(e) => e.stopPropagation()}
         className={
-          "relative w-full max-w-3xl overflow-hidden rounded-3xl bg-surface shadow-2xl ring-1 ring-ink/5 " +
+          "relative w-full max-w-3xl overflow-hidden rounded-3xl bg-surface shadow-2xl ring-1 ring-black/5 " +
           "transition duration-200 ease-out " +
           (show
             ? "opacity-100 scale-100 translate-y-0"
@@ -150,7 +150,7 @@ export function DetailView({
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-4 top-4 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-surface/85 text-ink/60 ring-1 ring-ink/5 backdrop-blur-sm transition hover:bg-surface hover:text-ink"
+          className="absolute right-4 top-4 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-surface/85 text-ink/60 ring-1 ring-black/5 backdrop-blur-sm transition hover:bg-surface hover:text-ink"
         >
           <X className="h-4 w-4" />
         </button>

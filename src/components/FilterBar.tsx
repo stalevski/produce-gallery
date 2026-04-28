@@ -83,7 +83,7 @@ export const FilterBar = forwardRef<HTMLInputElement, FilterBarProps>(function F
   searchInputRef
 ) {
   return (
-    <div className="flex flex-col gap-5 rounded-3xl bg-surface/60 p-5 ring-1 ring-ink/5 backdrop-blur-sm shadow-soft">
+    <div className="flex flex-col gap-5 rounded-3xl bg-surface/60 p-5 ring-1 ring-black/5 backdrop-blur-sm shadow-soft">
       <div className="relative">
         <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/40" />
         <input
@@ -92,7 +92,7 @@ export const FilterBar = forwardRef<HTMLInputElement, FilterBarProps>(function F
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
           placeholder="Search produce, origin, or description...   (press / to focus)"
-          className="w-full rounded-2xl border-0 bg-surface py-3 pl-11 pr-10 text-sm text-ink placeholder:text-ink/40 ring-1 ring-ink/5 outline-none transition focus:ring-2 focus:ring-ink/30"
+          className="w-full rounded-2xl border-0 bg-surface py-3 pl-11 pr-10 text-sm text-ink placeholder:text-ink/40 ring-1 ring-black/5 outline-none transition focus:ring-2 focus:ring-ink/30"
         />
         {query && (
           <button
@@ -137,7 +137,7 @@ export const FilterBar = forwardRef<HTMLInputElement, FilterBarProps>(function F
                   "rounded-full px-3.5 py-1.5 text-sm font-medium transition " +
                   (active
                     ? "bg-ink text-cream shadow-soft"
-                    : "bg-surface text-ink/70 ring-1 ring-ink/5 hover:bg-ink/5")
+                    : "bg-surface text-ink/70 ring-1 ring-black/5 hover:bg-ink/5")
                 }
               >
                 {c.label}
@@ -154,7 +154,7 @@ export const FilterBar = forwardRef<HTMLInputElement, FilterBarProps>(function F
                 "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition " +
                 (requireImage
                   ? "bg-ink text-cream shadow-soft"
-                  : "bg-surface text-ink/70 ring-1 ring-ink/5 hover:bg-ink/5")
+                  : "bg-surface text-ink/70 ring-1 ring-black/5 hover:bg-ink/5")
               }
             >
               <ImageIcon className="h-3.5 w-3.5" />
@@ -172,7 +172,7 @@ export const FilterBar = forwardRef<HTMLInputElement, FilterBarProps>(function F
               <select
                 value={season}
                 onChange={(e) => onSeasonChange(e.target.value as SeasonFilter)}
-                className="rounded-full bg-surface px-3.5 py-1.5 text-sm font-medium text-ink/80 ring-1 ring-ink/5 outline-none transition focus:ring-2 focus:ring-ink/30"
+                className="rounded-full bg-surface px-3.5 py-1.5 text-sm font-medium text-ink/80 ring-1 ring-black/5 outline-none transition focus:ring-2 focus:ring-ink/30"
               >
                 {SEASONS.map((s) => (
                   <option key={s.value} value={s.value}>
@@ -189,7 +189,7 @@ export const FilterBar = forwardRef<HTMLInputElement, FilterBarProps>(function F
             <select
               value={sort}
               onChange={(e) => onSortChange(e.target.value as SortKey)}
-              className="rounded-full bg-surface px-3.5 py-1.5 text-sm font-medium text-ink/80 ring-1 ring-ink/5 outline-none transition focus:ring-2 focus:ring-ink/30"
+              className="rounded-full bg-surface px-3.5 py-1.5 text-sm font-medium text-ink/80 ring-1 ring-black/5 outline-none transition focus:ring-2 focus:ring-ink/30"
             >
               {SORTS.map((s) => (
                 <option key={s.value} value={s.value}>
@@ -215,7 +215,7 @@ export const FilterBar = forwardRef<HTMLInputElement, FilterBarProps>(function F
                   "rounded-full px-3 py-1 text-xs font-medium transition " +
                   (activeColor === null
                     ? "bg-ink text-cream"
-                    : "bg-surface text-ink/70 ring-1 ring-ink/5 hover:bg-ink/5")
+                    : "bg-surface text-ink/70 ring-1 ring-black/5 hover:bg-ink/5")
                 }
               >
                 Any
@@ -231,7 +231,7 @@ export const FilterBar = forwardRef<HTMLInputElement, FilterBarProps>(function F
                       "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium transition " +
                       (active
                         ? "bg-ink text-cream"
-                        : "bg-surface text-ink/70 ring-1 ring-ink/5 hover:bg-ink/5")
+                        : "bg-surface text-ink/70 ring-1 ring-black/5 hover:bg-ink/5")
                     }
                   >
                     <span
@@ -253,7 +253,7 @@ export const FilterBar = forwardRef<HTMLInputElement, FilterBarProps>(function F
             <button
               type="button"
               onClick={onResetAll}
-              className="inline-flex items-center gap-1 rounded-full bg-surface px-2.5 py-1 text-[11px] font-medium text-ink/70 ring-1 ring-ink/5 transition hover:bg-ink/5 hover:text-ink"
+              className="inline-flex items-center gap-1 rounded-full bg-surface px-2.5 py-1 text-[11px] font-medium text-ink/70 ring-1 ring-black/5 transition hover:bg-ink/5 hover:text-ink"
             >
               <RotateCcw className="h-3 w-3" /> Reset
             </button>

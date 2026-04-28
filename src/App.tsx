@@ -377,7 +377,7 @@ export default function App() {
 
         {showLoading && (
           <>
-            <div className="mb-8 flex items-center gap-3 rounded-3xl bg-surface/60 p-5 ring-1 ring-ink/5 backdrop-blur-sm">
+            <div className="mb-8 flex items-center gap-3 rounded-3xl bg-surface/60 p-5 ring-1 ring-black/5 backdrop-blur-sm">
               <Loader2 className="h-5 w-5 animate-spin text-ink/60" />
               <div className="flex flex-col">
                 <span className="text-sm font-medium text-ink">
@@ -397,7 +397,7 @@ export default function App() {
         )}
 
         {showError && (
-          <div className="mb-8 flex flex-col gap-3 rounded-3xl bg-surface/60 p-5 ring-1 ring-ink/5 backdrop-blur-sm sm:flex-row sm:items-center">
+          <div className="mb-8 flex flex-col gap-3 rounded-3xl bg-surface/60 p-5 ring-1 ring-black/5 backdrop-blur-sm sm:flex-row sm:items-center">
             <AlertTriangle className="h-5 w-5 shrink-0 text-amber-600" />
             <div className="flex-1">
               <p className="text-sm font-medium text-ink">
@@ -420,7 +420,7 @@ export default function App() {
                   <button
                     type="button"
                     onClick={() => setSource("snapshot")}
-                    className="rounded-full bg-surface px-3.5 py-1.5 text-xs font-medium text-ink/70 ring-1 ring-ink/5 transition hover:bg-ink/5"
+                    className="rounded-full bg-surface px-3.5 py-1.5 text-xs font-medium text-ink/70 ring-1 ring-black/5 transition hover:bg-ink/5"
                   >
                     Use snapshot
                   </button>
@@ -429,7 +429,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setSource("curated")}
-                className="rounded-full bg-surface px-3.5 py-1.5 text-xs font-medium text-ink/70 ring-1 ring-ink/5 transition hover:bg-ink/5"
+                className="rounded-full bg-surface px-3.5 py-1.5 text-xs font-medium text-ink/70 ring-1 ring-black/5 transition hover:bg-ink/5"
               >
                 Use curated
               </button>
@@ -497,7 +497,7 @@ export default function App() {
                 </div>
               </>
             ) : (
-              <div className="flex flex-col items-center justify-center gap-3 rounded-3xl bg-surface/60 px-6 py-20 text-center ring-1 ring-ink/5 backdrop-blur-sm">
+              <div className="flex flex-col items-center justify-center gap-3 rounded-3xl bg-surface/60 px-6 py-20 text-center ring-1 ring-black/5 backdrop-blur-sm">
                 <EmptyIllustration />
                 <h2 className="font-display text-2xl text-ink">Nothing in season</h2>
                 <p className="max-w-sm text-sm text-ink/60">
@@ -519,7 +519,7 @@ export default function App() {
                 <button
                   type="button"
                   onClick={refresh}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-surface px-3.5 py-1.5 text-xs font-medium text-ink/60 ring-1 ring-ink/5 transition hover:bg-ink/5 hover:text-ink"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-surface px-3.5 py-1.5 text-xs font-medium text-ink/60 ring-1 ring-black/5 transition hover:bg-ink/5 hover:text-ink"
                 >
                   <RefreshCw className="h-3.5 w-3.5" /> Refresh from Wikidata
                 </button>
@@ -568,7 +568,7 @@ function ThemeToggle({ theme, onChange }: ThemeToggleProps) {
       onClick={() => onChange(next)}
       aria-label={`Switch to ${next} mode`}
       title={`Switch to ${next} mode`}
-      className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-surface text-ink/70 shadow-soft ring-1 ring-ink/5 transition hover:bg-ink/5 hover:text-ink"
+      className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-surface text-ink/70 shadow-soft ring-1 ring-black/5 transition hover:bg-ink/5 hover:text-ink"
     >
       {theme === "dark" ? (
         <Sun className="h-3.5 w-3.5" />
@@ -584,7 +584,7 @@ function SourceToggle({ source, onChange }: SourceToggleProps) {
     "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition " +
     (active ? "bg-ink text-cream" : "text-ink/60 hover:text-ink");
   return (
-    <div className="inline-flex rounded-full bg-surface p-1 shadow-soft ring-1 ring-ink/5">
+    <div className="inline-flex rounded-full bg-surface p-1 shadow-soft ring-1 ring-black/5">
       <button
         type="button"
         onClick={() => onChange("curated")}
