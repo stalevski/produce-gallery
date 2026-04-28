@@ -25,6 +25,7 @@ const CATEGORY_EMOJI: Record<Category, string> = {
   mushroom: "\u{1F344}",
   legume: "\u{1FAD8}",
   grain: "\u{1F33E}",
+  seed: "\u{1F330}",
 };
 
 const CATEGORY_DEFAULT_HEX: Record<Category, string> = {
@@ -36,6 +37,7 @@ const CATEGORY_DEFAULT_HEX: Record<Category, string> = {
   mushroom: "#A89171",
   legume: "#7C8E47",
   grain: "#D4A95A",
+  seed: "#C8A37B",
 };
 
 export function ProduceCard({ item, onClick, query }: ProduceCardProps) {

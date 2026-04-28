@@ -18,6 +18,7 @@ const CATEGORY_DEFAULT_COLOR: Record<Category, { name: string; hex: string }> = 
   mushroom: { name: "Beige", hex: "#A89171" },
   legume: { name: "Olive", hex: "#7C8E47" },
   grain: { name: "Wheat", hex: "#D4A95A" },
+  seed: { name: "Tan", hex: "#C8A37B" },
 };
 
 const GENERIC_LABELS = new Set([
@@ -39,6 +40,10 @@ const GENERIC_LABELS = new Set([
   "grain",
   "cereal",
   "edible seed",
+  "seed",
+  "oilseed",
+  "oil seed",
+  "pip",
 ]);
 
 interface SparqlBinding {
@@ -154,7 +159,7 @@ export async function fetchAllProduce(signal?: AbortSignal): Promise<ProduceItem
   return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
 }
 
-const CACHE_KEY = "produce-gallery:wikidata:v5";
+const CACHE_KEY = "produce-gallery:wikidata:v6";
 const CACHE_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 
 export function loadFromCache(): ProduceItem[] | null {

@@ -26,6 +26,7 @@ const CATEGORY_LABEL: Record<Category, string> = {
   mushroom: "Mushroom",
   legume: "Legume",
   grain: "Grain",
+  seed: "Seed",
 };
 
 const CATEGORY_DEFAULT_HEX: Record<Category, string> = {
@@ -37,6 +38,7 @@ const CATEGORY_DEFAULT_HEX: Record<Category, string> = {
   mushroom: "#A89171",
   legume: "#7C8E47",
   grain: "#D4A95A",
+  seed: "#C8A37B",
 };
 
 export function DetailView({ item, onClose, onSelectId, itemsById }: DetailViewProps) {

@@ -36,6 +36,7 @@ const CATEGORIES: { value: CategoryFilter; label: string }[] = [
   { value: "herb", label: "Herbs" },
   { value: "spice", label: "Spices" },
   { value: "nut", label: "Nuts" },
+  { value: "seed", label: "Seeds" },
   { value: "mushroom", label: "Mushrooms" },
   { value: "legume", label: "Legumes" },
   { value: "grain", label: "Grains" },
@@ -109,11 +110,29 @@ export const FilterBar = forwardRef<HTMLInputElement, FilterBarProps>(function F
         <div className="flex flex-wrap items-center gap-2">
           {CATEGORIES.map((c) => {
             const active = c.value === category;
+            // Clicking the active non-"all" chip clears it back to "all", so
+            // category chips behave like the color chips and the has-photo
+            // toggle: a single click both selects and deselects.
+            const handleClick = () => {
+              if (active && c.value !== "all") {
+                onCategoryChange("all");
+              } else {
+                onCategoryChange(c.value);
+              }
+            };
             return (
               <button
                 key={c.value}
                 type="button"
-                onClick={() => onCategoryChange(c.value)}
+                onClick={handleClick}
+                aria-pressed={active}
+                title={
+                  active && c.value !== "all"
+                    ? `Clear ${c.label.toLowerCase()} filter`
+                    : c.value === "all"
+                      ? "Show all categories"
+                      : `Filter by ${c.label.toLowerCase()}`
+                }
                 className={
                   "rounded-full px-3.5 py-1.5 text-sm font-medium transition " +
                   (active

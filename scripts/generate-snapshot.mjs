@@ -34,6 +34,7 @@ const CATEGORY_DEFAULT_COLOR = {
   mushroom: { name: "Beige", hex: "#A89171" },
   legume: { name: "Olive", hex: "#7C8E47" },
   grain: { name: "Wheat", hex: "#D4A95A" },
+  seed: { name: "Tan", hex: "#C8A37B" },
 };
 
 const GENERIC_LABELS = new Set([
@@ -55,6 +56,10 @@ const GENERIC_LABELS = new Set([
   "grain",
   "cereal",
   "edible seed",
+  "seed",
+  "oilseed",
+  "oil seed",
+  "pip",
 ]);
 
 function buildQuery(qid) {

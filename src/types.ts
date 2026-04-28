@@ -6,7 +6,8 @@ export type Category =
   | "nut"
   | "mushroom"
   | "legume"
-  | "grain";
+  | "grain"
+  | "seed";
 
 export type Season = "spring" | "summer" | "autumn" | "winter";
 

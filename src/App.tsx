@@ -329,6 +329,20 @@ export default function App() {
     setRequireImage(false);
   };
 
+  // Reset everything that represents "where you are in the gallery": filters,
+  // search, page, and the open detail modal. The user's *preferences*
+  // (theme, data source) intentionally survive a click on the header logo --
+  // those are the way they like to use the app, not transient view state.
+  const goHome = () => {
+    resetFilters();
+    setSort("name-asc");
+    setPage(0);
+    setSelectedId(null);
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
   const hasActiveFilters =
     !!query ||
     category !== "all" ||
@@ -349,12 +363,18 @@ export default function App() {
       <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14">
         <header className="mb-10 flex flex-col gap-6 sm:mb-14">
           <div className="flex items-center justify-between gap-4 text-ink/60">
-            <div className="flex items-center gap-2">
-              <Leaf className="h-4 w-4" />
+            <button
+              type="button"
+              onClick={goHome}
+              aria-label="Return to the gallery home (clears filters and search)"
+              title="Clear filters and return to the top"
+              className="group inline-flex items-center gap-2 rounded-full px-2 py-1 -ml-2 text-ink/60 transition hover:text-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-ink/30"
+            >
+              <Leaf className="h-4 w-4 transition group-hover:rotate-12" />
               <span className="text-xs uppercase tracking-[0.2em]">
                 The Produce Gallery
               </span>
-            </div>
+            </button>
             <div className="flex items-center gap-2">
               <ThemeToggle theme={theme} onChange={setTheme} />
               <SourceToggle source={source} onChange={setSource} />
