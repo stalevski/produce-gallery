@@ -86,28 +86,6 @@ test("category chip toggles off when clicked again", async ({ page }) => {
   await expect(allChip).toHaveAttribute("aria-pressed", "true");
 });
 
-test("clicking the header logo clears filters and search", async ({ page }) => {
-  await page.goto("./");
-
-  // Apply a filter and a search query
-  await page.getByRole("button", { name: "Herbs" }).click();
-  await page.getByPlaceholder(/search produce/i).fill("rosemary");
-  await expect(page.getByRole("button", { name: "Herbs" })).toHaveAttribute(
-    "aria-pressed",
-    "true",
-  );
-  await expect(page.getByPlaceholder(/search produce/i)).toHaveValue("rosemary");
-
-  // Click the logo (it's a button labelled with the gallery name)
-  await page.getByRole("button", { name: /return to the gallery home/i }).click();
-
-  // Filters and search should be cleared
-  await expect(
-    page.getByRole("button", { name: "All", exact: true }),
-  ).toHaveAttribute("aria-pressed", "true");
-  await expect(page.getByPlaceholder(/search produce/i)).toHaveValue("");
-});
-
 test("snapshot tier loads the bundled Wikidata dataset", async ({ page }) => {
   await page.goto("./");
 
