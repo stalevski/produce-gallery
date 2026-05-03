@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BookOpen, ExternalLink, Loader2, Sparkles, X } from "lucide-react";
 import type { Category, ProduceItem } from "../types";
+import { CATEGORY_DEFAULT_HEX, CATEGORY_EMOJI } from "../data/category-defaults";
 import { fetchWikipediaSummary } from "../services/wikipedia";
 
 interface DetailViewProps {
@@ -27,18 +28,6 @@ const CATEGORY_LABEL: Record<Category, string> = {
   legume: "Legume",
   grain: "Grain",
   seed: "Seed",
-};
-
-const CATEGORY_DEFAULT_HEX: Record<Category, string> = {
-  fruit: "#D7263D",
-  vegetable: "#4F7F3F",
-  herb: "#6B8E23",
-  spice: "#B7410E",
-  nut: "#8B5A2B",
-  mushroom: "#A89171",
-  legume: "#7C8E47",
-  grain: "#D4A95A",
-  seed: "#C8A37B",
 };
 
 // Duration of the open/close transition. Kept short -- a modal that takes
@@ -186,7 +175,7 @@ export function DetailView({
                 key={item.id}
                 className="block animate-emoji-pop text-[8rem] leading-none drop-shadow-sm transition-transform duration-300 ease-out group-hover:scale-[1.08] group-hover:-rotate-[4deg]"
               >
-                {item.emoji ?? "\u{1F33F}"}
+                {item.emoji ?? CATEGORY_EMOJI[item.category]}
               </span>
             </span>
           )}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Sparkles, ExternalLink } from "lucide-react";
-import type { Category, ProduceItem } from "../types";
+import type { ProduceItem } from "../types";
+import { CATEGORY_DEFAULT_HEX, CATEGORY_EMOJI } from "../data/category-defaults";
 import { HighlightedText } from "./HighlightedText";
 
 interface ProduceCardProps {
@@ -14,30 +15,6 @@ const SEASON_LABEL: Record<string, string> = {
   summer: "Summer",
   autumn: "Autumn",
   winter: "Winter",
-};
-
-const CATEGORY_EMOJI: Record<Category, string> = {
-  fruit: "\u{1F34E}",
-  vegetable: "\u{1F96C}",
-  herb: "\u{1F33F}",
-  spice: "\u{1F336}",
-  nut: "\u{1F95C}",
-  mushroom: "\u{1F344}",
-  legume: "\u{1FAD8}",
-  grain: "\u{1F33E}",
-  seed: "\u{1F330}",
-};
-
-const CATEGORY_DEFAULT_HEX: Record<Category, string> = {
-  fruit: "#D7263D",
-  vegetable: "#4F7F3F",
-  herb: "#6B8E23",
-  spice: "#B7410E",
-  nut: "#8B5A2B",
-  mushroom: "#A89171",
-  legume: "#7C8E47",
-  grain: "#D4A95A",
-  seed: "#C8A37B",
 };
 
 export function ProduceCard({ item, onClick, query }: ProduceCardProps) {

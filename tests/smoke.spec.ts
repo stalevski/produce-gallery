@@ -86,6 +86,54 @@ test("category chip toggles off when clicked again", async ({ page }) => {
   await expect(allChip).toHaveAttribute("aria-pressed", "true");
 });
 
+test("modal emoji matches card emoji for items without item.emoji set", async ({
+  page,
+}) => {
+  // Regression test for the pre-2026-05 bug where snapshot/live items with
+  // no item.emoji rendered the category emoji on the card (e.g. 🌶 for
+  // spice via CATEGORY_EMOJI in ProduceCard) but a hardcoded herb-leaf 🌿
+  // in the modal. Both now read from src/data/category-defaults.ts so they
+  // can never disagree again.
+  await page.goto("./");
+
+  // Snapshot tier maximises the chance of finding items where item.emoji
+  // is undefined (curated entries all set their own emoji).
+  await page.getByRole("button", { name: "Snapshot" }).click();
+  await expect(
+    page.getByRole("button", { name: /^View details for / }).first(),
+  ).toBeVisible({ timeout: 10_000 });
+
+  // Filter to spices; the spice category emoji 🌶 differs from the legacy
+  // hardcoded modal fallback 🌿, so any divergence here is loud.
+  await page.getByRole("button", { name: "Spices", exact: true }).click();
+
+  // Pick the first spice card that's rendering an emoji (no Wikipedia
+  // image). Tailwind's arbitrary-value class `text-[6.5rem]` is what
+  // ProduceCard uses for the big fallback emoji span.
+  const cardWithEmoji = page
+    .locator('article[role="button"]')
+    .filter({ has: page.locator('span[aria-hidden="true"][class*="6.5rem"]') })
+    .first();
+  await expect(cardWithEmoji).toBeVisible();
+
+  const cardEmoji = (
+    await cardWithEmoji
+      .locator('span[aria-hidden="true"][class*="6.5rem"]')
+      .innerText()
+  ).trim();
+  expect(cardEmoji).toBeTruthy();
+
+  await cardWithEmoji.click();
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+
+  // Modal emoji span carries the .animate-emoji-pop class.
+  const modalEmoji = (
+    await dialog.locator(".animate-emoji-pop").innerText()
+  ).trim();
+  expect(modalEmoji).toBe(cardEmoji);
+});
+
 test("snapshot tier loads the bundled Wikidata dataset", async ({ page }) => {
   await page.goto("./");
 

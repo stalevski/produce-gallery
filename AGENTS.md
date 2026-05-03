@@ -54,11 +54,21 @@ Touching one of these without touching its consumers is how bugs creep in.
 
 - **`src/data/category-qids.json`** — every consumer of category QIDs
   (snapshot generator, live SPARQL client) imports from here. Do **not**
-  hardcode QIDs anywhere else. If you add a category here, you must also
-  extend `Category` in `src/types.ts`, the three category maps in
-  `DetailView.tsx`, the emoji and default-hex maps in `ProduceCard.tsx`,
-  the chips in `FilterBar.tsx`, and the default colour in `wikidata.ts`.
-  TypeScript will tell you which files break (use `Record<Category, X>`).
+  hardcode QIDs anywhere else.
+
+- **`src/data/category-defaults.ts`** — `CATEGORY_EMOJI` and
+  `CATEGORY_DEFAULT_HEX`, both consumed by `ProduceCard` *and*
+  `DetailView`. Pre-2026-05 these were duplicated in both files and
+  drifted apart (the modal had a hardcoded herb-leaf 🌿 fallback
+  regardless of category, so spice items showed 🌶 on the card but 🌿
+  in the modal). Single source of truth eliminates that bug class.
+
+- **Adding a new category** — extend `Category` in `src/types.ts`,
+  `category-qids.json`, `category-defaults.ts`, the `CATEGORY_LABEL`
+  map in `DetailView.tsx`, the chips in `FilterBar.tsx`, and the
+  default colour in `wikidata.ts`. TypeScript will fail to compile
+  until each `Record<Category, X>` map has the new key, which makes the
+  list discoverable.
 
 - **Wikidata cache key** — `src/services/wikidata.ts` keys localStorage by
   a versioned string (currently `v6`). **Bump the version any time the
