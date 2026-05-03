@@ -2,6 +2,14 @@
   "name": "produce-gallery",
   "private": true,
   "version": "0.1.0",
+  "description": "A small library of growing things \u2014 fruits, vegetables, herbs, spices, nuts, mushrooms, legumes, grains, and seeds. Curated, frozen Wikidata snapshot, or live SPARQL.",
+  "license": "UNLICENSED",
+  "author": "stalevski",
+  "homepage": "https://stalevski.github.io/produce-gallery/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stalevski/produce-gallery.git"
+  },
   "type": "module",
   "engines": {
     "node": ">=20"
