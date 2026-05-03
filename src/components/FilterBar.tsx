@@ -91,7 +91,8 @@ export const FilterBar = forwardRef<HTMLInputElement, FilterBarProps>(function F
           type="text"
           value={query}
           onChange={(e) => onQueryChange(e.target.value)}
-          placeholder="Search produce, origin, or description...   (press / to focus)"
+          placeholder="Search produce, origin..."
+          title="Search by name, color, origin, or description. Press / to focus."
           className="w-full rounded-2xl border-0 bg-surface py-3 pl-11 pr-10 text-sm text-ink placeholder:text-ink/40 ring-1 ring-ink/5 outline-none transition focus:ring-2 focus:ring-ink/30"
         />
         {query && (

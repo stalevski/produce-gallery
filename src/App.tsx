@@ -349,9 +349,9 @@ export default function App() {
       <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-14">
         <header className="mb-10 flex flex-col gap-6 sm:mb-14">
           <div className="flex items-center justify-between gap-4 text-ink/60">
-            <div className="flex items-center gap-2">
-              <Leaf className="h-4 w-4" />
-              <span className="text-xs uppercase tracking-[0.2em]">
+            <div className="flex min-w-0 items-center gap-2">
+              <Leaf className="h-4 w-4 shrink-0" aria-label="The Produce Gallery" />
+              <span className="hidden truncate text-xs uppercase tracking-[0.2em] sm:inline">
                 The Produce Gallery
               </span>
             </div>
@@ -361,7 +361,7 @@ export default function App() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl">
               A small library
               <br />
@@ -590,27 +590,30 @@ function SourceToggle({ source, onChange }: SourceToggleProps) {
         onClick={() => onChange("curated")}
         className={tabClass(source === "curated")}
         title="Hand-curated dataset (105 items)"
+        aria-label="Curated dataset"
       >
         <Sprout className="h-3.5 w-3.5" />
-        Curated
+        <span className="hidden sm:inline">Curated</span>
       </button>
       <button
         type="button"
         onClick={() => onChange("snapshot")}
         className={tabClass(source === "snapshot")}
         title="Frozen Wikidata snapshot bundled with the app"
+        aria-label="Snapshot dataset"
       >
         <Archive className="h-3.5 w-3.5" />
-        Snapshot
+        <span className="hidden sm:inline">Snapshot</span>
       </button>
       <button
         type="button"
         onClick={() => onChange("wikidata")}
         className={tabClass(source === "wikidata")}
         title="Live SPARQL query against the Wikidata endpoint"
+        aria-label="Live Wikidata"
       >
         <Database className="h-3.5 w-3.5" />
-        Live
+        <span className="hidden sm:inline">Live</span>
       </button>
     </div>
   );
