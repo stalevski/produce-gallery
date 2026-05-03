@@ -110,7 +110,10 @@ function PageButton({ onClick, disabled, label, children }: PageButtonProps) {
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
-      className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-surface text-ink/70 ring-1 ring-ink/5 transition hover:bg-ink/5 hover:text-ink disabled:opacity-40 disabled:hover:bg-surface disabled:hover:text-ink/70"
+      // h-9 w-9 (36px) on mobile so the 4 nav buttons are reasonable tap
+      // targets even when packed tightly in a row. sm:h-7 sm:w-7 keeps the
+      // tighter desktop look unchanged.
+      className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-surface text-ink/70 ring-1 ring-ink/5 transition hover:bg-ink/5 hover:text-ink disabled:opacity-40 disabled:hover:bg-surface disabled:hover:text-ink/70 sm:h-7 sm:w-7"
     >
       {children}
     </button>

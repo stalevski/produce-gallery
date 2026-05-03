@@ -150,13 +150,17 @@ export function DetailView({
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-4 top-4 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-surface/85 text-ink/60 ring-1 ring-ink/5 backdrop-blur-sm transition hover:bg-surface hover:text-ink"
+          className="absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-surface/85 text-ink/60 ring-1 ring-ink/5 backdrop-blur-sm transition hover:bg-surface hover:text-ink sm:h-9 sm:w-9"
         >
           <X className="h-4 w-4" />
         </button>
 
         <div
-          className="group relative flex h-72 items-center justify-center overflow-hidden sm:h-80"
+          // max-h:45vh caps the image area to less than half the viewport so
+          // landscape phones don't lose all the modal content below the fold.
+          // On normal portrait phones / tablets / desktop the h-72/sm:h-80
+          // wins because they have plenty of vertical room.
+          className="group relative flex h-72 max-h-[45vh] items-center justify-center overflow-hidden sm:h-80"
           style={{
             background: showImage
               ? "#f5efe4"
@@ -310,7 +314,9 @@ export function DetailView({
             href={wikiUrl}
             target="_blank"
             rel="noreferrer noopener"
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-ink/50 transition hover:text-ink"
+            // -my-2 / py-2 expands the vertical hit area to ~32px on touch
+            // devices without changing the line's effective layout.
+            className="-my-2 inline-flex items-center gap-1.5 py-2 text-xs font-medium text-ink/50 transition hover:text-ink"
           >
             Read on Wikipedia <ExternalLink className="h-3 w-3" />
           </a>

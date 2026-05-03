@@ -580,8 +580,10 @@ function ThemeToggle({ theme, onChange }: ThemeToggleProps) {
 }
 
 function SourceToggle({ source, onChange }: SourceToggleProps) {
+  // py-2.5 on mobile gives the icons-only buttons a ~32px tall hit area;
+  // sm:py-1.5 restores the original compact sizing once the labels appear.
   const tabClass = (active: boolean) =>
-    "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition " +
+    "inline-flex items-center gap-1.5 rounded-full px-3 py-2.5 text-xs font-medium transition sm:py-1.5 " +
     (active ? "bg-ink text-cream" : "text-ink/60 hover:text-ink");
   return (
     <div className="inline-flex rounded-full bg-surface p-1 shadow-soft ring-1 ring-ink/5">
