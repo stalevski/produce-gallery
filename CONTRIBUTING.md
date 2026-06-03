@@ -21,7 +21,7 @@ See the **Project layout** section in the `README.md` for a file-by-file breakdo
 
 ### Adding curated produce
 
-Append to `src/data/produce.ts`. Match the `ProduceItem` shape from `src/types.ts`. The minimum is `id`, `name`, and `category`; everything else is optional but the richer the better. See existing entries for a template.
+Append to `src/data/curated.ts`. Match the `ProduceItem` shape from `src/types.ts`. The minimum is `id`, `name`, and `category`; everything else is optional but the richer the better. See existing entries for a template.
 
 A few rules:
 
@@ -46,9 +46,9 @@ When reporting a bug:
 
 ### Pull requests
 
-- Run `npx tsc -b` before pushing — there's no CI yet, but the project is strict-mode TypeScript and should compile clean.
+- Run `npm run build && npm run lint && npm run test:e2e` before pushing. CI runs the same gate (`.github/workflows/ci.yml`); the project is strict-mode TypeScript and should compile and lint clean.
 - Match existing code style: Tailwind classes inline, no CSS modules, no styled-components. Components stay in `src/components/`. Services in `src/services/`.
-- Keep commits focused and descriptive. The history reads like a changelog — try to keep it that way.
+- Keep commits focused and descriptive. The history reads like a changelog — try to keep it that way, and update `PROGRESS.md` alongside notable work.
 
 ## Code of conduct
 
