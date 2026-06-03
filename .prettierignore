@@ -1,0 +1,7 @@
+dist
+playwright-report
+test-results
+node_modules
+src/data/wikidata-snapshot.json
+package-lock.json
+src/assets/fonts
