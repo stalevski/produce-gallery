@@ -6,6 +6,10 @@ A gallery of fruits, vegetables, herbs, and spices — their colors, seasons, an
 
 Built with **Vite + React + TypeScript + Tailwind CSS**.
 
+> Working on this across devices or with others? See [`PROGRESS.md`](PROGRESS.md)
+> for current focus, backlog, known issues, and the decision log, and
+> [`AGENTS.md`](AGENTS.md) for the operator's manual.
+
 ## Features
 
 - Three data sources, switchable in the header:

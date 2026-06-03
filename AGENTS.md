@@ -1,7 +1,9 @@
 # AGENTS.md
 
 Notes for any future contributor or AI agent picking this codebase up. The
-README is the user-facing pitch; this file is the operator's manual.
+README is the user-facing pitch; this file is the operator's manual; and
+`PROGRESS.md` is the live state board (current focus, backlog, known issues,
+decision log). Update `PROGRESS.md` in the same commit as the work it describes.
 
 ## What this is
 
