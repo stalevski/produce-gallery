@@ -24,14 +24,15 @@ items to the decision log, move not-yet-started ideas to the backlog._
 _Future ideas, roughly ordered by appetite. Pull an item up to "Current focus"
 when you start it._
 
-- **Multi-browser e2e** — Playwright currently runs Chromium only; add Firefox
-  and WebKit projects if broader browser support matters.
-- **Unit tests (Vitest)** — pure logic worth covering: URL state parse/encode in
-  `src/App.tsx`, filter/sort logic, the generic-label filter in
-  `src/services/wikidata.ts`. Would pair with the existing Playwright smoke suite.
 - **Wikidata maintenance runbook** — step-by-step for upstream QID drift (e.g. a
   repeat of the grain/legume rename in `26292ed`): reproduce in the Query
   Service, fix `category-qids.json`, bump the cache key, regenerate the snapshot.
+- **Tailwind 4 migration** — deliberately deferred during the 2026-06-11 LTS
+  upgrade pass (breaking config rewrite: CSS-first `@theme`, new PostCSS
+  plugin). Everything else is current.
+- **Unit tests (Vitest)** — pure logic worth covering: URL state parse/encode in
+  `src/App.tsx`, filter/sort logic, the generic-label filter in
+  `src/services/wikidata.ts`. Would pair with the existing Playwright smoke suite.
 - **Pre-commit hooks (Husky + lint-staged)** — run lint/format on staged files
   once ESLint/Prettier have settled in.
 - **Accessibility pass** — audit focus order, ARIA on the modal, and colour
@@ -48,7 +49,8 @@ _Accepted tradeoffs and rough edges. Many of these are deliberate — see
   `body { overflow: hidden }`, removing the scrollbar and reflowing the page
   wider. `scrollbar-gutter: stable` was tried and reverted because it hurt the
   dark-mode page colour. Deliberate; don't relitigate without checking first.
-- **Chromium-only test coverage.** Firefox/Safari are untested (see backlog).
+- **Chromium-only test coverage.** ~~Firefox/Safari are untested~~ Fixed
+  2026-06-11: Playwright now runs chromium + firefox + webkit projects.
 - **No linter historically** — being addressed via ESLint/Prettier; expect an
   initial cleanup pass as rules bed in.
 - **Live source depends on public Wikidata SPARQL.** Endpoint outages or
@@ -63,6 +65,25 @@ _Accepted tradeoffs and rough edges. Many of these are deliberate — see
 
 _Append-only. Newest first. Record the **why** and the tradeoff, not just the
 what — the git history already has the what. Seeded from recent commits._
+
+- **2026-06-11 (later)** — Fixed the "Live query runs forever, works after refresh"
+  bug. Root cause: all nine SPARQL category queries fired concurrently, but WDQS
+  throttles parallel queries per IP, so surplus queries crawled toward the 60s
+  server timeout while `Promise.allSettled` waited for the slowest; a refresh
+  appeared to fix it only because WDQS had cached the results server-side.
+  `fetchAllProduce` now runs a 3-worker pool and reports progress per category;
+  `App.tsx` streams partial results into the grid as categories land, shows a
+  progress count, and guards every callback against aborted runs (the old
+  `.finally` could clear a newer run's loading flag, and the `wikidataItems`
+  effect dependency would have aborted in-flight work on any partial update —
+  replaced with a run-state ref + refresh tick).
+
+- **2026-06-11** — LTS/latest upgrade pass: React 18 → 19, Vite → latest, TS → 6.0,
+  Playwright → 1.60, Node pin 22 → 24 (`.nvmrc`, `engines`). Added the missing
+  `src/vite-env.d.ts` (TS 6 errors on side-effect CSS imports without it).
+  Added Firefox + WebKit Playwright projects (multi-browser backlog item); CI
+  installs all three browsers. 21 e2e tests pass (7 × 3 browsers). **Tailwind
+  kept at 3.x** — v4 is a breaking config rewrite, tracked in the backlog.
 
 - **2026-06-03** — Added `PROGRESS.md` (this file), a thin
   `.github/copilot-instructions.md` pointing at `AGENTS.md`, and ESLint +

@@ -9,17 +9,18 @@ const ENDPOINT = "https://query.wikidata.org/sparql";
 // file ensures the live fetch and the snapshot generator can never drift apart.
 const CATEGORY_QIDS = CATEGORY_QIDS_DATA as Record<Category, string>;
 
-const CATEGORY_DEFAULT_COLOR: Record<Category, { name: string; hex: string }> = {
-  fruit: { name: "Red", hex: "#D7263D" },
-  vegetable: { name: "Green", hex: "#4F7F3F" },
-  herb: { name: "Green", hex: "#6B8E23" },
-  spice: { name: "Earth", hex: "#B7410E" },
-  nut: { name: "Brown", hex: "#8B5A2B" },
-  mushroom: { name: "Beige", hex: "#A89171" },
-  legume: { name: "Olive", hex: "#7C8E47" },
-  grain: { name: "Wheat", hex: "#D4A95A" },
-  seed: { name: "Tan", hex: "#C8A37B" },
-};
+const CATEGORY_DEFAULT_COLOR: Record<Category, { name: string; hex: string }> =
+  {
+    fruit: { name: "Red", hex: "#D7263D" },
+    vegetable: { name: "Green", hex: "#4F7F3F" },
+    herb: { name: "Green", hex: "#6B8E23" },
+    spice: { name: "Earth", hex: "#B7410E" },
+    nut: { name: "Brown", hex: "#8B5A2B" },
+    mushroom: { name: "Beige", hex: "#A89171" },
+    legume: { name: "Olive", hex: "#7C8E47" },
+    grain: { name: "Wheat", hex: "#D4A95A" },
+    seed: { name: "Tan", hex: "#C8A37B" },
+  };
 
 const GENERIC_LABELS = new Set([
   "fruit",
@@ -90,7 +91,9 @@ LIMIT 800`;
 }
 
 function thumbnailize(url: string, width = 480): string {
-  const https = url.startsWith("http://") ? url.replace("http://", "https://") : url;
+  const https = url.startsWith("http://")
+    ? url.replace("http://", "https://")
+    : url;
   if (https.includes("/Special:FilePath/")) {
     const sep = https.includes("?") ? "&" : "?";
     return `${https}${sep}width=${width}`;
@@ -98,7 +101,10 @@ function thumbnailize(url: string, width = 480): string {
   return https;
 }
 
-async function queryCategory(category: Category, signal?: AbortSignal): Promise<ProduceItem[]> {
+async function queryCategory(
+  category: Category,
+  signal?: AbortSignal,
+): Promise<ProduceItem[]> {
   const qid = CATEGORY_QIDS[category];
   const url = `${ENDPOINT}?format=json&query=${encodeURIComponent(buildQuery(qid))}`;
 
@@ -135,28 +141,56 @@ async function queryCategory(category: Category, signal?: AbortSignal): Promise<
   return items;
 }
 
-export async function fetchAllProduce(signal?: AbortSignal): Promise<ProduceItem[]> {
+export async function fetchAllProduce(
+  signal?: AbortSignal,
+  onProgress?: (items: ProduceItem[], completed: number, total: number) => void,
+): Promise<ProduceItem[]> {
   // Derive the category list from CATEGORY_QIDS so adding a new category in
   // one place automatically extends the live fetch alongside the snapshot.
   const cats = Object.keys(CATEGORY_QIDS) as Category[];
-  const settled = await Promise.allSettled(cats.map((c) => queryCategory(c, signal)));
-
-  const successes = settled
-    .filter((r): r is PromiseFulfilledResult<ProduceItem[]> => r.status === "fulfilled")
-    .flatMap((r) => r.value);
-
-  if (successes.length === 0) {
-    const firstFailure = settled.find(
-      (r): r is PromiseRejectedResult => r.status === "rejected"
-    );
-    throw firstFailure?.reason ?? new Error("Wikidata returned no results");
-  }
 
   const map = new Map<string, ProduceItem>();
-  for (const item of successes) {
-    if (!map.has(item.id)) map.set(item.id, item);
+  const failures: unknown[] = [];
+  let completed = 0;
+
+  const sortedItems = () =>
+    Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
+
+  // WDQS allows only a handful of parallel queries per IP. Firing all nine
+  // categories at once gets the surplus throttled into the slow lane (or 429),
+  // which made the first Live load appear to hang for up to the 60s server
+  // timeout. A small worker pool keeps every query in the fast lane, and
+  // onProgress lets the UI stream results in as each category lands.
+  const CONCURRENCY = 3;
+  let next = 0;
+
+  async function worker(): Promise<void> {
+    while (next < cats.length) {
+      if (signal?.aborted) throw new DOMException("Aborted", "AbortError");
+      const category = cats[next++];
+      try {
+        const items = await queryCategory(category, signal);
+        for (const item of items) {
+          if (!map.has(item.id)) map.set(item.id, item);
+        }
+      } catch (err) {
+        if (err instanceof Error && err.name === "AbortError") throw err;
+        failures.push(err);
+      }
+      completed += 1;
+      onProgress?.(sortedItems(), completed, cats.length);
+    }
   }
-  return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
+
+  await Promise.all(
+    Array.from({ length: Math.min(CONCURRENCY, cats.length) }, () => worker()),
+  );
+
+  if (map.size === 0) {
+    throw failures[0] ?? new Error("Wikidata returned no results");
+  }
+
+  return sortedItems();
 }
 
 const CACHE_KEY = "produce-gallery:wikidata:v6";
@@ -177,10 +211,7 @@ export function loadFromCache(): ProduceItem[] | null {
 
 export function saveToCache(items: ProduceItem[]): void {
   try {
-    localStorage.setItem(
-      CACHE_KEY,
-      JSON.stringify({ ts: Date.now(), items })
-    );
+    localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), items }));
   } catch {
     // ignore quota / privacy mode errors
   }

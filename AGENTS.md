@@ -11,7 +11,7 @@ A small React + TypeScript + Vite + Tailwind site that browses fruits,
 vegetables, herbs, spices, nuts, mushrooms, legumes, grains, and seeds
 across **three data tiers**:
 
-1. **Curated** — 105 hand-written entries in `src/data/curated.ts`.
+1. **Curated** — 114 hand-written entries in `src/data/curated.ts`.
 2. **Snapshot** — ~1,870 items frozen from Wikidata into
    `src/data/wikidata-snapshot.json`. Bundled with the app.
 3. **Live** — fetched from Wikidata SPARQL on demand, with localStorage
@@ -36,19 +36,19 @@ The smoke tests are fast (~15s) and have caught real regressions every time.
 
 ## Source layout
 
-| Path | Purpose |
-|---|---|
-| `src/App.tsx` | Top-level layout, source/theme toggles, filter state |
-| `src/components/` | `ProduceCard`, `FilterBar`, `Pagination`, `DetailView`, `SkeletonCard`, `HighlightedText` |
-| `src/services/wikidata.ts` | Live SPARQL client, cache key, generic-label filtering |
-| `src/services/wikipedia.ts` | REST summary fetch for the modal |
-| `src/data/curated.ts` | The hand-written dataset (formerly `produce.ts`) |
-| `src/data/wikidata-snapshot.json` | Frozen Wikidata bundle |
-| `src/data/category-qids.json` | **Single source of truth** for category → QID |
-| `src/types.ts` | `Category`, `Source`, `ProduceItem` |
-| `src/index.css` | CSS variables, fonts, gradient on `html`, motion keyframes |
-| `tailwind.config.js` | Class-based dark mode, palette via CSS variables |
-| `scripts/generate-snapshot.mjs` | Snapshot generator (run via `npm run snapshot`) |
+| Path                              | Purpose                                                                                   |
+| --------------------------------- | ----------------------------------------------------------------------------------------- |
+| `src/App.tsx`                     | Top-level layout, source/theme toggles, filter state                                      |
+| `src/components/`                 | `ProduceCard`, `FilterBar`, `Pagination`, `DetailView`, `SkeletonCard`, `HighlightedText` |
+| `src/services/wikidata.ts`        | Live SPARQL client, cache key, generic-label filtering                                    |
+| `src/services/wikipedia.ts`       | REST summary fetch for the modal                                                          |
+| `src/data/curated.ts`             | The hand-written dataset (formerly `produce.ts`)                                          |
+| `src/data/wikidata-snapshot.json` | Frozen Wikidata bundle                                                                    |
+| `src/data/category-qids.json`     | **Single source of truth** for category → QID                                             |
+| `src/types.ts`                    | `Category`, `Source`, `ProduceItem`                                                       |
+| `src/index.css`                   | CSS variables, fonts, gradient on `html`, motion keyframes                                |
+| `tailwind.config.js`              | Class-based dark mode, palette via CSS variables                                          |
+| `scripts/generate-snapshot.mjs`   | Snapshot generator (run via `npm run snapshot`)                                           |
 
 ## Single source of truth files
 
@@ -59,7 +59,7 @@ Touching one of these without touching its consumers is how bugs creep in.
   hardcode QIDs anywhere else.
 
 - **`src/data/category-defaults.ts`** — `CATEGORY_EMOJI` and
-  `CATEGORY_DEFAULT_HEX`, both consumed by `ProduceCard` *and*
+  `CATEGORY_DEFAULT_HEX`, both consumed by `ProduceCard` _and_
   `DetailView`. Pre-2026-05 these were duplicated in both files and
   drifted apart (the modal had a hardcoded herb-leaf 🌿 fallback
   regardless of category, so spice items showed 🌶 on the card but 🌿
@@ -84,7 +84,7 @@ Touching one of these without touching its consumers is how bugs creep in.
 ## Style conventions that have already burned us
 
 - **`ring-ink/X` flips with theme.** `ink` is light in dark mode, so the
-  same ring becomes a faint white line. Use `ring-ink/X` when you *want*
+  same ring becomes a faint white line. Use `ring-ink/X` when you _want_
   the ring to flip (focus rings); use `ring-black/X` only when you want
   it dark in both modes. The static card rings are intentionally
   `ring-ink/5` — Stefan revisited and chose to keep the subtle dark-mode
@@ -124,7 +124,7 @@ Touching one of these without touching its consumers is how bugs creep in.
   any new motion under that media query (Chrome devtools → Rendering →
   Emulate CSS prefers-reduced-motion).
 
-- **Theme initialization runs inline in `index.html` *before* React
+- **Theme initialization runs inline in `index.html` _before_ React
   mounts**, otherwise users on dark preference get a flash of light
   mode. Don't move the theme bootstrap into the React tree.
 
@@ -141,7 +141,7 @@ Touching one of these without touching its consumers is how bugs creep in.
   Reviewers can see the diff.
 - On Windows PowerShell, multi-line `-m` arguments get mangled by dashes
   and quotes. Use a here-string piped to a buffer file, then `git commit
-  -F <file>`. The buffer filenames `.git-commit-msg.tmp` and
+-F <file>`. The buffer filenames `.git-commit-msg.tmp` and
   `.commit-msg-buffer` are already gitignored for this purpose.
 
 ## CI / deployment
@@ -155,7 +155,7 @@ Touching one of these without touching its consumers is how bugs creep in.
   HTML itself is cached on the GitHub Pages CDN for ~10 minutes. After a
   push, expect a hard refresh to be needed for that long.
 
-## Things that are *not* in this repo, on purpose
+## Things that are _not_ in this repo, on purpose
 
 - No CHANGELOG.md (git log serves the same purpose for one developer).
 - No SECURITY.md (static site, no user data).

@@ -72,12 +72,16 @@ export default function App() {
   const [source, setSource] = useState<Source>(initial.source);
   const [pageSize, setPageSize] = useState<PageSize>(initial.pageSize);
   const [page, setPage] = useState(initial.page);
-  const [selectedId, setSelectedId] = useState<string | null>(initial.selectedId);
+  const [selectedId, setSelectedId] = useState<string | null>(
+    initial.selectedId,
+  );
   const [requireImage, setRequireImage] = useState(initial.requireImage);
   const [sort, setSort] = useState<SortKey>(initial.sort);
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof document === "undefined") return "light";
-    return document.documentElement.classList.contains("dark") ? "dark" : "light";
+    return document.documentElement.classList.contains("dark")
+      ? "dark"
+      : "light";
   });
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -90,42 +94,76 @@ export default function App() {
     }
   }, [theme]);
 
-  const [wikidataItems, setWikidataItems] = useState<ProduceItem[] | null>(null);
+  const [wikidataItems, setWikidataItems] = useState<ProduceItem[] | null>(
+    null,
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [liveProgress, setLiveProgress] = useState<{
+    done: number;
+    total: number;
+  } | null>(null);
+  const [refreshTick, setRefreshTick] = useState(0);
+  // "idle" = may start a fetch; "running" = fetch in flight; "done" = items loaded.
+  // A ref (not state/deps) so progressive setWikidataItems calls don't re-run the
+  // effect and abort the very fetch that produced them.
+  const liveRunState = useRef<"idle" | "running" | "done">("idle");
 
-  const [snapshotItems, setSnapshotItems] = useState<ProduceItem[] | null>(null);
+  const [snapshotItems, setSnapshotItems] = useState<ProduceItem[] | null>(
+    null,
+  );
   const [loadingSnapshot, setLoadingSnapshot] = useState(false);
   const [snapshotError, setSnapshotError] = useState<string | null>(null);
 
   useEffect(() => {
     if (source !== "wikidata") return;
-    if (wikidataItems) return;
+    if (liveRunState.current !== "idle") return;
 
     const cached = loadFromCache();
     if (cached && cached.length > 0) {
+      liveRunState.current = "done";
       setWikidataItems(cached);
       return;
     }
 
+    liveRunState.current = "running";
     const ctrl = new AbortController();
     setLoading(true);
     setError(null);
-    fetchAllProduce(ctrl.signal)
+    setLiveProgress(null);
+    // Every callback below is guarded by ctrl.signal.aborted: an aborted run
+    // (unmount, StrictMode remount, source switch) must not touch state that
+    // now belongs to a newer run.
+    fetchAllProduce(ctrl.signal, (partial, done, total) => {
+      if (ctrl.signal.aborted) return;
+      setLiveProgress({ done, total });
+      if (partial.length > 0) setWikidataItems(partial);
+    })
       .then((items) => {
+        if (ctrl.signal.aborted) return;
+        liveRunState.current = "done";
         setWikidataItems(items);
         saveToCache(items);
       })
       .catch((err: unknown) => {
+        if (ctrl.signal.aborted) return;
+        liveRunState.current = "idle";
         if (err instanceof Error && err.name === "AbortError") return;
         const message =
           err instanceof Error ? err.message : "Failed to load Wikidata";
         setError(message);
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        if (ctrl.signal.aborted) return;
+        setLoading(false);
+        setLiveProgress(null);
+      });
 
-    return () => ctrl.abort();
-  }, [source, wikidataItems]);
+    return () => {
+      ctrl.abort();
+      if (liveRunState.current === "running") liveRunState.current = "idle";
+    };
+  }, [source, refreshTick]);
 
   // Lazy-load the bundled Wikidata snapshot the first time the user picks Snapshot
   // mode. Vite splits the JSON into its own chunk so the initial bundle stays small.
@@ -173,7 +211,7 @@ export default function App() {
 
   const hasSeasons = useMemo(
     () => dataset.some((p) => p.seasons && p.seasons.length > 0),
-    [dataset]
+    [dataset],
   );
 
   const hasColorVariety = useMemo(() => {
@@ -203,7 +241,8 @@ export default function App() {
       if (e.key !== "/") return;
       const target = e.target as HTMLElement | null;
       const tag = target?.tagName;
-      if (tag === "INPUT" || tag === "TEXTAREA" || target?.isContentEditable) return;
+      if (tag === "INPUT" || tag === "TEXTAREA" || target?.isContentEditable)
+        return;
       e.preventDefault();
       searchInputRef.current?.focus();
       searchInputRef.current?.select();
@@ -263,7 +302,8 @@ export default function App() {
     const q = query.trim().toLowerCase();
     return dataset.filter((p) => {
       if (category !== "all" && p.category !== category) return false;
-      if (season !== "all" && p.seasons && !p.seasons.includes(season)) return false;
+      if (season !== "all" && p.seasons && !p.seasons.includes(season))
+        return false;
       if (color && p.color && p.color !== color) return false;
       if (requireImage && !p.imageUrl) return false;
       if (q) {
@@ -290,7 +330,7 @@ export default function App() {
         arr.sort(
           (a, b) =>
             a.category.localeCompare(b.category) ||
-            a.name.localeCompare(b.name)
+            a.name.localeCompare(b.name),
         );
         break;
       case "random":
@@ -305,7 +345,7 @@ export default function App() {
 
   const pageItems = useMemo(
     () => paginate(sorted, page, pageSize),
-    [sorted, page, pageSize]
+    [sorted, page, pageSize],
   );
 
   const itemsById = useMemo(() => {
@@ -314,11 +354,13 @@ export default function App() {
     return map;
   }, [dataset]);
 
-  const selectedItem = selectedId ? itemsById.get(selectedId) ?? null : null;
+  const selectedItem = selectedId ? (itemsById.get(selectedId) ?? null) : null;
 
   const refresh = () => {
     clearCache();
+    liveRunState.current = "idle";
     setWikidataItems(null);
+    setRefreshTick((t) => t + 1);
   };
 
   const resetFilters = () => {
@@ -350,7 +392,10 @@ export default function App() {
         <header className="mb-10 flex flex-col gap-6 sm:mb-14">
           <div className="flex items-center justify-between gap-4 text-ink/60">
             <div className="flex min-w-0 items-center gap-2">
-              <Leaf className="h-4 w-4 shrink-0" aria-label="The Produce Gallery" />
+              <Leaf
+                className="h-4 w-4 shrink-0"
+                aria-label="The Produce Gallery"
+              />
               <span className="hidden truncate text-xs uppercase tracking-[0.2em] sm:inline">
                 The Produce Gallery
               </span>
@@ -365,12 +410,16 @@ export default function App() {
             <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-6xl">
               A small library
               <br />
-              of <em className="italic text-[#3f6b3a] dark:text-[#9bd991]">growing things</em>.
+              of{" "}
+              <em className="italic text-[#3f6b3a] dark:text-[#9bd991]">
+                growing things
+              </em>
+              .
             </h1>
             <p className="max-w-md text-sm leading-relaxed text-ink/70">
-              A catalogue of fruits, vegetables, herbs, and spices — their colors,
-              seasons, and the quiet stories behind them. Curated by hand,
-              from a frozen Wikidata snapshot, or streamed live.
+              A catalogue of fruits, vegetables, herbs, and spices — their
+              colors, seasons, and the quiet stories behind them. Curated by
+              hand, from a frozen Wikidata snapshot, or streamed live.
             </p>
           </div>
         </header>
@@ -388,7 +437,9 @@ export default function App() {
                 <span className="text-xs text-ink/50">
                   {source === "snapshot"
                     ? "A small JSON chunk; usually a fraction of a second."
-                    : "This usually takes 5-15 seconds. Results cache locally for a week."}
+                    : liveProgress && liveProgress.done > 0
+                      ? `${liveProgress.done} of ${liveProgress.total} categories loaded. Results cache locally for a week.`
+                      : "This usually takes 5-15 seconds. Results cache locally for a week."}
                 </span>
               </div>
             </div>
@@ -439,6 +490,18 @@ export default function App() {
 
         {!showLoading && !showError && (
           <>
+            {source === "wikidata" && loading && (
+              <div className="mb-4 flex items-center gap-2 rounded-2xl bg-surface/60 px-4 py-2.5 ring-1 ring-ink/5 backdrop-blur-sm">
+                <Loader2 className="h-4 w-4 animate-spin text-ink/60" />
+                <span className="text-xs text-ink/60">
+                  Still loading from Wikidata
+                  {liveProgress
+                    ? ` (${liveProgress.done}/${liveProgress.total} categories)`
+                    : ""}
+                  ... results stream in as they arrive.
+                </span>
+              </div>
+            )}
             <div className="mb-8">
               <FilterBar
                 ref={searchInputRef}
@@ -499,10 +562,12 @@ export default function App() {
             ) : (
               <div className="flex flex-col items-center justify-center gap-3 rounded-3xl bg-surface/60 px-6 py-20 text-center ring-1 ring-ink/5 backdrop-blur-sm">
                 <EmptyIllustration />
-                <h2 className="font-display text-2xl text-ink">Nothing in season</h2>
+                <h2 className="font-display text-2xl text-ink">
+                  Nothing in season
+                </h2>
                 <p className="max-w-sm text-sm text-ink/60">
-                  No produce matches these filters. Try clearing a few — the harvest
-                  shifts with patience.
+                  No produce matches these filters. Try clearing a few — the
+                  harvest shifts with patience.
                 </p>
                 <button
                   type="button"
@@ -514,17 +579,19 @@ export default function App() {
               </div>
             )}
 
-            {source === "wikidata" && wikidataItems && wikidataItems.length > 0 && (
-              <div className="mt-8 flex justify-center">
-                <button
-                  type="button"
-                  onClick={refresh}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-surface px-3.5 py-1.5 text-xs font-medium text-ink/60 ring-1 ring-ink/5 transition hover:bg-ink/5 hover:text-ink"
-                >
-                  <RefreshCw className="h-3.5 w-3.5" /> Refresh from Wikidata
-                </button>
-              </div>
-            )}
+            {source === "wikidata" &&
+              wikidataItems &&
+              wikidataItems.length > 0 && (
+                <div className="mt-8 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={refresh}
+                    className="inline-flex items-center gap-1.5 rounded-full bg-surface px-3.5 py-1.5 text-xs font-medium text-ink/60 ring-1 ring-ink/5 transition hover:bg-ink/5 hover:text-ink"
+                  >
+                    <RefreshCw className="h-3.5 w-3.5" /> Refresh from Wikidata
+                  </button>
+                </div>
+              )}
           </>
         )}
 
@@ -632,7 +699,14 @@ function EmptyIllustration() {
       aria-hidden="true"
       className="opacity-80"
     >
-      <ellipse cx="42" cy="70" rx="28" ry="4" fill="#3F6B3A" fillOpacity="0.12" />
+      <ellipse
+        cx="42"
+        cy="70"
+        rx="28"
+        ry="4"
+        fill="#3F6B3A"
+        fillOpacity="0.12"
+      />
       <path
         d="M42 66V40"
         stroke="#3F6B3A"
