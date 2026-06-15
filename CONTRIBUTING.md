@@ -1,6 +1,6 @@
 # Contributing to The Produce Gallery
 
-Thanks for taking an interest. This is a small personal project, but contributions are welcome — bug fixes, new curated items, better SPARQL queries, accessibility improvements, all of it.
+Thanks for taking an interest. This is a small personal project, but contributions are welcome - bug fixes, new curated items, better SPARQL queries, accessibility improvements, all of it.
 
 ## Quick start
 
@@ -26,7 +26,7 @@ Append to `src/data/curated.ts`. Match the `ProduceItem` shape from `src/types.t
 A few rules:
 
 - Use a unique, lowercase, hyphen-free `id`.
-- Pick a `colorHex` that visually matches the item — it drives the card's accent color.
+- Pick a `colorHex` that visually matches the item - it drives the card's accent color.
 - Keep `description` to one or two sentences; keep `funFact` similarly tight.
 - For botanical names, use the accepted scientific binomial (e.g., `Salvia rosmarinus`, not the deprecated `Rosmarinus officinalis`).
 
@@ -40,7 +40,7 @@ If you change the query shape in a way that affects results, bump the cache key 
 
 When reporting a bug:
 
-- Include the URL — filter state is encoded there, which makes reproduction trivial.
+- Include the URL - filter state is encoded there, which makes reproduction trivial.
 - Note the **source** (Curated or Wikidata) and the active **theme** (light or dark).
 - For Wikidata-mode bugs, mention whether the cache had been refreshed recently.
 
@@ -48,7 +48,7 @@ When reporting a bug:
 
 - Run `npm run build && npm run lint && npm run test:e2e` before pushing. CI runs the same gate (`.github/workflows/ci.yml`); the project is strict-mode TypeScript and should compile and lint clean.
 - Match existing code style: Tailwind classes inline, no CSS modules, no styled-components. Components stay in `src/components/`. Services in `src/services/`.
-- Keep commits focused and descriptive. The history reads like a changelog — try to keep it that way, and update `PROGRESS.md` alongside notable work.
+- Keep commits focused and descriptive. The history reads like a changelog - try to keep it that way, and update `PROGRESS.md` alongside notable work.
 
 ## Code of conduct
 

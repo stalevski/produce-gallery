@@ -11,10 +11,10 @@ A small React + TypeScript + Vite + Tailwind site that browses fruits,
 vegetables, herbs, spices, nuts, mushrooms, legumes, grains, and seeds
 across **three data tiers**:
 
-1. **Curated** — 114 hand-written entries in `src/data/curated.ts`.
-2. **Snapshot** — ~1,870 items frozen from Wikidata into
+1. **Curated** - 114 hand-written entries in `src/data/curated.ts`.
+2. **Snapshot** - ~1,870 items frozen from Wikidata into
    `src/data/wikidata-snapshot.json`. Bundled with the app.
-3. **Live** — fetched from Wikidata SPARQL on demand, with localStorage
+3. **Live** - fetched from Wikidata SPARQL on demand, with localStorage
    caching, in `src/services/wikidata.ts`.
 
 Deployed to GitHub Pages at <https://stalevski.github.io/produce-gallery/>
@@ -54,30 +54,30 @@ The smoke tests are fast (~15s) and have caught real regressions every time.
 
 Touching one of these without touching its consumers is how bugs creep in.
 
-- **`src/data/category-qids.json`** — every consumer of category QIDs
+- **`src/data/category-qids.json`** - every consumer of category QIDs
   (snapshot generator, live SPARQL client) imports from here. Do **not**
   hardcode QIDs anywhere else.
 
-- **`src/data/category-defaults.ts`** — `CATEGORY_EMOJI` and
+- **`src/data/category-defaults.ts`** - `CATEGORY_EMOJI` and
   `CATEGORY_DEFAULT_HEX`, both consumed by `ProduceCard` _and_
   `DetailView`. Pre-2026-05 these were duplicated in both files and
   drifted apart (the modal had a hardcoded herb-leaf 🌿 fallback
   regardless of category, so spice items showed 🌶 on the card but 🌿
   in the modal). Single source of truth eliminates that bug class.
 
-- **Adding a new category** — extend `Category` in `src/types.ts`,
+- **Adding a new category** - extend `Category` in `src/types.ts`,
   `category-qids.json`, `category-defaults.ts`, the `CATEGORY_LABEL`
   map in `DetailView.tsx`, the chips in `FilterBar.tsx`, and the
   default colour in `wikidata.ts`. TypeScript will fail to compile
   until each `Record<Category, X>` map has the new key, which makes the
   list discoverable.
 
-- **Wikidata cache key** — `src/services/wikidata.ts` keys localStorage by
+- **Wikidata cache key** - `src/services/wikidata.ts` keys localStorage by
   a versioned string (currently `v6`). **Bump the version any time the
   cached value's shape or contents would change** (new category, fixed
   QID, new generic-label filter). Otherwise users hit stale cache.
 
-- **Snapshot sanity gate** — `scripts/generate-snapshot.mjs` aborts if any
+- **Snapshot sanity gate** - `scripts/generate-snapshot.mjs` aborts if any
   category has fewer than 15 items. If that fires, the QID is wrong; fix
   the QID, do not lower the threshold.
 
@@ -87,7 +87,7 @@ Touching one of these without touching its consumers is how bugs creep in.
   same ring becomes a faint white line. Use `ring-ink/X` when you _want_
   the ring to flip (focus rings); use `ring-black/X` only when you want
   it dark in both modes. The static card rings are intentionally
-  `ring-ink/5` — Stefan revisited and chose to keep the subtle dark-mode
+  `ring-ink/5` - Stefan revisited and chose to keep the subtle dark-mode
   highlight in 2026-04. Do not "fix" it without asking.
 
 - **Dark-mode surface contrast is deliberately subtle.** `--c-surface`
@@ -116,7 +116,7 @@ Touching one of these without touching its consumers is how bugs creep in.
   elements:** outer span = continuous float, inner span = one-shot pop
   entrance + hover transform. **Never put two transform-animating rules
   on the same element**, they will fight. The `key={item.id}` on the
-  inner span is intentional — re-fires the entrance when navigating
+  inner span is intentional - re-fires the entrance when navigating
   between related items.
 
 - **`prefers-reduced-motion` guard** at the bottom of `src/index.css`
@@ -146,10 +146,10 @@ Touching one of these without touching its consumers is how bugs creep in.
 
 ## CI / deployment
 
-- `.github/workflows/ci.yml` — build, run Playwright, deploy to Pages on
+- `.github/workflows/ci.yml` - build, run Playwright, deploy to Pages on
   push to `main`. `pages-build-deployment` is the GitHub-managed step
   triggered by the artifact upload.
-- `.github/workflows/health-check.yml` — scheduled run that detects
+- `.github/workflows/health-check.yml` - scheduled run that detects
   upstream Wikidata changes (e.g. QID drift) before they bite real users.
 - Cache busting is automatic via Vite's hashed asset filenames, but the
   HTML itself is cached on the GitHub Pages CDN for ~10 minutes. After a
