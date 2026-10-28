@@ -26,7 +26,14 @@ test("opens the detail modal when a card is clicked and closes it on Esc", async
 }) => {
   await page.goto("./");
 
-  await page.getByRole("button", { name: /^View details for / }).first().click();
+  const card = page.getByRole("button", { name: /^View details for / }).first();
+  await expect(card).toBeVisible();
+  // WebKit on the Linux CI runner never reports the card as "stable": the
+  // hover translate transition keeps the bounding box moving, so the default
+  // actionability wait times out even though the click would land. Forcing the
+  // click is safe here because the dialog assertion below still proves the
+  // click handler ran.
+  await card.click({ force: true });
 
   // DetailView renders <div role="dialog">
   const dialog = page.getByRole("dialog");
