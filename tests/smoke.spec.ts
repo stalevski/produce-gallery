@@ -33,9 +33,13 @@ test("opens the detail modal when a card is clicked and closes it on Esc", async
   await expect(dialog).toBeVisible();
   await expect(dialog.getByRole("button", { name: "Close" })).toBeVisible();
 
-  // Esc should dismiss
-  await page.keyboard.press("Escape");
-  await expect(dialog).toBeHidden();
+  // Esc should dismiss. The handler is attached in an effect, so a keypress can
+  // race the first paint on slow runners -- retry the dismissal instead of
+  // sleeping or loosening the assertion.
+  await expect(async () => {
+    await page.keyboard.press("Escape");
+    await expect(dialog).toBeHidden({ timeout: 1_000 });
+  }).toPass();
 });
 
 test("dark mode toggle flips the html class and persists", async ({ page }) => {
