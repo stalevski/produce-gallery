@@ -15,7 +15,12 @@ export default defineConfig({
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
   use: {
     baseURL: BASE_URL,
-    trace: "on-first-retry",
+    // Aria snapshots ride along with the trace (Playwright 1.63+) so a failing
+    // interaction can be read as an accessibility tree, not just a DOM dump.
+    trace: {
+      mode: "on-first-retry",
+      snapshots: { dom: true, aria: true },
+    },
   },
   projects: [
     {

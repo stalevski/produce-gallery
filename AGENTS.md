@@ -28,6 +28,7 @@ npm run dev            # local dev server, http://localhost:5173
 npm run build          # tsc -b + vite build, outputs dist/
 npm run preview        # serves dist/ at the production base path
 npm run test:e2e       # headless Playwright smoke suite
+npm run test:shuffle   # same suite in random order (--shuffle)
 npm run snapshot       # regenerates src/data/wikidata-snapshot.json
 ```
 
