@@ -15,7 +15,17 @@ export default defineConfig({
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
   use: {
     baseURL: BASE_URL,
-    trace: "on-first-retry",
+    // The app honours prefers-reduced-motion (index.css), and the detail-view
+    // emoji floats forever otherwise. Reducing motion keeps actionability
+    // checks stable on CI runners (WebKit was timing out on clicks) and speeds
+    // the suite up without weakening any assertion.
+    reducedMotion: "reduce",
+    // Aria snapshots ride along with the trace (Playwright 1.63+) so a failing
+    // interaction can be read as an accessibility tree, not just a DOM dump.
+    trace: {
+      mode: "on-first-retry",
+      snapshots: { dom: true, aria: true },
+    },
   },
   projects: [
     {
