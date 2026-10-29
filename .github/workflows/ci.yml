@@ -17,6 +17,9 @@ jobs:
   build:
     name: Type check & build
     runs-on: ubuntu-latest
+    # A lost runner otherwise leaves this run "in progress" for GitHub's 6-hour
+    # default, and cancel requests are no-ops because nothing is listening.
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v7
