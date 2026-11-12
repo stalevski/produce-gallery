@@ -152,6 +152,14 @@ Touching one of these without touching its consumers is how bugs creep in.
   triggered by the artifact upload.
 - `.github/workflows/health-check.yml` - scheduled run that detects
   upstream Wikidata changes (e.g. QID drift) before they bite real users.
+- **Every job must set `timeout-minutes`, and every Playwright step needs its
+  own.** A runner that dies mid-job leaves the run "in progress" for GitHub's
+  6-hour default and cannot be cancelled, because no runner is alive to
+  acknowledge the cancel request. The job value is only a backstop - keep it
+  above the sum of its step timeouts.
+- `globalTimeout` in `playwright.config.ts` (CI only) fails a wedged suite with
+  a report instead of stalling the job; the report upload runs on `failure() ||
+  cancelled()` so a timeout still leaves evidence.
 - Cache busting is automatic via Vite's hashed asset filenames, but the
   HTML itself is cached on the GitHub Pages CDN for ~10 minutes. After a
   push, expect a hard refresh to be needed for that long.

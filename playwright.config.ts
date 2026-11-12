@@ -12,6 +12,12 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
+  // Belt and braces for CI: a wedged browser or preview server can leave a
+  // worker waiting forever, and the job then dies with no report at all (that
+  // is how the weekly health check lost its runner). A full run takes ~1
+  // minute, so 10 minutes only trips on a genuine hang and still writes the
+  // HTML report before exiting non-zero.
+  globalTimeout: process.env.CI ? 10 * 60_000 : 0,
   reporter: process.env.CI ? [["github"], ["html", { open: "never" }]] : "list",
   use: {
     baseURL: BASE_URL,
