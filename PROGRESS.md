@@ -66,6 +66,16 @@ _Accepted tradeoffs and rough edges. Many of these are deliberate - see
 _Append-only. Newest first. Record the **why** and the tradeoff, not just the
 what - the git history already has the what. Seeded from recent commits._
 
+- **2026-11-12** - Cleared the dependency advisories with `npm audit fix`
+  (lockfile only, no manifest change): vite 8.0.16 -> 8.3.8 (five advisories,
+  one high - the `launch-editor` command-injection set), postcss-selector-parser
+  6.1.2 -> 6.1.6, brace-expansion 5.0.9 -> 5.0.13, plus in-range point bumps of
+  its own transitive tree. 14 advisories -> 10. **What remains is one advisory**
+  (minimatch `>= 7.0.0 < 11.0.1`): the only fix is minimatch 11, and both
+  eslint 10 and typescript-eslint 8.72.2 pin `^10`, so forcing it with an
+  `overrides` entry would break linting. It stays open until those packages
+  widen their range; Dependabot will keep reporting it as "update not possible".
+
 - **2026-11-12** - Bounded every job and Playwright step. Two consecutive weekly
   health checks died with "the hosted runner lost communication with the
   server" after ~48 min, with no logs and nothing to cancel: when the runner
