@@ -66,6 +66,19 @@ _Accepted tradeoffs and rough edges. Many of these are deliberate - see
 _Append-only. Newest first. Record the **why** and the tradeoff, not just the
 what - the git history already has the what. Seeded from recent commits._
 
+- **2026-11-12** - Bounded every job and Playwright step. Two consecutive weekly
+  health checks died with "the hosted runner lost communication with the
+  server" after ~48 min, with no logs and nothing to cancel: when the runner
+  disappears mid-job no step timeout can fire (no process is listening) and
+  GitHub holds the run for its 6-hour default. `ci.yml` and `health-check.yml`
+  now cap the job (30 min backstop) plus the browser install (15 min) and the
+  smoke run (10 min); the report upload also fires on `cancelled()`, and
+  `globalTimeout` in `playwright.config.ts` (10 min, CI only) turns a wedged
+  browser/preview server into a normal failure with a report instead of a
+  silent stall. Tradeoff: an unusually slow runner now fails and needs a
+  re-run where it used to scrape through (one install took 16 min); a re-run is
+  cheaper than an unkillable 6-hour run.
+
 - **2026-06-11 (later)** - Fixed the "Live query runs forever, works after refresh"
   bug. Root cause: all nine SPARQL category queries fired concurrently, but WDQS
   throttles parallel queries per IP, so surplus queries crawled toward the 60s
