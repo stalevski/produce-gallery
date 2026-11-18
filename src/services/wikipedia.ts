@@ -7,7 +7,7 @@ export interface WikipediaSummary {
 
 export async function fetchWikipediaSummary(
   title: string,
-  signal?: AbortSignal
+  signal?: AbortSignal,
 ): Promise<WikipediaSummary | null> {
   const key = title.trim();
   if (!key) return null;
@@ -19,7 +19,7 @@ export async function fetchWikipediaSummary(
   }
 
   const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
-    key
+    key,
   )}?redirect=true`;
 
   try {

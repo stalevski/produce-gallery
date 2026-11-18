@@ -32,7 +32,7 @@ A few rules:
 
 ### Improving the Wikidata source
 
-The SPARQL query lives in `src/services/wikidata.ts`. The current query uses a hybrid `wdt:P279+` and `wdt:P31/wdt:P279*` traversal, with `wdt:P1672` (this-taxon-is-source-of) for image and Wikipedia article inheritance. If you find ingredients that *should* appear but don't, the most likely cause is the same kind of ontology mismatch that originally hid rosemary. Reproduce in the [Wikidata Query Service](https://query.wikidata.org/) before changing the query in code.
+The SPARQL query lives in `src/services/wikidata.ts`. The current query uses a hybrid `wdt:P279+` and `wdt:P31/wdt:P279*` traversal, with `wdt:P1672` (this-taxon-is-source-of) for image and Wikipedia article inheritance. If you find ingredients that _should_ appear but don't, the most likely cause is the same kind of ontology mismatch that originally hid rosemary. Reproduce in the [Wikidata Query Service](https://query.wikidata.org/) before changing the query in code.
 
 If you change the query shape in a way that affects results, bump the cache key in the same file (`CACHE_KEY = "produce-gallery:wikidata:vN"`) so users get fresh data on next load.
 

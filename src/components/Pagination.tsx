@@ -1,4 +1,9 @@
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+} from "lucide-react";
 
 export type PageSize = 25 | 50 | 100 | 200 | "all";
 
@@ -21,7 +26,9 @@ export function Pagination({
 }: PaginationProps) {
   const isAll = pageSize === "all";
   const effectiveSize = isAll ? Math.max(totalCount, 1) : pageSize;
-  const totalPages = isAll ? 1 : Math.max(1, Math.ceil(totalCount / effectiveSize));
+  const totalPages = isAll
+    ? 1
+    : Math.max(1, Math.ceil(totalCount / effectiveSize));
   const safePage = Math.min(page, totalPages - 1);
   const start = totalCount === 0 ? 0 : safePage * effectiveSize + 1;
   const end = Math.min(totalCount, (safePage + 1) * effectiveSize);
@@ -76,7 +83,11 @@ export function Pagination({
           <PageButton onClick={goFirst} disabled={!canPrev} label="First page">
             <ChevronsLeft className="h-3.5 w-3.5" />
           </PageButton>
-          <PageButton onClick={goPrev} disabled={!canPrev} label="Previous page">
+          <PageButton
+            onClick={goPrev}
+            disabled={!canPrev}
+            label="Previous page"
+          >
             <ChevronLeft className="h-3.5 w-3.5" />
           </PageButton>
           <span className="px-2 text-xs text-ink/60">
