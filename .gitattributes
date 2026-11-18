@@ -1,2 +1,5 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Normalise to LF in the repository AND in the working tree.
+# `text=auto` alone lets core.autocrlf=true check files out as CRLF on Windows,
+# which both `.editorconfig` (`end_of_line = lf`) and Prettier (`endOfLine: lf`)
+# reject - so `npm run format:check` failed on every file for Windows clones.
+* text=auto eol=lf
