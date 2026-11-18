@@ -159,7 +159,7 @@ Touching one of these without touching its consumers is how bugs creep in.
   above the sum of its step timeouts.
 - `globalTimeout` in `playwright.config.ts` (CI only) fails a wedged suite with
   a report instead of stalling the job; the report upload runs on `failure() ||
-  cancelled()` so a timeout still leaves evidence.
+cancelled()` so a timeout still leaves evidence.
 - Cache busting is automatic via Vite's hashed asset filenames, but the
   HTML itself is cached on the GitHub Pages CDN for ~10 minutes. After a
   push, expect a hard refresh to be needed for that long.

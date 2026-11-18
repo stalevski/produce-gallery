@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Sparkles, ExternalLink } from "lucide-react";
 import type { ProduceItem } from "../types";
-import { CATEGORY_DEFAULT_HEX, CATEGORY_EMOJI } from "../data/category-defaults";
+import {
+  CATEGORY_DEFAULT_HEX,
+  CATEGORY_EMOJI,
+} from "../data/category-defaults";
 import { HighlightedText } from "./HighlightedText";
 
 interface ProduceCardProps {
@@ -112,7 +115,9 @@ export function ProduceCard({ item, onClick, query }: ProduceCardProps) {
               </span>
             ))}
             {item.origin && (
-              <span className="ml-auto text-[11px] text-ink/40">{item.origin}</span>
+              <span className="ml-auto text-[11px] text-ink/40">
+                {item.origin}
+              </span>
             )}
           </div>
         )}

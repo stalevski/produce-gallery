@@ -12,7 +12,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Western South America",
     description:
       "Botanically a berry, the tomato anchors cuisines from Naples to Oaxaca with its bright acidity and umami depth.",
-    funFact: "The U.S. Supreme Court ruled the tomato a vegetable in 1893 — for tariff purposes only.",
+    funFact:
+      "The U.S. Supreme Court ruled the tomato a vegetable in 1893 — for tariff purposes only.",
     botanicalName: "Solanum lycopersicum",
     family: "Solanaceae",
     pairings: ["basil", "garlic", "mozzarella"],
@@ -44,7 +45,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Persia",
     description:
       "A taproot rich in beta-carotene, sweet when roasted and crisp when raw.",
-    funFact: "Carrots were originally purple — orange varieties were popularized in 17th-century Holland.",
+    funFact:
+      "Carrots were originally purple — orange varieties were popularized in 17th-century Holland.",
     botanicalName: "Daucus carota",
     family: "Apiaceae",
     pairings: ["thyme", "ginger", "parsley"],
@@ -60,7 +62,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Eastern Mediterranean",
     description:
       "A hardy leafy green from the brassica family, prized for its mineral-rich, slightly bitter bite.",
-    funFact: "Kale gets sweeter after a frost — cold turns its starches into sugars.",
+    funFact:
+      "Kale gets sweeter after a frost — cold turns its starches into sugars.",
     botanicalName: "Brassica oleracea var. sabellica",
     family: "Brassicaceae",
     pairings: ["garlic", "lemon", "parmesan"],
@@ -108,7 +111,8 @@ export const CURATED: ProduceItem[] = [
     origin: "South-Central Mexico",
     description:
       "A buttery single-seeded berry, beloved for its richness and silky texture.",
-    funFact: "The Aztec word for avocado, ahuacatl, also meant 'testicle' — a nod to its shape.",
+    funFact:
+      "The Aztec word for avocado, ahuacatl, also meant 'testicle' — a nod to its shape.",
     botanicalName: "Persea americana",
     family: "Lauraceae",
     pairings: ["lime", "cilantro", "tomato"],
@@ -124,7 +128,8 @@ export const CURATED: ProduceItem[] = [
     origin: "North America",
     description:
       "A small, antioxidant-dense berry with a delicate sweet-tart balance and indigo hue.",
-    funFact: "Their blue color comes from anthocyanins — the same pigment that turns autumn leaves red.",
+    funFact:
+      "Their blue color comes from anthocyanins — the same pigment that turns autumn leaves red.",
     botanicalName: "Vaccinium corymbosum",
     family: "Ericaceae",
     pairings: ["lemon", "vanilla", "almond"],
@@ -140,7 +145,8 @@ export const CURATED: ProduceItem[] = [
     origin: "South Asia",
     description:
       "A nightshade with a meaty, sponge-like flesh that drinks oil and rewards patient cooks.",
-    funFact: "Botanically, eggplants are berries — and early European varieties were small and white, like eggs.",
+    funFact:
+      "Botanically, eggplants are berries — and early European varieties were small and white, like eggs.",
     botanicalName: "Solanum melongena",
     family: "Solanaceae",
     pairings: ["basil", "garlic", "tomato"],
@@ -172,7 +178,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Central Asia",
     description:
       "An allium whose pungent cloves mellow into deep, sweet umami when slow-cooked.",
-    funFact: "Egyptian pharaohs fed garlic to pyramid builders to boost stamina.",
+    funFact:
+      "Egyptian pharaohs fed garlic to pyramid builders to boost stamina.",
     botanicalName: "Allium sativum",
     family: "Amaryllidaceae",
     pairings: ["olive oil", "basil", "lemon"],
@@ -188,7 +195,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Tropical Asia",
     description:
       "An aromatic herb central to Italian and Thai cooking, with notes of clove, anise, and mint.",
-    funFact: "Basil is a member of the mint family — and there are over 60 varieties.",
+    funFact:
+      "Basil is a member of the mint family — and there are over 60 varieties.",
     botanicalName: "Ocimum basilicum",
     family: "Lamiaceae",
     pairings: ["tomato", "garlic", "mozzarella"],
@@ -204,7 +212,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Western Asia / Mediterranean",
     description:
       "An inverted flower whose jammy interior pairs equally well with prosciutto or honey.",
-    funFact: "What we eat is technically the inside of an inflorescence — hundreds of tiny flowers.",
+    funFact:
+      "What we eat is technically the inside of an inflorescence — hundreds of tiny flowers.",
     botanicalName: "Ficus carica",
     family: "Moraceae",
     pairings: ["prosciutto", "blue cheese", "balsamic"],
@@ -268,7 +277,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mediterranean",
     description:
       "An evergreen shrub whose pine-scented needles perfume roasts, breads, and slow-braised meats.",
-    funFact: "Greek students wore rosemary garlands during exams to sharpen memory — the herb is still associated with remembrance.",
+    funFact:
+      "Greek students wore rosemary garlands during exams to sharpen memory — the herb is still associated with remembrance.",
     botanicalName: "Salvia rosmarinus",
     family: "Lamiaceae",
     pairings: ["lamb", "garlic", "lemon"],
@@ -284,7 +294,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mediterranean",
     description:
       "A small-leafed perennial whose warm, earthy oils thrive in long-cooked dishes — soups, stews, and the bouquet garni.",
-    funFact: "Ancient Egyptians used thyme in embalming; Romans believed it gave courage to soldiers before battle.",
+    funFact:
+      "Ancient Egyptians used thyme in embalming; Romans believed it gave courage to soldiers before battle.",
     botanicalName: "Thymus vulgaris",
     family: "Lamiaceae",
     pairings: ["chicken", "lemon", "butter"],
@@ -300,7 +311,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mediterranean",
     description:
       "A velvet-leafed herb with peppery, slightly camphorous depth — at home with butter, brown sugar, and pork.",
-    funFact: "The genus name Salvia comes from the Latin 'salvere' — to be saved or to heal.",
+    funFact:
+      "The genus name Salvia comes from the Latin 'salvere' — to be saved or to heal.",
     botanicalName: "Salvia officinalis",
     family: "Lamiaceae",
     pairings: ["butter", "pumpkin", "pork"],
@@ -316,7 +328,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mediterranean / Western Asia",
     description:
       "A pungent, peppery herb whose dried form is bolder than fresh — the soul of pizza, Greek salad, and Mexican chili.",
-    funFact: "Its name comes from the Greek 'oros ganos' — joy of the mountain.",
+    funFact:
+      "Its name comes from the Greek 'oros ganos' — joy of the mountain.",
     botanicalName: "Origanum vulgare",
     family: "Lamiaceae",
     pairings: ["tomato", "garlic", "olive oil"],
@@ -332,7 +345,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Southeast Asia",
     description:
       "A tropical berry — yes, berry — whose creamy starch turns honey-sweet as it ripens.",
-    funFact: "Cavendish bananas are clones of a single plant; the entire global trade is genetically identical.",
+    funFact:
+      "Cavendish bananas are clones of a single plant; the entire global trade is genetically identical.",
     botanicalName: "Musa × paradisiaca",
     family: "Musaceae",
     pairings: ["peanut butter", "chocolate", "cinnamon"],
@@ -348,7 +362,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Northwest China",
     description:
       "A stone fruit whose perfumed flesh and faint almond note are summer made edible.",
-    funFact: "Peaches and almonds are close cousins — both genus Prunus, with nearly identical pits.",
+    funFact:
+      "Peaches and almonds are close cousins — both genus Prunus, with nearly identical pits.",
     botanicalName: "Prunus persica",
     family: "Rosaceae",
     pairings: ["cream", "basil", "prosciutto"],
@@ -364,7 +379,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Western China / Europe",
     description:
       "A pome with grainy, melting flesh — equally at home in a tart, on a cheese board, or poached in wine.",
-    funFact: "Pears ripen from the inside out, which is why they're picked unripe and finished off the tree.",
+    funFact:
+      "Pears ripen from the inside out, which is why they're picked unripe and finished off the tree.",
     botanicalName: "Pyrus communis",
     family: "Rosaceae",
     pairings: ["blue cheese", "walnut", "honey"],
@@ -380,7 +396,8 @@ export const CURATED: ProduceItem[] = [
     origin: "South Asia",
     description:
       "A 96%-water gourd whose cool snap belies a quietly complex, faintly melon-like flavor.",
-    funFact: "Botanically a fruit and a member of the same family as melons and squash.",
+    funFact:
+      "Botanically a fruit and a member of the same family as melons and squash.",
     botanicalName: "Cucumis sativus",
     family: "Cucurbitaceae",
     pairings: ["dill", "yogurt", "mint"],
@@ -396,7 +413,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mediterranean",
     description:
       "An unopened flower head from the brassica family — verdant, mineral, and cruciferously bitter.",
-    funFact: "Broccoli is a human-engineered cultivar; its wild ancestor looked nothing like it.",
+    funFact:
+      "Broccoli is a human-engineered cultivar; its wild ancestor looked nothing like it.",
     botanicalName: "Brassica oleracea var. italica",
     family: "Brassicaceae",
     pairings: ["garlic", "lemon", "anchovy"],
@@ -412,7 +430,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mediterranean / Central Asia",
     description:
       "A vigorously spreading herb whose menthol coolness defines mojitos, raitas, and lamb sauces alike.",
-    funFact: "Mint runners can travel meters underground — plant it in a pot unless you want a meadow.",
+    funFact:
+      "Mint runners can travel meters underground — plant it in a pot unless you want a meadow.",
     botanicalName: "Mentha spicata",
     family: "Lamiaceae",
     pairings: ["yogurt", "lamb", "watermelon"],
@@ -428,7 +447,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Eastern Mediterranean",
     description:
       "A bright, citrusy herb beloved in Mexican, Indian, and Southeast Asian kitchens — and reviled by a soapy minority.",
-    funFact: "The 'soap taste' is genetic: a variant of the OR6A2 gene heightens sensitivity to its aldehydes.",
+    funFact:
+      "The 'soap taste' is genetic: a variant of the OR6A2 gene heightens sensitivity to its aldehydes.",
     botanicalName: "Coriandrum sativum",
     family: "Apiaceae",
     pairings: ["lime", "chili", "garlic"],
@@ -443,7 +463,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Sri Lanka",
     description:
       "The inner bark of a small evergreen tree, dried into curls — sweet, woody, and central to baking and braising worldwide.",
-    funFact: "True Ceylon cinnamon (Cinnamomum verum) is rarer than the cassia most supermarkets sell as 'cinnamon'.",
+    funFact:
+      "True Ceylon cinnamon (Cinnamomum verum) is rarer than the cassia most supermarkets sell as 'cinnamon'.",
     botanicalName: "Cinnamomum verum",
     family: "Lauraceae",
     pairings: ["apple", "sugar", "cardamom"],
@@ -458,7 +479,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Maritime Southeast Asia",
     description:
       "A fiery, fragrant rhizome that anchors curries, gingerbread, and a thousand cups of tea.",
-    funFact: "Ginger is technically a stem — a rhizome — not a root, despite the supermarket label.",
+    funFact:
+      "Ginger is technically a stem — a rhizome — not a root, despite the supermarket label.",
     botanicalName: "Zingiber officinale",
     family: "Zingiberaceae",
     pairings: ["garlic", "soy", "lime"],
@@ -473,7 +495,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Iran / Levant",
     description:
       "A drupe seed with a sweet, milky flavor — pressed for oil, ground into flour, or eaten whole.",
-    funFact: "Bitter almonds contain amygdalin, which releases cyanide; sweet almonds are the cultivated, safe variety.",
+    funFact:
+      "Bitter almonds contain amygdalin, which releases cyanide; sweet almonds are the cultivated, safe variety.",
     botanicalName: "Prunus dulcis",
     family: "Rosaceae",
     pairings: ["chocolate", "vanilla", "citrus"],
@@ -488,7 +511,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Persia",
     description:
       "A wrinkled, brain-shaped seed with rich, slightly bitter oils — the soul of pesto Genovese's cousin, salsa di noci.",
-    funFact: "Walnut hulls contain juglone, a chemical that prevents nearby plants from growing.",
+    funFact:
+      "Walnut hulls contain juglone, a chemical that prevents nearby plants from growing.",
     botanicalName: "Juglans regia",
     family: "Juglandaceae",
     pairings: ["blue cheese", "beet", "honey"],
@@ -503,7 +527,8 @@ export const CURATED: ProduceItem[] = [
     origin: "East Asia",
     description:
       "A meaty, umami-dense mushroom traditionally grown on shii oak logs — equally great fresh or dried.",
-    funFact: "Drying intensifies shiitake's flavor and produces vitamin D from sunlight exposure.",
+    funFact:
+      "Drying intensifies shiitake's flavor and produces vitamin D from sunlight exposure.",
     botanicalName: "Lentinula edodes",
     family: "Marasmiaceae",
     pairings: ["soy", "ginger", "scallion"],
@@ -518,7 +543,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Fertile Crescent",
     description:
       "A nutty, dense pulse cultivated for ~9,000 years — the basis of hummus, falafel, and chana masala.",
-    funFact: "The cooking water (aquafaba) whips like egg whites and replaces them in vegan meringues.",
+    funFact:
+      "The cooking water (aquafaba) whips like egg whites and replaces them in vegan meringues.",
     botanicalName: "Cicer arietinum",
     family: "Fabaceae",
     pairings: ["tahini", "lemon", "garlic"],
@@ -533,7 +559,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Western Asia",
     description:
       "A small lens-shaped pulse that cooks quickly into earthy stews and dals — among the oldest cultivated foods.",
-    funFact: "The word 'lens' comes from Latin lens — for the lentil, which the optical lens is shaped like.",
+    funFact:
+      "The word 'lens' comes from Latin lens — for the lentil, which the optical lens is shaped like.",
     botanicalName: "Lens culinaris",
     family: "Fabaceae",
     pairings: ["cumin", "onion", "carrot"],
@@ -549,7 +576,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Fertile Crescent",
     description:
       "A hardy cereal grain whose creamy soluble fiber makes porridge, oat milk, and excellent biscuits.",
-    funFact: "Oats were considered a weed by Romans — only Northern Europeans bothered to domesticate them.",
+    funFact:
+      "Oats were considered a weed by Romans — only Northern Europeans bothered to domesticate them.",
     botanicalName: "Avena sativa",
     family: "Poaceae",
     pairings: ["cinnamon", "milk", "honey"],
@@ -565,7 +593,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Southern China",
     description:
       "A hesperidium with bright juice and aromatic peel — both pulp and zest carry flavor.",
-    funFact: "Sweet oranges are a hybrid of pomelo and mandarin, bred over centuries in China.",
+    funFact:
+      "Sweet oranges are a hybrid of pomelo and mandarin, bred over centuries in China.",
     botanicalName: "Citrus × sinensis",
     family: "Rutaceae",
     pairings: ["fennel", "olive oil", "almond"],
@@ -581,7 +610,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mediterranean and Caucasus",
     description:
       "A vine berry whose sugars and skins underpin every wine the planet has ever fermented.",
-    funFact: "Grapes have been cultivated for at least 8,000 years — the oldest known winery is in Armenia.",
+    funFact:
+      "Grapes have been cultivated for at least 8,000 years — the oldest known winery is in Armenia.",
     botanicalName: "Vitis vinifera",
     family: "Vitaceae",
     pairings: ["blue cheese", "walnut", "rosemary"],
@@ -597,7 +627,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Southern Brazil and Paraguay",
     description:
       "A tropical infructescence — dozens of berries fused around a single core.",
-    funFact: "Bromelain in fresh pineapple digests proteins, which is why gelatin won't set with it.",
+    funFact:
+      "Bromelain in fresh pineapple digests proteins, which is why gelatin won't set with it.",
     botanicalName: "Ananas comosus",
     family: "Bromeliaceae",
     pairings: ["coconut", "lime", "ham"],
@@ -613,7 +644,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Northeastern Africa",
     description:
       "A pepo that's 92% water and engineered by millennia of breeding into a portable summer reservoir.",
-    funFact: "Egyptian tombs older than 4,000 years contain watermelon seeds left for the afterlife.",
+    funFact:
+      "Egyptian tombs older than 4,000 years contain watermelon seeds left for the afterlife.",
     botanicalName: "Citrullus lanatus",
     family: "Cucurbitaceae",
     pairings: ["feta", "mint", "lime"],
@@ -629,7 +661,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Europe and northern Asia",
     description:
       "An aggregate fruit of tiny drupelets that hollow out cleanly when picked.",
-    funFact: "Each raspberry is around 100 individual fruits clustered onto a single receptacle.",
+    funFact:
+      "Each raspberry is around 100 individual fruits clustered onto a single receptacle.",
     botanicalName: "Rubus idaeus",
     family: "Rosaceae",
     pairings: ["chocolate", "cream", "lemon"],
@@ -645,7 +678,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Temperate Europe and North America",
     description:
       "A hedgerow bramble whose deep, winey sweetness peaks at the end of summer.",
-    funFact: "The genus Rubus has thousands of microspecies — botanists can't agree on how to count them.",
+    funFact:
+      "The genus Rubus has thousands of microspecies — botanists can't agree on how to count them.",
     botanicalName: "Rubus fruticosus",
     family: "Rosaceae",
     pairings: ["apple", "vanilla", "thyme"],
@@ -661,7 +695,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Asia Minor and the Caspian",
     description:
       "A small drupe that lands somewhere between sweet and sour depending on the cultivar and the rain.",
-    funFact: "George Washington never chopped down a cherry tree — the story was invented by a 19th-century biographer.",
+    funFact:
+      "George Washington never chopped down a cherry tree — the story was invented by a 19th-century biographer.",
     botanicalName: "Prunus avium",
     family: "Rosaceae",
     pairings: ["almond", "chocolate", "duck"],
@@ -677,7 +712,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Caucasus and Central Asia",
     description:
       "A drupe with a powdery bloom on the skin and pulp ranging from honeyed to sharply tart.",
-    funFact: "Prunes are simply plums dried slowly enough to keep their inner moisture.",
+    funFact:
+      "Prunes are simply plums dried slowly enough to keep their inner moisture.",
     botanicalName: "Prunus domestica",
     family: "Rosaceae",
     pairings: ["cardamom", "pork", "almond"],
@@ -693,7 +729,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Northeast China",
     description:
       "A velveteen drupe with a brief season and almond-like kernel hidden in its pit.",
-    funFact: "Hunza apricot kernels were a near-mythical staple of the Himalayan longevity diet.",
+    funFact:
+      "Hunza apricot kernels were a near-mythical staple of the Himalayan longevity diet.",
     botanicalName: "Prunus armeniaca",
     family: "Rosaceae",
     pairings: ["lavender", "almond", "lamb"],
@@ -709,7 +746,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Central and eastern China",
     description:
       "A fuzzy berry with emerald flesh and tiny edible seeds, sharply sweet and floral.",
-    funFact: "Originally called Chinese gooseberry, it was rebranded for export by New Zealand growers in 1959.",
+    funFact:
+      "Originally called Chinese gooseberry, it was rebranded for export by New Zealand growers in 1959.",
     botanicalName: "Actinidia deliciosa",
     family: "Actinidiaceae",
     pairings: ["mint", "lime", "yogurt"],
@@ -725,7 +763,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Iran and northern India",
     description:
       "A leathery hesperidium-like fruit packed with hundreds of jewel-bright arils, each a sweet-tart capsule.",
-    funFact: "Pomegranate juice was used to dye Persian carpets long before it ever became a smoothie ingredient.",
+    funFact:
+      "Pomegranate juice was used to dye Persian carpets long before it ever became a smoothie ingredient.",
     botanicalName: "Punica granatum",
     family: "Lythraceae",
     pairings: ["walnut", "yogurt", "rose"],
@@ -741,7 +780,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mesoamerica",
     description:
       "A buttery tropical berry with peppery seeds and an enzyme that tenderizes meat.",
-    funFact: "Christopher Columbus called papaya 'the fruit of the angels' on his second voyage.",
+    funFact:
+      "Christopher Columbus called papaya 'the fruit of the angels' on his second voyage.",
     botanicalName: "Carica papaya",
     family: "Caricaceae",
     pairings: ["lime", "chili", "coconut"],
@@ -757,7 +797,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Southern China",
     description:
       "A leathery-shelled drupe with translucent, perfumed flesh that tastes like rose and grape.",
-    funFact: "A Tang dynasty emperor used a relay of horses to bring fresh lychee to his concubine.",
+    funFact:
+      "A Tang dynasty emperor used a relay of horses to bring fresh lychee to his concubine.",
     botanicalName: "Litchi chinensis",
     family: "Sapindaceae",
     pairings: ["coconut", "lime", "raspberry"],
@@ -773,7 +814,8 @@ export const CURATED: ProduceItem[] = [
     origin: "China and Japan",
     description:
       "An autumn berry whose tannins make it astringent until ripeness softens it into honey.",
-    funFact: "Hachiya persimmons must be eaten when nearly liquid — bite too early and your mouth puckers for an hour.",
+    funFact:
+      "Hachiya persimmons must be eaten when nearly liquid — bite too early and your mouth puckers for an hour.",
     botanicalName: "Diospyros kaki",
     family: "Ebenaceae",
     pairings: ["goat cheese", "walnut", "cinnamon"],
@@ -789,7 +831,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Southern Brazil",
     description:
       "A wrinkled berry whose tart, perfumed pulp surrounds dozens of crunchy edible seeds.",
-    funFact: "The name comes from 17th-century Spanish missionaries who saw the flower's parts as symbols of the Crucifixion.",
+    funFact:
+      "The name comes from 17th-century Spanish missionaries who saw the flower's parts as symbols of the Crucifixion.",
     botanicalName: "Passiflora edulis",
     family: "Passifloraceae",
     pairings: ["mango", "white chocolate", "lime"],
@@ -805,7 +848,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mesoamerica",
     description:
       "A cactus berry with leathery scales and lightly sweet, kiwi-like flesh studded with black seeds.",
-    funFact: "The flowers bloom only at night and are pollinated almost entirely by bats and moths.",
+    funFact:
+      "The flowers bloom only at night and are pollinated almost entirely by bats and moths.",
     botanicalName: "Selenicereus undatus",
     family: "Cactaceae",
     pairings: ["lime", "yogurt", "mint"],
@@ -821,7 +865,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Indo-Pacific tropics",
     description:
       "A drupe with three layers — fibrous husk, hard shell, and rich meat surrounding sweet water.",
-    funFact: "Coconuts can drift across oceans for months and still germinate when they wash ashore.",
+    funFact:
+      "Coconuts can drift across oceans for months and still germinate when they wash ashore.",
     botanicalName: "Cocos nucifera",
     family: "Arecaceae",
     pairings: ["lime", "chili", "rice"],
@@ -837,7 +882,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Indo-Malayan tropics",
     description:
       "A small, sharply sour citrus whose oils carry the bright top notes of countless tropical dishes.",
-    funFact: "British sailors earned the nickname 'limeys' after the Royal Navy issued lime juice to fight scurvy.",
+    funFact:
+      "British sailors earned the nickname 'limeys' after the Royal Navy issued lime juice to fight scurvy.",
     botanicalName: "Citrus aurantiifolia",
     family: "Rutaceae",
     pairings: ["cilantro", "chili", "coconut"],
@@ -853,7 +899,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Barbados (1750s)",
     description:
       "A bracingly bitter-sweet hesperidium that's a chance hybrid of pomelo and sweet orange.",
-    funFact: "It's named after grapes because it grows in clusters on the tree, not for any flavor similarity.",
+    funFact:
+      "It's named after grapes because it grows in clusters on the tree, not for any flavor similarity.",
     botanicalName: "Citrus × paradisi",
     family: "Rutaceae",
     pairings: ["avocado", "fennel", "mint"],
@@ -869,7 +916,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Iran and northwestern India",
     description:
       "A netted melon whose musk and sweetness explode when picked truly ripe.",
-    funFact: "Named after Cantalupo, a papal estate near Rome where they were cultivated in the 1700s.",
+    funFact:
+      "Named after Cantalupo, a papal estate near Rome where they were cultivated in the 1700s.",
     botanicalName: "Cucumis melo var. cantalupensis",
     family: "Cucurbitaceae",
     pairings: ["prosciutto", "mint", "lime"],
@@ -885,7 +933,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Central Asia",
     description:
       "A storage bulb whose layered leaves carry sulfur compounds that turn sharp raw and sweet caramelized.",
-    funFact: "Egyptian builders were paid in onions and garlic during construction of the pyramids.",
+    funFact:
+      "Egyptian builders were paid in onions and garlic during construction of the pyramids.",
     botanicalName: "Allium cepa",
     family: "Amaryllidaceae",
     pairings: ["thyme", "butter", "vinegar"],
@@ -901,7 +950,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Andes mountains",
     description:
       "A starchy tuber that fed the Inca for millennia before quietly reshaping European agriculture.",
-    funFact: "There are over 4,000 native potato varieties grown in the Peruvian Andes alone.",
+    funFact:
+      "There are over 4,000 native potato varieties grown in the Peruvian Andes alone.",
     botanicalName: "Solanum tuberosum",
     family: "Solanaceae",
     pairings: ["butter", "rosemary", "salt"],
@@ -917,7 +967,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Central America",
     description:
       "A storage root whose flesh sweetens dramatically when long, slow heat converts its starches.",
-    funFact: "Despite the name it isn't related to the potato — they're in entirely different plant families.",
+    funFact:
+      "Despite the name it isn't related to the potato — they're in entirely different plant families.",
     botanicalName: "Ipomoea batatas",
     family: "Convolvulaceae",
     pairings: ["cinnamon", "lime", "pecan"],
@@ -933,7 +984,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mexico and Central America",
     description:
       "A capsicum bred to lose its heat — the same species as chilies but with no capsaicin.",
-    funFact: "Green bell peppers are simply unripe — the same fruit, given more time, turns red, yellow, or orange.",
+    funFact:
+      "Green bell peppers are simply unripe — the same fruit, given more time, turns red, yellow, or orange.",
     botanicalName: "Capsicum annuum",
     family: "Solanaceae",
     pairings: ["onion", "olive oil", "feta"],
@@ -949,7 +1001,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Persia",
     description:
       "A tender leafy green that wilts to a fraction of its volume and concentrates iron and folate.",
-    funFact: "Popeye's spinach myth came from a misplaced decimal point — the iron content was overstated tenfold.",
+    funFact:
+      "Popeye's spinach myth came from a misplaced decimal point — the iron content was overstated tenfold.",
     botanicalName: "Spinacia oleracea",
     family: "Amaranthaceae",
     pairings: ["garlic", "lemon", "feta"],
@@ -965,7 +1018,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Egypt",
     description:
       "A leafy salad staple bred from a milky-stemmed weed into hundreds of crisp and tender forms.",
-    funFact: "Ancient Egyptians believed lettuce sap was an aphrodisiac — it shows up in their fertility iconography.",
+    funFact:
+      "Ancient Egyptians believed lettuce sap was an aphrodisiac — it shows up in their fertility iconography.",
     botanicalName: "Lactuca sativa",
     family: "Asteraceae",
     pairings: ["lemon", "anchovy", "olive oil"],
@@ -981,7 +1035,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Coastal Europe",
     description:
       "A dense leafy head from the wild brassica, equally at home raw, fermented, or slow-braised.",
-    funFact: "Sauerkraut traveled the Silk Road as preserved cabbage long before Germans claimed it.",
+    funFact:
+      "Sauerkraut traveled the Silk Road as preserved cabbage long before Germans claimed it.",
     botanicalName: "Brassica oleracea var. capitata",
     family: "Brassicaceae",
     pairings: ["caraway", "vinegar", "pork"],
@@ -997,7 +1052,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mediterranean",
     description:
       "A brassica whose dense floral curd browns beautifully and absorbs every spice it meets.",
-    funFact: "Cauliflower, broccoli, kale, and brussels sprouts are all the same species — Brassica oleracea.",
+    funFact:
+      "Cauliflower, broccoli, kale, and brussels sprouts are all the same species — Brassica oleracea.",
     botanicalName: "Brassica oleracea var. botrytis",
     family: "Brassicaceae",
     pairings: ["turmeric", "tahini", "raisin"],
@@ -1013,7 +1069,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Eastern Mediterranean",
     description:
       "A spear-shaped young shoot whose brief season is the surest signal that spring has arrived.",
-    funFact: "Asparagus can grow up to 25 cm in a single day during peak season.",
+    funFact:
+      "Asparagus can grow up to 25 cm in a single day during peak season.",
     botanicalName: "Asparagus officinalis",
     family: "Asparagaceae",
     pairings: ["lemon", "butter", "egg"],
@@ -1029,7 +1086,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Italy (from Mesoamerican squashes)",
     description:
       "A summer squash with delicate flesh that turns silken when sliced thin and quickly cooked.",
-    funFact: "Botanically a fruit, zucchini was bred from American Cucurbita pepo by Italians in the 1800s.",
+    funFact:
+      "Botanically a fruit, zucchini was bred from American Cucurbita pepo by Italians in the 1800s.",
     botanicalName: "Cucurbita pepo",
     family: "Cucurbitaceae",
     pairings: ["mint", "lemon", "ricotta"],
@@ -1045,7 +1103,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mediterranean marshlands",
     description:
       "A crunchy, aromatic stalk whose subtle salinity is a quiet backbone of countless stocks and stews.",
-    funFact: "Ancient Greeks used celery to crown the winners of athletic games at Nemea.",
+    funFact:
+      "Ancient Greeks used celery to crown the winners of athletic games at Nemea.",
     botanicalName: "Apium graveolens",
     family: "Apiaceae",
     pairings: ["peanut butter", "blue cheese", "tomato"],
@@ -1061,7 +1120,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Eastern Mediterranean",
     description:
       "An allium with stacked white sheaths that mellow into silky sweetness when slowly stewed in butter.",
-    funFact: "The leek is a national emblem of Wales — soldiers wore them in their caps to identify each other in battle.",
+    funFact:
+      "The leek is a national emblem of Wales — soldiers wore them in their caps to identify each other in battle.",
     botanicalName: "Allium ampeloprasum",
     family: "Amaryllidaceae",
     pairings: ["potato", "thyme", "cream"],
@@ -1077,7 +1137,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Brussels, Belgium",
     description:
       "A tight little brassica head best when roasted hard enough to caramelize and crisp.",
-    funFact: "They grow as 30+ buds spiraling up a single thick stalk, harvested from the bottom up.",
+    funFact:
+      "They grow as 30+ buds spiraling up a single thick stalk, harvested from the bottom up.",
     botanicalName: "Brassica oleracea var. gemmifera",
     family: "Brassicaceae",
     pairings: ["bacon", "balsamic", "parmesan"],
@@ -1093,7 +1154,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mediterranean",
     description:
       "An anise-scented bulb whose crisp layers soften and sweeten with even the briefest heat.",
-    funFact: "Fennel pollen is one of the most expensive culinary ingredients by weight — it's hand-shaken from the flowers.",
+    funFact:
+      "Fennel pollen is one of the most expensive culinary ingredients by weight — it's hand-shaken from the flowers.",
     botanicalName: "Foeniculum vulgare",
     family: "Apiaceae",
     pairings: ["orange", "olive oil", "fish"],
@@ -1109,7 +1171,8 @@ export const CURATED: ProduceItem[] = [
     origin: "China",
     description:
       "A peppery taproot that goes from sharp and crunchy raw to silky and mild when roasted.",
-    funFact: "In Oaxaca, December 23rd is Noche de los Rábanos — the Night of the Radishes — a centuries-old carving festival.",
+    funFact:
+      "In Oaxaca, December 23rd is Noche de los Rábanos — the Night of the Radishes — a centuries-old carving festival.",
     botanicalName: "Raphanus sativus",
     family: "Brassicaceae",
     pairings: ["butter", "salt", "sourdough"],
@@ -1125,7 +1188,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Northeast Africa",
     description:
       "A ridged seedpod whose mucilage thickens stews from gumbo to bhindi masala.",
-    funFact: "Okra seeds were roasted and used as a coffee substitute during the American Civil War.",
+    funFact:
+      "Okra seeds were roasted and used as a coffee substitute during the American Civil War.",
     botanicalName: "Abelmoschus esculentus",
     family: "Malvaceae",
     pairings: ["tomato", "onion", "cumin"],
@@ -1141,7 +1205,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Central and eastern Mediterranean",
     description:
       "A bright, mineral herb that shifts from garnish to centerpiece in tabbouleh and gremolata.",
-    funFact: "Greeks left parsley off their plates and wove it into wreaths for graves and victors.",
+    funFact:
+      "Greeks left parsley off their plates and wove it into wreaths for graves and victors.",
     botanicalName: "Petroselinum crispum",
     family: "Apiaceae",
     pairings: ["lemon", "garlic", "olive oil"],
@@ -1157,7 +1222,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Eastern Mediterranean and Russia",
     description:
       "A feathery herb with a clean, slightly licorice note that defines pickles, gravlax, and tzatziki.",
-    funFact: "The Old Norse word 'dilla' meant 'to lull' — dill water was traditionally given to soothe colicky babies.",
+    funFact:
+      "The Old Norse word 'dilla' meant 'to lull' — dill water was traditionally given to soothe colicky babies.",
     botanicalName: "Anethum graveolens",
     family: "Apiaceae",
     pairings: ["cucumber", "yogurt", "salmon"],
@@ -1173,7 +1239,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Northern Hemisphere temperate zones",
     description:
       "The smallest of the alliums — a delicate hollow shoot that finishes a dish without dominating it.",
-    funFact: "Chives are one of the few alliums that grow wild on every continent except Antarctica.",
+    funFact:
+      "Chives are one of the few alliums that grow wild on every continent except Antarctica.",
     botanicalName: "Allium schoenoprasum",
     family: "Amaryllidaceae",
     pairings: ["sour cream", "egg", "potato"],
@@ -1189,7 +1256,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Russia and Western Asia",
     description:
       "A slim-leafed herb with a sharp anise note that sings in béarnaise and chicken dishes.",
-    funFact: "True French tarragon doesn't flower or set seed — it can only be propagated by cuttings.",
+    funFact:
+      "True French tarragon doesn't flower or set seed — it can only be propagated by cuttings.",
     botanicalName: "Artemisia dracunculus",
     family: "Asteraceae",
     pairings: ["chicken", "vinegar", "mustard"],
@@ -1205,7 +1273,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Cyprus and southern Turkey",
     description:
       "A sweeter, gentler cousin of oregano, more floral than pungent, beloved in Levantine cooking.",
-    funFact: "Greek mythology says Aphrodite cultivated marjoram on Mount Olympus as a symbol of happiness.",
+    funFact:
+      "Greek mythology says Aphrodite cultivated marjoram on Mount Olympus as a symbol of happiness.",
     botanicalName: "Origanum majorana",
     family: "Lamiaceae",
     pairings: ["lamb", "olive oil", "tomato"],
@@ -1221,7 +1290,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mediterranean",
     description:
       "A perfumed silvery-leaved shrub whose buds bring floral elegance to honey, ice cream, and Provençal stews.",
-    funFact: "Romans bathed in lavender water — the name comes from Latin 'lavare', to wash.",
+    funFact:
+      "Romans bathed in lavender water — the name comes from Latin 'lavare', to wash.",
     botanicalName: "Lavandula angustifolia",
     family: "Lamiaceae",
     pairings: ["honey", "lemon", "blueberry"],
@@ -1237,7 +1307,8 @@ export const CURATED: ProduceItem[] = [
     origin: "India",
     description:
       "A vivid yellow rhizome whose curcumin colors curries, dyes saffron-imitation cloth, and is now studied for its anti-inflammatory action.",
-    funFact: "Indian wedding ceremonies still feature a centuries-old ritual where turmeric paste is rubbed onto the bride and groom.",
+    funFact:
+      "Indian wedding ceremonies still feature a centuries-old ritual where turmeric paste is rubbed onto the bride and groom.",
     botanicalName: "Curcuma longa",
     family: "Zingiberaceae",
     pairings: ["coconut", "black pepper", "ginger"],
@@ -1253,7 +1324,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Eastern Mediterranean to South Asia",
     description:
       "Earthy, warm, slightly bitter seeds that anchor cuisines from Mexico to Morocco to Mumbai.",
-    funFact: "Cumin was so valued in medieval Europe that landlords accepted it as rent.",
+    funFact:
+      "Cumin was so valued in medieval Europe that landlords accepted it as rent.",
     botanicalName: "Cuminum cyminum",
     family: "Apiaceae",
     pairings: ["coriander", "lamb", "lentil"],
@@ -1269,7 +1341,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Hungary (from American Capsicum)",
     description:
       "Ground sweet or smoky chili with a deep red hue that defines goulash, chorizo, and pimentón rubs.",
-    funFact: "Hungarian paprika earned its protected designation status — only six regions can legally produce it.",
+    funFact:
+      "Hungarian paprika earned its protected designation status — only six regions can legally produce it.",
     botanicalName: "Capsicum annuum",
     family: "Solanaceae",
     pairings: ["chicken", "garlic", "sour cream"],
@@ -1285,7 +1358,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Western Ghats of India",
     description:
       "Pods of aromatic black seeds with a complex camphor-citrus warmth that perfumes coffee and biryani alike.",
-    funFact: "It's the third most expensive spice by weight after saffron and vanilla.",
+    funFact:
+      "It's the third most expensive spice by weight after saffron and vanilla.",
     botanicalName: "Elettaria cardamomum",
     family: "Zingiberaceae",
     pairings: ["coffee", "rose", "rice"],
@@ -1301,7 +1375,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Maluku Islands (Spice Islands)",
     description:
       "Dried flower buds whose eugenol delivers a sweet, numbing heat to mulled wine, ham, and chai.",
-    funFact: "The world's oldest known clove tree, Afo, has been growing on Ternate since the 1600s.",
+    funFact:
+      "The world's oldest known clove tree, Afo, has been growing on Ternate since the 1600s.",
     botanicalName: "Syzygium aromaticum",
     family: "Myrtaceae",
     pairings: ["orange", "cinnamon", "ham"],
@@ -1317,7 +1392,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Banda Islands, Indonesia",
     description:
       "An aromatic kernel grated to lift béchamel, eggnog, and pumpkin pie with warm, woody depth.",
-    funFact: "The Dutch traded Manhattan to England in 1667 in exchange for the nutmeg-rich island of Run.",
+    funFact:
+      "The Dutch traded Manhattan to England in 1667 in exchange for the nutmeg-rich island of Run.",
     botanicalName: "Myristica fragrans",
     family: "Myristicaceae",
     pairings: ["cream", "cheese", "spinach"],
@@ -1333,7 +1409,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Eastern Mexico",
     description:
       "The cured pod of a climbing orchid whose vanillin underpins the planet's most beloved baking flavor.",
-    funFact: "Outside its native range vanilla orchids must be hand-pollinated — every commercial bean was touched by a person.",
+    funFact:
+      "Outside its native range vanilla orchids must be hand-pollinated — every commercial bean was touched by a person.",
     botanicalName: "Vanilla planifolia",
     family: "Orchidaceae",
     pairings: ["cream", "chocolate", "stone fruit"],
@@ -1349,7 +1426,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Greece and Iran",
     description:
       "The dried stigmas of a crocus, hand-plucked to dye and perfume rice dishes from paella to biryani.",
-    funFact: "It takes around 150 flowers to produce a single gram of saffron — the world's most expensive spice by weight.",
+    funFact:
+      "It takes around 150 flowers to produce a single gram of saffron — the world's most expensive spice by weight.",
     botanicalName: "Crocus sativus",
     family: "Iridaceae",
     pairings: ["rice", "seafood", "milk"],
@@ -1365,7 +1443,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Malabar Coast, India",
     description:
       "The dried fruit of a tropical vine — the world's most-traded spice and the original reason for the spice route.",
-    funFact: "In ancient Rome, pepper was sometimes used as currency and ransom — Alaric the Visigoth demanded 3,000 pounds of it.",
+    funFact:
+      "In ancient Rome, pepper was sometimes used as currency and ransom — Alaric the Visigoth demanded 3,000 pounds of it.",
     botanicalName: "Piper nigrum",
     family: "Piperaceae",
     pairings: ["beef", "strawberry", "cheese"],
@@ -1381,7 +1460,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Southwestern China",
     description:
       "An eight-pointed star-shaped pod with a sweeter, deeper licorice character than aniseed.",
-    funFact: "It's a key ingredient in Chinese five-spice powder and the original source of shikimic acid for Tamiflu.",
+    funFact:
+      "It's a key ingredient in Chinese five-spice powder and the original source of shikimic acid for Tamiflu.",
     botanicalName: "Illicium verum",
     family: "Schisandraceae",
     pairings: ["pork", "orange", "cinnamon"],
@@ -1397,7 +1477,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Northeastern Brazil",
     description:
       "A kidney-shaped seed that grows attached to the outside of a pseudo-fruit, perfect for blending into creamy sauces.",
-    funFact: "Raw cashews are never sold raw — their shells contain the same caustic resin as poison ivy.",
+    funFact:
+      "Raw cashews are never sold raw — their shells contain the same caustic resin as poison ivy.",
     botanicalName: "Anacardium occidentale",
     family: "Anacardiaceae",
     pairings: ["coconut", "chili", "rice"],
@@ -1413,7 +1494,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Central Asia and Iran",
     description:
       "A tiny green-fleshed nut with a faintly sweet, resinous note prized in Middle Eastern desserts.",
-    funFact: "Pistachio shells split open naturally on the tree — the soft 'pop' is audible during harvest.",
+    funFact:
+      "Pistachio shells split open naturally on the tree — the soft 'pop' is audible during harvest.",
     botanicalName: "Pistacia vera",
     family: "Anacardiaceae",
     pairings: ["rose", "honey", "lamb"],
@@ -1429,7 +1511,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Europe and Western Asia",
     description:
       "A round nut whose buttery toast notes are the foundation of gianduja, praline, and Nutella.",
-    funFact: "Turkey grows about 70% of the world's hazelnuts, mostly along the Black Sea coast.",
+    funFact:
+      "Turkey grows about 70% of the world's hazelnuts, mostly along the Black Sea coast.",
     botanicalName: "Corylus avellana",
     family: "Betulaceae",
     pairings: ["chocolate", "coffee", "pear"],
@@ -1445,7 +1528,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Southern North America",
     description:
       "A buttery, faintly sweet hickory nut, native to the lowlands the Mississippi drains.",
-    funFact: "The name pecan comes from an Algonquin word meaning 'a nut that requires a stone to crack'.",
+    funFact:
+      "The name pecan comes from an Algonquin word meaning 'a nut that requires a stone to crack'.",
     botanicalName: "Carya illinoinensis",
     family: "Juglandaceae",
     pairings: ["maple", "bourbon", "sweet potato"],
@@ -1461,7 +1545,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Amazon basin",
     description:
       "A dense, creamy three-sided seed packed inside coconut-like pods on towering rainforest trees.",
-    funFact: "The trees only fruit in undisturbed forest — they depend on a single bee species and an agouti rodent to disperse seeds.",
+    funFact:
+      "The trees only fruit in undisturbed forest — they depend on a single bee species and an agouti rodent to disperse seeds.",
     botanicalName: "Bertholletia excelsa",
     family: "Lecythidaceae",
     pairings: ["chocolate", "salt", "coconut"],
@@ -1477,7 +1562,8 @@ export const CURATED: ProduceItem[] = [
     origin: "France (commercially)",
     description:
       "The most cultivated mushroom on earth — mild, juicy, and easy to layer into nearly anything.",
-    funFact: "Louis XIV's gardener Olivier de Serres was the first to cultivate it commercially in 1707.",
+    funFact:
+      "Louis XIV's gardener Olivier de Serres was the first to cultivate it commercially in 1707.",
     botanicalName: "Agaricus bisporus",
     family: "Agaricaceae",
     pairings: ["butter", "thyme", "garlic"],
@@ -1493,7 +1579,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Italy (modern marketing)",
     description:
       "A mature button mushroom with deep umami and a meaty texture that holds up to grilling.",
-    funFact: "Portobello, cremini, and white button are all the same species at different stages of maturity.",
+    funFact:
+      "Portobello, cremini, and white button are all the same species at different stages of maturity.",
     botanicalName: "Agaricus bisporus",
     family: "Agaricaceae",
     pairings: ["balsamic", "rosemary", "blue cheese"],
@@ -1509,7 +1596,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Forests worldwide",
     description:
       "A fan-shaped wood-loving mushroom with a delicate texture and faint anise sweetness.",
-    funFact: "Oyster mushrooms are carnivorous — their hyphae actively trap and digest tiny nematodes for nitrogen.",
+    funFact:
+      "Oyster mushrooms are carnivorous — their hyphae actively trap and digest tiny nematodes for nitrogen.",
     botanicalName: "Pleurotus ostreatus",
     family: "Pleurotaceae",
     pairings: ["soy", "chive", "butter"],
@@ -1525,7 +1613,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Northern Hemisphere temperate forests",
     description:
       "A trumpet-shaped wild mushroom with apricot-like aroma — never cultivated, only foraged.",
-    funFact: "Chanterelles can stay edible on the forest floor for over a week — they're remarkably resistant to rot.",
+    funFact:
+      "Chanterelles can stay edible on the forest floor for over a week — they're remarkably resistant to rot.",
     botanicalName: "Cantharellus cibarius",
     family: "Cantharellaceae",
     pairings: ["cream", "shallot", "thyme"],
@@ -1541,7 +1630,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mesoamerica",
     description:
       "A small, satiny legume with rich earthiness — the backbone of feijoada and frijoles negros.",
-    funFact: "Black beans were a staple of the Olmec, Aztec, and Maya for thousands of years before reaching the Old World.",
+    funFact:
+      "Black beans were a staple of the Olmec, Aztec, and Maya for thousands of years before reaching the Old World.",
     botanicalName: "Phaseolus vulgaris",
     family: "Fabaceae",
     pairings: ["lime", "cumin", "rice"],
@@ -1557,7 +1647,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Central and South America",
     description:
       "A meaty kidney-shaped legume that holds its shape through long simmering in chili and rajma.",
-    funFact: "Raw kidney beans contain a toxic lectin — they must be soaked and boiled hard for at least 10 minutes.",
+    funFact:
+      "Raw kidney beans contain a toxic lectin — they must be soaked and boiled hard for at least 10 minutes.",
     botanicalName: "Phaseolus vulgaris",
     family: "Fabaceae",
     pairings: ["chili", "garlic", "tomato"],
@@ -1573,7 +1664,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Northeast China",
     description:
       "A protein-dense legume that becomes tofu, tempeh, soy sauce, miso, and the basis of countless meat alternatives.",
-    funFact: "Domesticated more than 5,000 years ago, soy was already a 'sacred grain' in Zhou dynasty China.",
+    funFact:
+      "Domesticated more than 5,000 years ago, soy was already a 'sacred grain' in Zhou dynasty China.",
     botanicalName: "Glycine max",
     family: "Fabaceae",
     pairings: ["sesame", "ginger", "scallion"],
@@ -1589,7 +1681,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mediterranean and Near East",
     description:
       "A sweet, bright spring legume best eaten within hours of picking, before its sugars turn to starch.",
-    funFact: "Mendel's experiments with pea plants in a Moravian monastery garden founded the entire field of genetics.",
+    funFact:
+      "Mendel's experiments with pea plants in a Moravian monastery garden founded the entire field of genetics.",
     botanicalName: "Pisum sativum",
     family: "Fabaceae",
     pairings: ["mint", "butter", "ricotta"],
@@ -1605,7 +1698,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Yangtze valley, China",
     description:
       "A cereal grain that feeds more than half the planet and shows up in a thousand regional preparations.",
-    funFact: "There are over 40,000 varieties of rice grown worldwide, from sticky black to long-grain basmati.",
+    funFact:
+      "There are over 40,000 varieties of rice grown worldwide, from sticky black to long-grain basmati.",
     botanicalName: "Oryza sativa",
     family: "Poaceae",
     pairings: ["soy", "coconut", "saffron"],
@@ -1621,7 +1715,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Fertile Crescent",
     description:
       "The cereal whose gluten built bread, beer, pasta, and almost every grain-based civilization in the West.",
-    funFact: "Domesticated wheat can no longer drop its seeds — it physically depends on humans to reproduce.",
+    funFact:
+      "Domesticated wheat can no longer drop its seeds — it physically depends on humans to reproduce.",
     botanicalName: "Triticum aestivum",
     family: "Poaceae",
     pairings: ["yeast", "olive oil", "salt"],
@@ -1637,7 +1732,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Fertile Crescent",
     description:
       "An ancient hardy grain that rolls into pearls for soup and malts for nearly every beer and whisky in the world.",
-    funFact: "Roman gladiators were nicknamed 'hordearii' — barley-eaters — because the grain was their training staple.",
+    funFact:
+      "Roman gladiators were nicknamed 'hordearii' — barley-eaters — because the grain was their training staple.",
     botanicalName: "Hordeum vulgare",
     family: "Poaceae",
     pairings: ["mushroom", "leek", "lemon"],
@@ -1653,7 +1749,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Andes mountains",
     description:
       "A pseudo-cereal whose tiny seeds carry all nine essential amino acids — a complete protein in a grain's form factor.",
-    funFact: "The Inca called it chisaya mama, 'mother of all grains', and the emperor sowed the first seeds each year.",
+    funFact:
+      "The Inca called it chisaya mama, 'mother of all grains', and the emperor sowed the first seeds each year.",
     botanicalName: "Chenopodium quinoa",
     family: "Amaranthaceae",
     pairings: ["lemon", "feta", "herbs"],
@@ -1669,7 +1766,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Yunnan, China",
     description:
       "A pseudo-cereal whose triangular seeds become soba noodles, kasha, and the toasty flour in galettes bretonnes.",
-    funFact: "Despite the name, buckwheat is unrelated to wheat — it's a relative of rhubarb and sorrel.",
+    funFact:
+      "Despite the name, buckwheat is unrelated to wheat — it's a relative of rhubarb and sorrel.",
     botanicalName: "Fagopyrum esculentum",
     family: "Polygonaceae",
     pairings: ["butter", "cabbage", "dill"],
@@ -1684,7 +1782,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Central North America",
     description:
       "The fruit of the sunflower — striped or black-shelled kernels eaten roasted, salted, ground into seed butter, or pressed for oil.",
-    funFact: "Indigenous peoples of the Americas domesticated sunflowers around 3000 BCE, well before maize reached the same regions.",
+    funFact:
+      "Indigenous peoples of the Americas domesticated sunflowers around 3000 BCE, well before maize reached the same regions.",
     botanicalName: "Helianthus annuus",
     family: "Asteraceae",
     pairings: ["salt", "honey", "rye"],
@@ -1699,7 +1798,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Indian subcontinent",
     description:
       "Tiny oil-rich seeds that toast to a nutty depth — ground into tahini, scattered on bagels, or pressed into one of the world's oldest cooking oils.",
-    funFact: "Sesame is one of the oldest cultivated oilseed crops, with archaeological traces in the Indus Valley dating back 5,000 years.",
+    funFact:
+      "Sesame is one of the oldest cultivated oilseed crops, with archaeological traces in the Indus Valley dating back 5,000 years.",
     botanicalName: "Sesamum indicum",
     family: "Pedaliaceae",
     pairings: ["honey", "soy", "ginger"],
@@ -1714,7 +1814,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Central Mexico",
     description:
       "Small mottled seeds that swell into a gel when soaked, prized by the Aztecs as warrior food and lately as a thickener in puddings and drinks.",
-    funFact: "The word 'chia' comes from the Nahuatl chian, meaning oily — and Mexico's state of Chiapas takes its name from the same plant.",
+    funFact:
+      "The word 'chia' comes from the Nahuatl chian, meaning oily — and Mexico's state of Chiapas takes its name from the same plant.",
     botanicalName: "Salvia hispanica",
     family: "Lamiaceae",
     pairings: ["coconut", "berry", "lemon"],
@@ -1729,7 +1830,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Fertile Crescent",
     description:
       "Glossy amber or russet seeds rich in omega-3s and lignans; ground into meal for baking or pressed into linseed oil.",
-    funFact: "The same plant gives us linen — flax fibers were spun into cloth in the Caucasus 30,000 years ago, the oldest textile evidence on record.",
+    funFact:
+      "The same plant gives us linen — flax fibers were spun into cloth in the Caucasus 30,000 years ago, the oldest textile evidence on record.",
     botanicalName: "Linum usitatissimum",
     family: "Linaceae",
     pairings: ["oat", "yogurt", "blueberry"],
@@ -1744,7 +1846,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Mesoamerica",
     description:
       "Hulled green pepitas roasted with salt, ground into Mexican pipián sauces, or pressed into the deep-emerald oil of Styria.",
-    funFact: "A naked-seed pumpkin variety was bred in 19th-century Austria specifically because shelling pumpkin seeds by hand was unbearable.",
+    funFact:
+      "A naked-seed pumpkin variety was bred in 19th-century Austria specifically because shelling pumpkin seeds by hand was unbearable.",
     botanicalName: "Cucurbita pepo",
     family: "Cucurbitaceae",
     pairings: ["lime", "chili", "cocoa"],
@@ -1759,7 +1862,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Eastern Mediterranean",
     description:
       "Dust-fine slate-blue seeds with a faint hay sweetness, scattered on breads or ground into the dense fillings of central European pastries.",
-    funFact: "Poppy seeds contain trace opiate alkaloids — enough that eating a single pastry can cause a positive drug test the next morning.",
+    funFact:
+      "Poppy seeds contain trace opiate alkaloids — enough that eating a single pastry can cause a positive drug test the next morning.",
     botanicalName: "Papaver somniferum",
     family: "Papaveraceae",
     pairings: ["lemon", "butter", "honey"],
@@ -1774,7 +1878,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Central Asia",
     description:
       "Soft, nutty hearts that bring complete protein and a green-grass flavor to smoothies, salads, and modern hippie granola.",
-    funFact: "Edible hemp seed contains essentially no THC — the cannabinoid is concentrated in the flower's resin, not the seed.",
+    funFact:
+      "Edible hemp seed contains essentially no THC — the cannabinoid is concentrated in the flower's resin, not the seed.",
     botanicalName: "Cannabis sativa",
     family: "Cannabaceae",
     pairings: ["banana", "spinach", "lemon"],
@@ -1789,7 +1894,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Northeast Africa",
     description:
       "Roasted and salted across West Africa, the Middle East, and China as egusi, agushi, or guazi — savory, crunchy, and surprisingly meaty.",
-    funFact: "In Nigeria, ground egusi (watermelon seed) is the body of a soup so beloved it shares its name with the dish.",
+    funFact:
+      "In Nigeria, ground egusi (watermelon seed) is the body of a soup so beloved it shares its name with the dish.",
     botanicalName: "Citrullus lanatus",
     family: "Cucurbitaceae",
     pairings: ["chili", "salt", "leafy greens"],
@@ -1804,7 +1910,8 @@ export const CURATED: ProduceItem[] = [
     origin: "Asia",
     description:
       "Pearly seeds plucked from the showerhead-shaped pod of the sacred lotus — boiled into Chinese soups, sweetened into mooncake paste, or sun-dried into a chewy snack.",
-    funFact: "Lotus seeds are extraordinarily long-lived: a 1,300-year-old seed recovered from a dry Chinese lakebed sprouted successfully in 1995.",
+    funFact:
+      "Lotus seeds are extraordinarily long-lived: a 1,300-year-old seed recovered from a dry Chinese lakebed sprouted successfully in 1995.",
     botanicalName: "Nelumbo nucifera",
     family: "Nelumbonaceae",
     pairings: ["jujube", "rock sugar", "white fungus"],

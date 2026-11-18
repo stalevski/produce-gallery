@@ -26,7 +26,7 @@ export function HighlightedText({ text, query }: HighlightedTextProps) {
         className="rounded-sm bg-amber-200/70 px-0.5 text-[#1B1F1A] dark:bg-amber-400/30 dark:text-amber-50"
       >
         {text.slice(match, match + needle.length)}
-      </mark>
+      </mark>,
     );
     cursor = match + needle.length;
     match = lower.indexOf(needle, cursor);

@@ -38,6 +38,11 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Format check
+        # Prettier drift had accumulated in 23 files because nothing enforced
+        # it (2026-11-18). Cheap to check, so it runs before the build.
+        run: npm run format:check
+
       - name: Type check
         run: npx tsc -b
 

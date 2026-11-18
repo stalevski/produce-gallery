@@ -122,17 +122,17 @@ LIMIT 800
 
 Categories use these QIDs:
 
-| Category   | QID       | Notes |
-| ---------- | --------- | ----- |
-| fruit      | Q3314483  | edible fruit |
-| vegetable  | Q11004    | vegetable |
-| spice      | Q42527    | spice |
-| herb       | Q207123   | herb |
-| nut        | Q11009    | nut |
-| seed       | Q40763    | seed |
-| mushroom   | Q654236   | edible mushroom |
-| legume     | Q12034432 | legume (fruit type) |
-| grain      | Q12117    | cereal |
+| Category  | QID       | Notes               |
+| --------- | --------- | ------------------- |
+| fruit     | Q3314483  | edible fruit        |
+| vegetable | Q11004    | vegetable           |
+| spice     | Q42527    | spice               |
+| herb      | Q207123   | herb                |
+| nut       | Q11009    | nut                 |
+| seed      | Q40763    | seed                |
+| mushroom  | Q654236   | edible mushroom     |
+| legume    | Q12034432 | legume (fruit type) |
+| grain     | Q12117    | cereal              |
 
 Results are deduplicated by Wikidata ID, sorted alphabetically, and cached in
 `localStorage` under `produce-gallery:wikidata:v6` for 7 days. The cache is also
@@ -144,12 +144,12 @@ Wikidata mode is instant.
 The current view is fully encoded in the URL search params. Open one of these
 in a fresh tab:
 
-| Example URL | What it does |
-| ----------- | ------------ |
-| `/?q=basil` | Search for "basil" |
-| `/?cat=spice&sort=random` | Spices in random order |
-| `/?src=snapshot` | Bundled Wikidata snapshot |
-| `/?src=wikidata&photo=1` | Live Wikidata, only items with photos |
+| Example URL                | What it does                                      |
+| -------------------------- | ------------------------------------------------- |
+| `/?q=basil`                | Search for "basil"                                |
+| `/?cat=spice&sort=random`  | Spices in random order                            |
+| `/?src=snapshot`           | Bundled Wikidata snapshot                         |
+| `/?src=wikidata&photo=1`   | Live Wikidata, only items with photos             |
 | `/?cat=herb&item=rosemary` | Herbs filter, with the rosemary detail modal open |
 
 ## Adding more curated produce

@@ -26,10 +26,14 @@ test.beforeEach(async ({ page }) => {
  */
 const clickStable = async (locator: Locator) => {
   await expect(locator).toBeVisible();
-  await locator.click({ timeout: 3_000 }).catch(() => locator.click({ force: true }));
+  await locator
+    .click({ timeout: 3_000 })
+    .catch(() => locator.click({ force: true }));
 };
 
-test("renders the gallery hero and at least one produce card", async ({ page }) => {
+test("renders the gallery hero and at least one produce card", async ({
+  page,
+}) => {
   await page.goto("./");
 
   // Page title from index.html
@@ -50,7 +54,9 @@ test("opens the detail modal when a card is clicked and closes it on Esc", async
 }) => {
   await page.goto("./");
 
-  await clickStable(page.getByRole("button", { name: /^View details for / }).first());
+  await clickStable(
+    page.getByRole("button", { name: /^View details for / }).first(),
+  );
 
   // DetailView renders <div role="dialog">
   const dialog = page.getByRole("dialog");
@@ -97,7 +103,10 @@ test("search filters the visible cards", async ({ page }) => {
 test("category chip toggles off when clicked again", async ({ page }) => {
   await page.goto("./");
 
-  const mushroomChip = page.getByRole("button", { name: "Mushrooms", exact: true });
+  const mushroomChip = page.getByRole("button", {
+    name: "Mushrooms",
+    exact: true,
+  });
   const allChip = page.getByRole("button", { name: "All", exact: true });
 
   // Initially All is active

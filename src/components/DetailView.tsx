@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { BookOpen, ExternalLink, Loader2, Sparkles, X } from "lucide-react";
 import type { Category, ProduceItem } from "../types";
-import { CATEGORY_DEFAULT_HEX, CATEGORY_EMOJI } from "../data/category-defaults";
+import {
+  CATEGORY_DEFAULT_HEX,
+  CATEGORY_EMOJI,
+} from "../data/category-defaults";
 import { fetchWikipediaSummary } from "../services/wikipedia";
 
 interface DetailViewProps {
@@ -109,7 +112,8 @@ export function DetailView({
   const accentHex = item.colorHex ?? CATEGORY_DEFAULT_HEX[item.category];
   const showImage = !!item.imageUrl && !imgFailed;
   const wikiUrl =
-    item.url ?? `https://en.wikipedia.org/wiki/${encodeURIComponent(item.name)}`;
+    item.url ??
+    `https://en.wikipedia.org/wiki/${encodeURIComponent(item.name)}`;
 
   return (
     <div
@@ -197,9 +201,7 @@ export function DetailView({
               <h2 className="font-display text-3xl font-semibold leading-tight text-ink sm:text-4xl">
                 {item.name}
               </h2>
-              <span
-                className="inline-flex items-center gap-1.5 rounded-full bg-ink/5 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider text-ink/70"
-              >
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-ink/5 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider text-ink/70">
                 <span
                   className="h-1.5 w-1.5 rounded-full"
                   style={{ backgroundColor: accentHex }}
@@ -243,15 +245,15 @@ export function DetailView({
                   Fetching summary...
                 </div>
               ) : (
-                <p className="text-sm leading-relaxed text-ink/70">{wikiExtract}</p>
+                <p className="text-sm leading-relaxed text-ink/70">
+                  {wikiExtract}
+                </p>
               )}
             </div>
           )}
 
           <div className="grid gap-4 sm:grid-cols-2">
-            {item.origin && (
-              <Meta label="Origin" value={item.origin} />
-            )}
+            {item.origin && <Meta label="Origin" value={item.origin} />}
             {item.color && (
               <Meta label="Color" value={item.color} accentHex={accentHex} />
             )}
@@ -324,7 +326,9 @@ interface MetaProps {
 function Meta({ label, value, accentHex }: MetaProps) {
   return (
     <div>
-      <p className="text-[10px] uppercase tracking-wider text-ink/50">{label}</p>
+      <p className="text-[10px] uppercase tracking-wider text-ink/50">
+        {label}
+      </p>
       <p className="mt-0.5 inline-flex items-center gap-1.5 text-sm text-ink/80">
         {accentHex && (
           <span

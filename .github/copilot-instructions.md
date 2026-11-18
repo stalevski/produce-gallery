@@ -5,7 +5,7 @@ applyTo: "**"
 # Copilot instructions - produce-gallery
 
 The canonical conventions for this repo live in [AGENTS.md](../AGENTS.md). Read
-it before making changes - it is the operator's manual and records the *why*
+it before making changes - it is the operator's manual and records the _why_
 behind decisions. This file only highlights the must-not-forget rules.
 
 ## Project at a glance
@@ -30,7 +30,7 @@ tiers: **curated** (`src/data/curated.ts`), **snapshot**
 - **Strict TypeScript** - keep it clean (`noUnusedLocals`, `noUnusedParameters`,
   `noFallthroughCasesInSwitch` are on).
 - **Conventional commits**, lowercase after the colon (`feat`, `fix`, `revert`,
-  `chore`, `docs`, `refactor`, `style`, `test`). The body explains the *why* and
+  `chore`, `docs`, `refactor`, `style`, `test`). The body explains the _why_ and
   the tradeoff, not the what.
 - **Keep `PROGRESS.md` current** - update its relevant section in the same
   commit as the work.
