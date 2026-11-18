@@ -94,6 +94,8 @@ what - the git history already has the what. Seeded from recent commits._
   eslint 10 and typescript-eslint 8.72.2 pin `^10`, so forcing it with an
   `overrides` entry would break linting. It stays open until those packages
   widen their range; Dependabot will keep reporting it as "update not possible".
+  **(Superseded 2026-11-18 - both packages widened their range and the advisory
+  is closed; see the entry above.)**
 
 - **2026-11-12** - Bounded every job and Playwright step. Two consecutive weekly
   health checks died with "the hosted runner lost communication with the
