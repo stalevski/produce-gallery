@@ -66,6 +66,25 @@ _Accepted tradeoffs and rough edges. Many of these are deliberate - see
 _Append-only. Newest first. Record the **why** and the tradeoff, not just the
 what - the git history already has the what. Seeded from recent commits._
 
+- **2026-11-18** - Closed the `minimatch` advisory that was accepted on
+  2026-11-12; that note is now obsolete. typescript-eslint 8.73.0 / eslint 10.15
+  admit minimatch 11, so `npm audit fix` took the tree to 11.0.9 - except for
+  the copy nested under `tailwindcss -> sucrase -> glob@10.5.0`, because glob 10
+  requires `minimatch ^9` and Tailwind 3 pins `glob ^10.3.10`. An `overrides`
+  entry (`"minimatch": "^11.0.9"`) closes it; minimatch 11 still ships CommonJS
+  so glob 10 resolves it, confirmed by a clean build and 21/21 smoke tests. Drop
+  the override once Tailwind 4 lands (it uses glob 11+, already on the backlog).
+  What remains is `glob` itself (moderate, fixed only in glob 14 - same Tailwind 4
+  blocker) and `picomatch` (high, GHSA-fc5q-39xc-vjpf, **no patched version**
+  published), both build-time only.
+
+- **2026-11-18** - `.gitattributes` now says `* text=auto eol=lf`. With plain
+  `text=auto` plus `core.autocrlf=true` (this clone), files check out as CRLF
+  while `.editorconfig` and Prettier both mandate LF - so the `format:check`
+  step added in #49 failed on every file for Windows contributors even though CI
+  was green. Existing clones need a one-off `git add --renormalize .` (or a fresh
+  checkout) to pick up LF in the working tree.
+
 - **2026-11-12** - Cleared the dependency advisories with `npm audit fix`
   (lockfile only, no manifest change): vite 8.0.16 -> 8.3.8 (five advisories,
   one high - the `launch-editor` command-injection set), postcss-selector-parser
