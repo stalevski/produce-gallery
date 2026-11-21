@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "playwright-test": {
+      "command": "npx",
+      "args": ["playwright", "run-test-mcp-server", "--headless"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@0.0.86", "--headless", "--isolated"]
+    }
+  }
+}

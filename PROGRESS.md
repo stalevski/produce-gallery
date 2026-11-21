@@ -15,7 +15,10 @@ the work it describes, and date your entries (`YYYY-MM-DD`).
 _What is actively being worked on right now. Keep this short - move finished
 items to the decision log, move not-yet-started ideas to the backlog._
 
-- _Nothing in flight. Add the task you're starting here._
+- **Agent-readiness pass** (2026-11-21) - `npm run verify` as the single gate,
+  `.mcp.json` + devcontainer, and one in-repo skill for snapshot refreshes.
+  Remaining: rerun the assertion guardrail from CI once `checkout` fetches
+  `origin/main`.
 
 ---
 
@@ -24,9 +27,9 @@ items to the decision log, move not-yet-started ideas to the backlog._
 _Future ideas, roughly ordered by appetite. Pull an item up to "Current focus"
 when you start it._
 
-- **Wikidata maintenance runbook** - step-by-step for upstream QID drift (e.g. a
-  repeat of the grain/legume rename in `26292ed`): reproduce in the Query
-  Service, fix `category-qids.json`, bump the cache key, regenerate the snapshot.
+- **Wikidata maintenance runbook** - ~~step-by-step for upstream QID drift~~ Done
+  2026-11-21: lives in `.agents/skills/refresh-wikidata-snapshot/SKILL.md` (also
+  symlinked as `.claude/skills`), so an agent picks it up without being told.
 - **Tailwind 4 migration** - deliberately deferred during the 2026-06-11 LTS
   upgrade pass (breaking config rewrite: CSS-first `@theme`, new PostCSS
   plugin). Everything else is current.
@@ -65,6 +68,20 @@ _Accepted tradeoffs and rough edges. Many of these are deliberate - see
 
 _Append-only. Newest first. Record the **why** and the tradeoff, not just the
 what - the git history already has the what. Seeded from recent commits._
+
+- **2026-11-21** - Made the repo agent-ready, mostly by deleting duplication.
+  `npm run verify` (lint -> format:check -> typecheck -> assertion guardrail ->
+  build -> e2e) is now the one command that means "done"; it is `tsc -b` and not
+  `tsc -b --noEmit` because the composite `tsconfig.node.json` reference rejects
+  `--noEmit` (TS6310) and the emitted `vite.config.js`/`.d.ts` are gitignored
+  anyway. `.github/copilot-instructions.md` was 38 lines restating AGENTS.md and
+  had already drifted from it, so it is now a 4-line pointer - one source, not
+  two. `scripts/check-assertions.sh` fails on `skip`/`fixme`/`toBeTruthy`/
+  `waitForTimeout`/`force: true` **added** to a spec versus `origin/main`, which
+  grandfathers the deliberate WebKit `force: true` fallback while making the
+  next one a reviewable act; it stays local-only for now because a shallow CI
+  checkout has no `origin/main` to diff against. No unit-test tier was added -
+  that remains a separate decision (see backlog).
 
 - **2026-11-18** - Closed the `minimatch` advisory that was accepted on
   2026-11-12; that note is now obsolete. typescript-eslint 8.73.0 / eslint 10.15

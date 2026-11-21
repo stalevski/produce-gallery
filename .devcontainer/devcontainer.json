@@ -1,0 +1,24 @@
+{
+  "name": "produce-gallery (Playwright)",
+  "image": "mcr.microsoft.com/playwright:v1.65.1-noble",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "24"
+    }
+  },
+  "remoteUser": "pwuser",
+  "containerEnv": {
+    "CI": "1"
+  },
+  "forwardPorts": [5173, 4173],
+  "postCreateCommand": "npm ci && npx playwright install --with-deps",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-playwright.playwright",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ]
+    }
+  }
+}
