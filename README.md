@@ -13,6 +13,10 @@ Built with **Vite + React + TypeScript + Tailwind CSS**.
 > for current focus, backlog, known issues, and the decision log, and
 > [`AGENTS.md`](AGENTS.md) for the operator's manual.
 
+**Stack:** Vite · React · TypeScript · Tailwind CSS · Playwright
+
+**Verify:** `npm ci && npm run verify` — exit 0 means done
+
 ## Features
 
 - Three data sources, switchable in the header:
