@@ -171,3 +171,17 @@ cancelled()` so a timeout still leaves evidence.
 - No CODE_OF_CONDUCT.md or PR/issue templates yet (revisit if community
   contributions appear).
 - No `ARCHITECTURE.md` (this file plus the README cover it).
+
+## Verify (required before claiming done)
+
+`npm run verify` = `lint → format:check → typecheck → check:assertions → build →
+test:e2e`. Exit 0 = done. It needs all three browsers installed
+(`npx playwright install`).
+
+`typecheck` is `tsc -b`, **not** `tsc -b --noEmit`: the referenced
+`tsconfig.node.json` is composite, so `--noEmit` fails with TS6310. Emitted
+config artifacts are gitignored.
+
+`check:assertions` fails when a diff weakens a spec (`test.skip`, `toBeTruthy`,
+`force: true`, `waitForTimeout`). There is no unit-test tier in this repo — the
+Playwright smoke file is the suite.
